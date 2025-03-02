@@ -4,6 +4,7 @@ import AuthProviders from '#/components/auth/auth-providers'
 import SignInForm from '#/components/auth/sign-in-form'
 import SignUpForm from '#/components/auth/sign-up-form'
 import { Button } from '#/components/ui/button'
+import Link from 'next/link'
 import { useCallback, useState } from 'react'
 
 enum FormType {
@@ -22,6 +23,11 @@ export default function Auth() {
 
   return (
     <div className='grid items-center justify-items-center min-h-screen'>
+      <div className='absolute top-4 left-4'>
+        <Button>
+          <Link href='/'>Back to main page</Link>
+        </Button>
+      </div>
       <div className='flex flex-col items-center gap-4 border border-black p-8 rounded-sm'>
         <h1>{formType}</h1>
         {formType === FormType.SIGN_IN ? <SignInForm /> : <SignUpForm />}
