@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '#/components/ui/button'
 import {
   Form,
@@ -9,35 +7,16 @@ import {
   FormMessage,
 } from '#/components/ui/form'
 import { Input } from '#/components/ui/input'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useCallback } from 'react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-
-const signInFormSchema = z.object({
-  email: z.string().email({ message: 'Invalid email format' }),
-  password: z
-    .string()
-    .min(6, { message: 'Password must be at least 6 characters long' }),
-})
+import { signInFormSchema } from '#/constants/auth'
+import { useAuthForm } from '#/hooks/auth'
 
 export default function SignInForm() {
-  const form = useForm<z.infer<typeof signInFormSchema>>({
-    resolver: zodResolver(signInFormSchema),
-    defaultValues: { email: '', password: '' },
-  })
-
-  const submitFormHandler = useCallback(
-    (values: z.infer<typeof signInFormSchema>) => {
-      console.log(values)
-    },
-    []
-  )
+  const { form, submitForm } = useAuthForm(signInFormSchema)
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(submitFormHandler)}
+        onSubmit={form.handleSubmit(submitForm)}
         className='flex flex-col gap-4'
       >
         <FormField
@@ -46,11 +25,7 @@ export default function SignInForm() {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input
-                  type='email'
-                  placeholder='example@gmail.com'
-                  {...field}
-                />
+                <Input placeholder='example@gmail.com' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

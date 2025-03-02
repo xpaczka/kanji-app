@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '#/components/ui/button'
 import {
   Form,
@@ -9,38 +7,16 @@ import {
   FormMessage,
 } from '#/components/ui/form'
 import { Input } from '#/components/ui/input'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useCallback } from 'react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-
-const signUpFormSchema = z.object({
-  email: z.string().email({ message: 'Invalid email format' }),
-  username: z
-    .string()
-    .min(6, { message: 'Username must be at least 6 characters long' }),
-  password: z
-    .string()
-    .min(6, { message: 'Password must be at least 6 characters long' }),
-})
+import { signUpFormSchema } from '#/constants/auth'
+import { useAuthForm } from '#/hooks/auth'
 
 export default function SignUpForm() {
-  const form = useForm<z.infer<typeof signUpFormSchema>>({
-    resolver: zodResolver(signUpFormSchema),
-    defaultValues: { email: '', username: '', password: '' },
-  })
-
-  const submitFormHandler = useCallback(
-    (values: z.infer<typeof signUpFormSchema>) => {
-      console.log(values)
-    },
-    []
-  )
+  const { form, submitForm } = useAuthForm(signUpFormSchema)
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(submitFormHandler)}
+        onSubmit={form.handleSubmit(submitForm)}
         className='flex flex-col gap-4'
       >
         <FormField
@@ -49,11 +25,7 @@ export default function SignUpForm() {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input
-                  type='email'
-                  placeholder='example@gmail.com'
-                  {...field}
-                />
+                <Input placeholder='example@gmail.com' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -65,7 +37,7 @@ export default function SignUpForm() {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input type='username' placeholder='username' {...field} />
+                <Input placeholder='username' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
