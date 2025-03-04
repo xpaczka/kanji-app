@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
 import { Table, TableBody, TableCell, TableRow } from '../ui/table'
-import DashboardImage from './dsahboard-image'
+import DashboardImage from './dashboard-image'
 import { Button } from '../ui/button'
 
 const OVERALL_LEADERBOARD = [

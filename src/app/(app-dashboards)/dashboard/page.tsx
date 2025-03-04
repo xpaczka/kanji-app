@@ -4,7 +4,7 @@ import DashboardCard from '#/components/dashboard/dashboard-card'
 import DashboardCardItem from '#/components/dashboard/dashboard-card-item'
 import DashboardWeeklyProgressChart from '#/components/dashboard/dashboard-weekly-progress-chart'
 import DashboardLeaderboard from '#/components/dashboard/dashboard-leaderboard'
-import DashboardProgressItem from '#/components/dashboard/dsahboard-progress-item'
+import DashboardProgressItem from '#/components/dashboard/dashboard-progress-item'
 import { Button } from '#/components/ui/button'
 import { useUser } from '@clerk/nextjs'
 
