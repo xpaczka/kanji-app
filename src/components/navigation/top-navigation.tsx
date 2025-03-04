@@ -18,7 +18,7 @@ const NAV_ITEMS = [
 
 export default function TopNavigation() {
   return (
-    <NavigationMenu className='p-4 justify-between max-w-full'>
+    <NavigationMenu className='py-4 px-10 justify-between max-w-full'>
       <div>KANJI APP</div>
       <NavigationMenuList>
         {NAV_ITEMS.map(({ href, title }) => (
