@@ -1,15 +1,17 @@
-import { Progress } from '@radix-ui/react-progress'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { HTMLAttributes } from 'react'
+import { Progress } from '../ui/progress'
 
-export default function DashboardCard({
-  ...props
-}: HTMLAttributes<HTMLDivElement>) {
+type DashboardCardProps = HTMLAttributes<HTMLDivElement> & {
+  title: string
+}
+
+export default function DashboardCard({ title, ...props }: DashboardCardProps) {
   return (
     <div {...props}>
-      <Card>
+      <Card className='h-full'>
         <CardHeader>
-          <CardTitle>Learning overview</CardTitle>
+          <CardTitle>{title}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className='mb-4'>

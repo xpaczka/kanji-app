@@ -5,7 +5,7 @@ export default function AppRoutesLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <TopNavigation />
-      <div className='p-4'>{children}</div>
+      <div className='p-10'>{children}</div>
     </>
   )
 }
