@@ -3,6 +3,7 @@
 import DashboardCard from '#/components/dashboard/dashboard-card'
 import DashboardCardItem from '#/components/dashboard/dashboard-card-item'
 import DashboardWeeklyProgressChart from '#/components/dashboard/dashboard-weekly-progress-chart'
+import DashboardLeaderboard from '#/components/dashboard/dsahboard-leaderboard'
 import DashboardProgressItem from '#/components/dashboard/dsahboard-progress-item'
 import { Button } from '#/components/ui/button'
 import { useUser } from '@clerk/nextjs'
@@ -71,7 +72,7 @@ export default function Dashboard() {
           title='Leaderboard'
           className='col-start-3 col-end-4 row-start-1 row-end-4'
         >
-          leaderboard
+          <DashboardLeaderboard />
         </DashboardCard>
         <DashboardCard
           title='Weekly progress'

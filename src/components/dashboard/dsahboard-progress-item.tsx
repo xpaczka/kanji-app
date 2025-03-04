@@ -1,6 +1,7 @@
 import { HTMLAttributes } from 'react'
 import { Progress } from '../ui/progress'
 import DashboardCardItem from './dashboard-card-item'
+import DashboardImage from './dsahboard-image'
 
 type DashboardProgressItemProps = HTMLAttributes<HTMLDivElement> & {
   title: string
@@ -15,7 +16,7 @@ export default function DashboardProgressItem({
   return (
     <DashboardCardItem title={title} {...props}>
       <div className='flex items-center gap-2'>
-        <div className='h-[40px] min-w-[40px] aspect-square border-2' />
+        <DashboardImage />
         <Progress value={progress} />
         <p>{progress}%</p>
       </div>
