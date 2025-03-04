@@ -1,37 +1,39 @@
-'use client'
+"use client"
 
-import { UserButton } from '@clerk/nextjs'
+import { UserButton } from "@clerk/nextjs"
 import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from '#/components/ui/navigation-menu'
-import Link from 'next/link'
+    NavigationMenu,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    navigationMenuTriggerStyle,
+} from "#/components/ui/navigation-menu"
+import Link from "next/link"
 
 const NAV_ITEMS = [
-  { href: '/dashboard', title: 'Dashboard' },
-  { href: '/learn', title: 'Learn' },
-  { href: '/games', title: 'Games' },
+    { href: "/dashboard", title: "Dashboard" },
+    { href: "/learn", title: "Learn" },
+    { href: "/games", title: "Games" },
 ]
 
 export default function TopNavigation() {
-  return (
-    <NavigationMenu className='py-4 px-10 justify-between max-w-full'>
-      <div>KANJI APP</div>
-      <NavigationMenuList>
-        {NAV_ITEMS.map(({ href, title }) => (
-          <NavigationMenuItem key={title}>
-            <Link href={href} legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                {title}
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-        ))}
-      </NavigationMenuList>
-      <UserButton />
-    </NavigationMenu>
-  )
+    return (
+        <NavigationMenu className="max-w-full justify-between px-10 py-4">
+            <div>KANJI APP</div>
+            <NavigationMenuList>
+                {NAV_ITEMS.map(({ href, title }) => (
+                    <NavigationMenuItem key={title}>
+                        <Link href={href} legacyBehavior passHref>
+                            <NavigationMenuLink
+                                className={navigationMenuTriggerStyle()}
+                            >
+                                {title}
+                            </NavigationMenuLink>
+                        </Link>
+                    </NavigationMenuItem>
+                ))}
+            </NavigationMenuList>
+            <UserButton />
+        </NavigationMenu>
+    )
 }
