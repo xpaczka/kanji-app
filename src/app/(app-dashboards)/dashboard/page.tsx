@@ -2,6 +2,7 @@
 
 import DashboardCard from '#/components/dashboard/dashboard-card'
 import DashboardCardItem from '#/components/dashboard/dashboard-card-item'
+import DashboardWeeklyProgressChart from '#/components/dashboard/dashboard-weekly-progress-chart'
 import DashboardProgressItem from '#/components/dashboard/dsahboard-progress-item'
 import { Button } from '#/components/ui/button'
 import { useUser } from '@clerk/nextjs'
@@ -76,7 +77,9 @@ export default function Dashboard() {
           title='Weekly progress'
           className='col-start-1 col-end-3 row-start-3 row-end-4'
         >
-          weekly progress
+          <div className='w-1/2'>
+            <DashboardWeeklyProgressChart />
+          </div>
         </DashboardCard>
       </div>
     </>
