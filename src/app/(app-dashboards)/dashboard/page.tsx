@@ -1,21 +1,14 @@
-'use client'
-
 import DashboardCard from '#/components/dashboard/dashboard-card'
 import DashboardCardItem from '#/components/dashboard/dashboard-card-item'
 import DashboardWeeklyProgressChart from '#/components/dashboard/dashboard-weekly-progress-chart'
 import DashboardLeaderboard from '#/components/dashboard/dashboard-leaderboard'
 import DashboardProgressItem from '#/components/dashboard/dashboard-progress-item'
 import { Button } from '#/components/ui/button'
-import { useUser } from '@clerk/nextjs'
 
 export default function Dashboard() {
-  const { user } = useUser()
-
-  if (!user) return null
-
   return (
     <>
-      <div className='mb-6'>Hello, {user.username}</div>
+      <h1 className='text-2xl font-bold mb-8'>Dashboard</h1>
       <div className='grid grid-cols-3 grid-rows-3 gap-8'>
         <DashboardCard
           title='Learning overview'

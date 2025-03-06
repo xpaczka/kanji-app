@@ -3,7 +3,7 @@ import { HTMLAttributes, ReactNode } from 'react'
 
 type DashboardCardProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode
-  title: string
+  title?: string
 }
 
 export default function DashboardCard({
@@ -14,9 +14,11 @@ export default function DashboardCard({
   return (
     <div {...props}>
       <Card className='h-full'>
-        <CardHeader>
-          <CardTitle className='text-lg'>{title}</CardTitle>
-        </CardHeader>
+        {title && (
+          <CardHeader>
+            <CardTitle className='text-lg'>{title}</CardTitle>
+          </CardHeader>
+        )}
         <CardContent>{children}</CardContent>
       </Card>
     </div>
