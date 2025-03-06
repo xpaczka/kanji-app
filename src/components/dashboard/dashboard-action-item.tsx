@@ -2,18 +2,21 @@ import { HTMLAttributes, ReactNode } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { cn } from '#/lib/utils'
 
-type LearnItemProps = HTMLAttributes<HTMLDivElement> & {
+type DashboardActionItemProps = HTMLAttributes<HTMLDivElement> & {
   title: string
   children: ReactNode
 }
 
-export default function LearnItem({
+export default function DashboardActionItem({
   title,
   children,
   ...props
-}: LearnItemProps) {
+}: DashboardActionItemProps) {
   return (
-    <Card className={cn('w-full text-center py-16', props.className)}>
+    <Card
+      className={cn('w-full text-center py-16', props.className)}
+      {...props}
+    >
       <CardHeader>
         <CardTitle className='text-4xl'>{title}</CardTitle>
       </CardHeader>

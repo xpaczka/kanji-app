@@ -1,5 +1,5 @@
 import DashboardProgressItem from '#/components/dashboard/dashboard-progress-item'
-import LearnItem from '#/components/learn/learn-item'
+import DashboardActionItem from '#/components/dashboard/dashboard-action-item'
 import LearnKanjiItem, {
   LearnKanjiItemProps,
 } from '#/components/learn/learn-kanji-item'
@@ -29,14 +29,14 @@ export default function Learn() {
         />
       </div>
       <div className='w-full flex items-center gap-6 mb-8'>
-        <LearnItem title='Flashcards'>
+        <DashboardActionItem title='Flashcards'>
           Improve your Kanji skills <br />
           with the help of flashcards
-        </LearnItem>
-        <LearnItem title='Test'>
+        </DashboardActionItem>
+        <DashboardActionItem title='Test'>
           Check your current knowledge <br />
           with a quick Kanji test
-        </LearnItem>
+        </DashboardActionItem>
       </div>
       <div className='w-full flex justify-between items-end mb-4'>
         <p className='text-lg font-bold'>Recent symbols</p>

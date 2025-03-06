@@ -1,3 +1,71 @@
+import DashboardActionItem from '#/components/dashboard/dashboard-action-item'
+import DashboardCard from '#/components/dashboard/dashboard-card'
+import DashboardImage from '#/components/dashboard/dashboard-image'
+import { Label } from '#/components/ui/label'
+import { Table, TableBody, TableCell, TableRow } from '#/components/ui/table'
+
+const GAMES_LEADERBOARD = [
+  { username: 'gamer1', score: 40500 },
+  { username: 'gamer2', score: 38200 },
+  { username: 'gamer3', score: 42750 },
+  { username: 'gamer4', score: 19800 },
+  { username: 'gamer5', score: 25600 },
+  { username: 'gamer6', score: 31200 },
+]
+
 export default function Games() {
-  return 'Games'
+  return (
+    <>
+      <h1 className='text-2xl font-bold mb-8'>Games</h1>
+      <div className='grid grid-cols-3 grid-rows-2 gap-8'>
+        <div className='col-start-1 col-end-3 row-start-1 row-end-2'>
+          <DashboardActionItem title='Memo'>
+            Polish your Kanji skill <br />
+            with a quick memo games
+          </DashboardActionItem>
+        </div>
+        <div className='col-start-1 col-end-2 row-start-2 row-end-3'>
+          <DashboardCard title='Games overview'>
+            <div className='mb-4'>
+              <Label>Points earned</Label>
+              <p className='text-lg font-bold'>20,000</p>
+            </div>
+            <div className='mb-4'>
+              <Label>Time spent</Label>
+              <p className='text-lg font-bold'>4hrs</p>
+            </div>
+            <div>
+              <Label>Games played</Label>
+              <p className='text-lg font-bold'>260</p>
+            </div>
+          </DashboardCard>
+        </div>
+        <div className='col-start-2 col-end-3 row-start-2 row-end-3'>
+          <DashboardCard className='text-center text-4xl font-bold h-full'>
+            <div className='pt-16'>More games coming soon</div>
+          </DashboardCard>
+        </div>
+        <div className='col-start-3 col-end-4 row-start-1 row-end-3'>
+          <DashboardCard title='Leaderboard' className='h-full'>
+            <Table>
+              <TableBody>
+                {GAMES_LEADERBOARD.sort((a, b) => b.score - a.score).map(
+                  ({ username, score }, index) => (
+                    <TableRow key={username}>
+                      <TableCell>#{index + 1}</TableCell>
+                      <TableCell>
+                        <DashboardImage />
+                      </TableCell>
+                      <TableCell className='w-full'>{username}</TableCell>
+                      <TableCell className='text-right'>{score}</TableCell>
+                    </TableRow>
+                  )
+                )}
+              </TableBody>
+            </Table>
+          </DashboardCard>
+        </div>
+      </div>
+    </>
+  )
 }
