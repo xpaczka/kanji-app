@@ -5,7 +5,13 @@ import DashboardLeaderboard from '#/components/dashboard/dashboard-leaderboard'
 import DashboardProgressItem from '#/components/dashboard/dashboard-progress-item'
 import { Button } from '#/components/ui/button'
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const weeklyProgressRequest = await fetch(
+    'http://localhost:3000/api/statistics/user'
+  )
+
+  const { data: weeklyProgress } = await weeklyProgressRequest.json()
+
   return (
     <>
       <h1 className='text-2xl font-bold mb-8'>Dashboard</h1>
@@ -72,7 +78,7 @@ export default function Dashboard() {
           className='col-start-1 col-end-3 row-start-3 row-end-4'
         >
           <div className='w-1/2'>
-            <DashboardWeeklyProgressChart />
+            <DashboardWeeklyProgressChart data={weeklyProgress} />
           </div>
         </DashboardCard>
       </div>
