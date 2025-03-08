@@ -4,13 +4,20 @@ import DashboardWeeklyProgressChart from '#/components/dashboard/dashboard-weekl
 import DashboardLeaderboard from '#/components/dashboard/dashboard-leaderboard'
 import DashboardProgressItem from '#/components/dashboard/dashboard-progress-item'
 import { Button } from '#/components/ui/button'
+import { UserData } from '#/app/api/user/[user]/route'
 
 export default async function Dashboard() {
   const weeklyProgressRequest = await fetch(
-    'http://localhost:3000/api/statistics/user'
+    'http://localhost:3000/api/user/user'
   )
 
-  const { data: weeklyProgress } = await weeklyProgressRequest.json()
+  const {
+    learningOverview,
+    dailyChallenges,
+    milestones,
+    gamesOverview,
+    weeklyProgress,
+  } = (await weeklyProgressRequest.json()) as UserData
 
   return (
     <>
@@ -20,35 +27,33 @@ export default async function Dashboard() {
           title='Learning overview'
           className='col-start-1 col-end-2 row-start-1 row-end-2'
         >
-          <DashboardProgressItem
-            title='Level progress'
-            progress={60}
-            className='mb-2'
-          />
-          <DashboardProgressItem title='Kanji proficiency' progress={45} />
+          <div className='flex flex-col gap-3'>
+            {learningOverview.map(({ name, value }) => (
+              <DashboardProgressItem key={name} title={name} progress={value} />
+            ))}
+          </div>
         </DashboardCard>
         <DashboardCard
           title='Daily challenges'
           className='col-start-2 col-end-3 row-start-1 row-end-2'
         >
-          <DashboardProgressItem
-            title='Complete 5 lessons'
-            progress={80}
-            className='mb-2'
-          />
-          <DashboardProgressItem title='Play 3 games' progress={33} />
+          <div className='flex flex-col gap-3'>
+            {dailyChallenges.map(({ name, value }) => (
+              <DashboardProgressItem key={name} title={name} progress={value} />
+            ))}
+          </div>
         </DashboardCard>
         <DashboardCard
           title='Games overview'
           className='col-start-1 col-end-2 row-start-2 row-end-3'
         >
           <DashboardCardItem title='Points earned' className='mb-2'>
-            <p className='text-xl font-bold'>20,000</p>
+            <p className='text-xl font-bold'>{gamesOverview.points}</p>
           </DashboardCardItem>
           <DashboardCardItem title='Favorite game' className='mb-2'>
             <div className='flex items-center gap-2'>
               <div className='h-[40px] min-w-[40px] aspect-square border-2' />
-              <p>Memo</p>
+              <p>{gamesOverview.favoriteGame}</p>
               <Button>Play</Button>
             </div>
           </DashboardCardItem>
@@ -57,15 +62,11 @@ export default async function Dashboard() {
           title='Milestones'
           className='col-start-2 col-end-3 row-start-2 row-end-3'
         >
-          <DashboardProgressItem
-            title='Earn 1000 XP'
-            progress={25}
-            className='mb-2'
-          />
-          <DashboardProgressItem
-            title='Maintain a 7-day streak'
-            progress={40}
-          />
+          <div className='flex flex-col gap-3'>
+            {milestones.map(({ name, value }) => (
+              <DashboardProgressItem key={name} title={name} progress={value} />
+            ))}
+          </div>
         </DashboardCard>
         <DashboardCard
           title='Leaderboard'

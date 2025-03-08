@@ -2,17 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
 import { Table, TableBody, TableCell, TableRow } from '../ui/table'
 import DashboardImage from './dashboard-image'
 import { Button } from '../ui/button'
-
-type LeaderboardItem = {
-  username: string
-  score: number
-}
-
-type LeaderboardResponse = {
-  overall: LeaderboardItem[]
-  learn: LeaderboardItem[]
-  games: LeaderboardItem[]
-}
+import { Leaderboard } from '#/app/api/leaderboard/route'
 
 export default async function DashboardLeaderboard() {
   const leaderboardResponse = await fetch(
@@ -20,7 +10,7 @@ export default async function DashboardLeaderboard() {
   )
 
   const { overall, learn, games } =
-    (await leaderboardResponse.json()) as LeaderboardResponse
+    (await leaderboardResponse.json()) as Leaderboard
 
   return (
     <Tabs defaultValue='overall' className='w-full'>

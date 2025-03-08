@@ -1,6 +1,17 @@
 import { NextResponse } from 'next/server'
 
-export async function GET() {
+type LeaderboardItem = {
+  username: string
+  score: number
+}
+
+export type Leaderboard = {
+  overall: LeaderboardItem[]
+  learn: LeaderboardItem[]
+  games: LeaderboardItem[]
+}
+
+export async function GET(): Promise<NextResponse<Leaderboard>> {
   const OVERALL_LEADERBOARD = [
     { username: 'user1', score: 24500 },
     { username: 'user2', score: 21500 },
