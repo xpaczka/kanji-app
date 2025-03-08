@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-export async function GET(request: Request) {
+export async function GET() {
   const weeklyProgress = [
     { weekday: 'Mon', learn: 186, games: 80 },
     { weekday: 'Tue', learn: 305, games: 200 },
