@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react'
-import { Progress } from '../ui/progress'
-import DashboardCardItem from './dashboard-card-item'
-import DashboardImage from './dashboard-image'
+import { Progress } from '#/components/ui/progress'
+import DashboardCardItem from './DashboardCardItem'
+import DashboardImage from './DashboardImage'
 
 type DashboardProgressItemProps = HTMLAttributes<HTMLDivElement> & {
   title: string

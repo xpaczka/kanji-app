@@ -1,30 +1,13 @@
-import { NextResponse } from 'next/server'
+import { publicProcedure, router } from '../trpc'
+import { z } from 'zod'
 
-type WeeklyProgress = {
-  weekday: string
-  learn: number
-  games: number
-}
+const userProgressKeySchema = z.enum([
+  'learningOverview',
+  'dailyChallenges',
+  'milestones',
+])
 
-type ProgressItem = {
-  name: string
-  value: number
-}
-
-type GamesOverview = {
-  points: number
-  favoriteGame: string
-}
-
-export type UserData = {
-  learningOverview: ProgressItem[]
-  dailyChallenges: ProgressItem[]
-  milestones: ProgressItem[]
-  gamesOverview: GamesOverview
-  weeklyProgress: WeeklyProgress[]
-}
-
-const getUserData = (): UserData => ({
+const USER_DATA = {
   learningOverview: [
     { name: 'Level progress', value: 40 },
     { name: 'Kanji proficiency', value: 60 },
@@ -50,10 +33,11 @@ const getUserData = (): UserData => ({
     { weekday: 'Sat', learn: 214, games: 140 },
     { weekday: 'Sun', learn: 32, games: 11 },
   ],
-})
-
-export const GET = async (): Promise<NextResponse<UserData>> => {
-  const userData = getUserData()
-
-  return NextResponse.json(userData, { status: 200 })
 }
+
+export const userRouter = router({
+  getUserData: publicProcedure.input(z.string()).query(async () => USER_DATA),
+  getSelectedUserProgress: publicProcedure
+    .input(z.object({ username: z.string(), key: userProgressKeySchema }))
+    .query(async ({ input }) => USER_DATA[input.key]),
+})
