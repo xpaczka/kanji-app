@@ -3,6 +3,7 @@ import DashboardActionItem from '#/components/dashboard/DashboardActionItem'
 import LearnKanjiItem, {
   LearnKanjiItemProps,
 } from '#/components/learn/LearnKanjiItem'
+import { serverClient } from '#/app/_trpc/server-client'
 
 const RECENT_SYMBOLS: LearnKanjiItemProps[] = [
   { kanji: '私', level: 'N5', grade: 'A' },
@@ -12,21 +13,24 @@ const RECENT_SYMBOLS: LearnKanjiItemProps[] = [
   { kanji: '空', level: 'N5', grade: 'C' },
 ]
 
-export default function Learn() {
+export default async function Learn() {
+  const learningOverview = await serverClient.user.getSelectedUserProgress({
+    username: 'user',
+    key: 'learningOverview',
+  })
+
   return (
     <>
       <h1 className='text-2xl font-bold mb-8'>Learn</h1>
       <div className='w-1/2 flex items-center gap-6 mb-8'>
-        <DashboardProgressItem
-          title='Level progress'
-          progress={60}
-          className='w-full'
-        />
-        <DashboardProgressItem
-          title='Kanji proficiency'
-          progress={30}
-          className='w-full'
-        />
+        {learningOverview.map(({ name, value }) => (
+          <DashboardProgressItem
+            key={name}
+            title={name}
+            progress={value}
+            className='w-full'
+          />
+        ))}
       </div>
       <div className='w-full flex items-center gap-6 mb-8'>
         <DashboardActionItem title='Flashcards'>
