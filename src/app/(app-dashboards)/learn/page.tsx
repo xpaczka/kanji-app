@@ -1,4 +1,3 @@
-import DashboardProgressItem from '#/components/dashboard/DashboardProgressItem'
 import DashboardActionItem from '#/components/dashboard/DashboardActionItem'
 import LearnKanjiItem from '#/components/learn/LearnKanjiItem'
 import { serverClient } from '#/app/_trpc/server-client'
@@ -6,11 +5,6 @@ import LearnDiscoveredKanji from '#/components/learn/LearnDiscoveredKanji'
 import DashboardLearningOverview from '#/components/dashboard/DashboardLearningOverview'
 
 export default async function Learn() {
-  const learningOverview = await serverClient.user.getSelectedUserProgress({
-    username: 'user',
-    key: 'learningOverview',
-  })
-
   const recentKanji = await serverClient.learn.getRecentKanji('user')
 
   return (
