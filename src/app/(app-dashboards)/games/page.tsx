@@ -1,19 +1,15 @@
+import { serverClient } from '#/app/_trpc/server-client'
 import DashboardActionItem from '#/components/dashboard/DashboardActionItem'
 import DashboardCard from '#/components/dashboard/DashboardCard'
 import DashboardImage from '#/components/dashboard/DashboardImage'
 import { Label } from '#/components/ui/label'
 import { Table, TableBody, TableCell, TableRow } from '#/components/ui/table'
 
-const GAMES_LEADERBOARD = [
-  { username: 'gamer1', score: 40500 },
-  { username: 'gamer2', score: 38200 },
-  { username: 'gamer3', score: 42750 },
-  { username: 'gamer4', score: 19800 },
-  { username: 'gamer5', score: 25600 },
-  { username: 'gamer6', score: 31200 },
-]
+export default async function Games() {
+  const leaderboard = await serverClient.leaderboard.getLeaderboard({
+    key: 'gamesLeaderboard',
+  })
 
-export default function Games() {
   return (
     <>
       <h1 className='text-2xl font-bold mb-8'>Games</h1>
@@ -49,8 +45,9 @@ export default function Games() {
           <DashboardCard title='Leaderboard' className='h-full'>
             <Table>
               <TableBody>
-                {GAMES_LEADERBOARD.sort((a, b) => b.score - a.score).map(
-                  ({ username, score }, index) => (
+                {leaderboard
+                  .sort((a, b) => b.score - a.score)
+                  .map(({ username, score }, index) => (
                     <TableRow key={username}>
                       <TableCell>#{index + 1}</TableCell>
                       <TableCell>
@@ -59,8 +56,7 @@ export default function Games() {
                       <TableCell className='w-full'>{username}</TableCell>
                       <TableCell className='text-right'>{score}</TableCell>
                     </TableRow>
-                  )
-                )}
+                  ))}
               </TableBody>
             </Table>
           </DashboardCard>

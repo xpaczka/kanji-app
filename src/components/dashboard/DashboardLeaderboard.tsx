@@ -5,7 +5,8 @@ import { Button } from '../ui/button'
 import { serverClient } from '#/app/_trpc/server-client'
 
 export default async function DashboardLeaderboard() {
-  const { overall, learn, games } = await serverClient.getLeaderboard()
+  const { overallLeaderboard, learnLeaderboard, gamesLeaderboard } =
+    await serverClient.leaderboard.getAllLeaderboards()
 
   return (
     <Tabs defaultValue='overall' className='w-full'>
@@ -23,7 +24,7 @@ export default async function DashboardLeaderboard() {
       <TabsContent value='overall'>
         <Table>
           <TableBody>
-            {overall
+            {overallLeaderboard
               .sort((a, b) => b.score - a.score)
               .map(({ username, score }, index) => (
                 <TableRow key={username}>
@@ -41,7 +42,7 @@ export default async function DashboardLeaderboard() {
       <TabsContent value='learn'>
         <Table>
           <TableBody>
-            {learn
+            {learnLeaderboard
               .sort((a, b) => b.score - a.score)
               .map(({ username, score }, index) => (
                 <TableRow key={username}>
@@ -59,7 +60,7 @@ export default async function DashboardLeaderboard() {
       <TabsContent value='games'>
         <Table>
           <TableBody>
-            {games
+            {gamesLeaderboard
               .sort((a, b) => b.score - a.score)
               .map(({ username, score }, index) => (
                 <TableRow key={username}>
