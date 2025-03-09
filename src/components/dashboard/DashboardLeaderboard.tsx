@@ -24,54 +24,48 @@ export default async function DashboardLeaderboard() {
       <TabsContent value='overall'>
         <Table>
           <TableBody>
-            {overallLeaderboard
-              .sort((a, b) => b.score - a.score)
-              .map(({ username, score }, index) => (
-                <TableRow key={username}>
-                  <TableCell>#{index + 1}</TableCell>
-                  <TableCell>
-                    <DashboardImage />
-                  </TableCell>
-                  <TableCell className='w-full'>{username}</TableCell>
-                  <TableCell className='text-right'>{score}</TableCell>
-                </TableRow>
-              ))}
+            {overallLeaderboard.map(({ username, score }, index) => (
+              <TableRow key={username}>
+                <TableCell>#{index + 1}</TableCell>
+                <TableCell>
+                  <DashboardImage />
+                </TableCell>
+                <TableCell className='w-full'>{username}</TableCell>
+                <TableCell className='text-right'>{score}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TabsContent>
       <TabsContent value='learn'>
         <Table>
           <TableBody>
-            {learnLeaderboard
-              .sort((a, b) => b.score - a.score)
-              .map(({ username, score }, index) => (
-                <TableRow key={username}>
-                  <TableCell>#{index + 1}</TableCell>
-                  <TableCell>
-                    <DashboardImage />
-                  </TableCell>
-                  <TableCell className='w-full'>{username}</TableCell>
-                  <TableCell className='text-right'>{score}</TableCell>
-                </TableRow>
-              ))}
+            {learnLeaderboard.map(({ username, score }, index) => (
+              <TableRow key={username}>
+                <TableCell>#{index + 1}</TableCell>
+                <TableCell>
+                  <DashboardImage />
+                </TableCell>
+                <TableCell className='w-full'>{username}</TableCell>
+                <TableCell className='text-right'>{score}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TabsContent>
       <TabsContent value='games'>
         <Table>
           <TableBody>
-            {gamesLeaderboard
-              .sort((a, b) => b.score - a.score)
-              .map(({ username, score }, index) => (
-                <TableRow key={username}>
-                  <TableCell>#{index + 1}</TableCell>
-                  <TableCell>
-                    <DashboardImage />
-                  </TableCell>
-                  <TableCell className='w-full'>{username}</TableCell>
-                  <TableCell className='text-right'>{score}</TableCell>
-                </TableRow>
-              ))}
+            {gamesLeaderboard.map(({ username, score }, index) => (
+              <TableRow key={username}>
+                <TableCell>#{index + 1}</TableCell>
+                <TableCell>
+                  <DashboardImage />
+                </TableCell>
+                <TableCell className='w-full'>{username}</TableCell>
+                <TableCell className='text-right'>{score}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TabsContent>
