@@ -1,8 +1,8 @@
-import DashboardProgressItem from '#/components/dashboard/dashboard-progress-item'
-import DashboardActionItem from '#/components/dashboard/dashboard-action-item'
+import DashboardProgressItem from '#/components/dashboard/DashboardProgressItem'
+import DashboardActionItem from '#/components/dashboard/DashboardActionItem'
 import LearnKanjiItem, {
   LearnKanjiItemProps,
-} from '#/components/learn/learn-kanji-item'
+} from '#/components/learn/LearnKanjiItem'
 
 const RECENT_SYMBOLS: LearnKanjiItemProps[] = [
   { kanji: '私', level: 'N5', grade: 'A' },

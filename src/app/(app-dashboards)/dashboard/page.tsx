@@ -1,8 +1,8 @@
-import DashboardCard from '#/components/dashboard/dashboard-card'
-import DashboardCardItem from '#/components/dashboard/dashboard-card-item'
-import DashboardWeeklyProgressChart from '#/components/dashboard/dashboard-weekly-progress-chart'
-import DashboardLeaderboard from '#/components/dashboard/dashboard-leaderboard'
-import DashboardProgressItem from '#/components/dashboard/dashboard-progress-item'
+import DashboardCard from '#/components/dashboard/DashboardCard'
+import DashboardCardItem from '#/components/dashboard/DashboardCardItem'
+import DashboardWeeklyProgressChart from '#/components/dashboard/DashboardWeekyProgressChart'
+import DashboardLeaderboard from '#/components/dashboard/DashboardLeaderboard'
+import DashboardProgressItem from '#/components/dashboard/DashboardProgressItem'
 import { Button } from '#/components/ui/button'
 import { UserData } from '#/app/api/user/[user]/route'
 

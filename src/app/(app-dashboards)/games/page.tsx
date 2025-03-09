@@ -1,6 +1,6 @@
-import DashboardActionItem from '#/components/dashboard/dashboard-action-item'
-import DashboardCard from '#/components/dashboard/dashboard-card'
-import DashboardImage from '#/components/dashboard/dashboard-image'
+import DashboardActionItem from '#/components/dashboard/DashboardActionItem'
+import DashboardCard from '#/components/dashboard/DashboardCard'
+import DashboardImage from '#/components/dashboard/DashboardImage'
 import { Label } from '#/components/ui/label'
 import { Table, TableBody, TableCell, TableRow } from '#/components/ui/table'
 

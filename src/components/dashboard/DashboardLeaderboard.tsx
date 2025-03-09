@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
 import { Table, TableBody, TableCell, TableRow } from '../ui/table'
-import DashboardImage from './dashboard-image'
+import DashboardImage from './DashboardImage'
 import { Button } from '../ui/button'
 import { Leaderboard } from '#/app/api/leaderboard/route'
 

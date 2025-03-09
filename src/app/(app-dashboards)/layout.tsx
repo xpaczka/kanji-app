@@ -1,4 +1,4 @@
-import TopNavigation from '#/components/navigation/top-navigation'
+import TopNavigation from '#/components/navigation/TopNavigation'
 import { ReactNode } from 'react'
 
 export default function AppRoutesLayout({ children }: { children: ReactNode }) {
