@@ -1,23 +1,15 @@
 import DashboardProgressItem from '#/components/dashboard/DashboardProgressItem'
 import DashboardActionItem from '#/components/dashboard/DashboardActionItem'
-import LearnKanjiItem, {
-  LearnKanjiItemProps,
-} from '#/components/learn/LearnKanjiItem'
+import LearnKanjiItem from '#/components/learn/LearnKanjiItem'
 import { serverClient } from '#/app/_trpc/server-client'
-
-const RECENT_SYMBOLS: LearnKanjiItemProps[] = [
-  { kanji: '私', level: 'N5', grade: 'A' },
-  { kanji: '水', level: 'N4', grade: 'D' },
-  { kanji: '足', level: 'N5', grade: 'B' },
-  { kanji: '駅', level: 'N3', grade: 'F' },
-  { kanji: '空', level: 'N5', grade: 'C' },
-]
 
 export default async function Learn() {
   const learningOverview = await serverClient.user.getSelectedUserProgress({
     username: 'user',
     key: 'learningOverview',
   })
+
+  const recentKanjis = await serverClient.learn.getRecentKanjis('user')
 
   return (
     <>
@@ -47,11 +39,11 @@ export default async function Learn() {
         <p className='pointer underline'>All symbols</p>
       </div>
       <div className='w-full flex gap-6'>
-        {RECENT_SYMBOLS.map(({ kanji, grade, level }) => (
+        {recentKanjis.map(({ kanji, proficiency, level }) => (
           <LearnKanjiItem
             key={kanji}
             kanji={kanji}
-            grade={grade}
+            proficiency={proficiency}
             level={level}
           />
         ))}
