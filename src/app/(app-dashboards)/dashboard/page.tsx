@@ -5,30 +5,17 @@ import DashboardLeaderboard from '#/components/dashboard/DashboardLeaderboard'
 import DashboardProgressItem from '#/components/dashboard/DashboardProgressItem'
 import { Button } from '#/components/ui/button'
 import { serverClient } from '#/app/_trpc/server-client'
+import DashboardLearningOverview from '#/components/dashboard/DashboardLearningOverview'
 
 export default async function Dashboard() {
-  const {
-    learningOverview,
-    dailyChallenges,
-    milestones,
-    gamesOverview,
-    weeklyProgress,
-  } = await serverClient.user.getUserData('user')
+  const { dailyChallenges, milestones, gamesOverview, weeklyProgress } =
+    await serverClient.user.getUserData('user')
 
   return (
     <>
       <h1 className='text-2xl font-bold mb-8'>Dashboard</h1>
       <div className='grid grid-cols-3 grid-rows-3 gap-8'>
-        <DashboardCard
-          title='Learning overview'
-          className='col-start-1 col-end-2 row-start-1 row-end-2'
-        >
-          <div className='flex flex-col gap-3'>
-            {learningOverview.map(({ name, value }) => (
-              <DashboardProgressItem key={name} title={name} progress={value} />
-            ))}
-          </div>
-        </DashboardCard>
+        <DashboardLearningOverview className='col-start-1 col-end-2 row-start-1 row-end-2' />
         <DashboardCard
           title='Daily challenges'
           className='col-start-2 col-end-3 row-start-1 row-end-2'

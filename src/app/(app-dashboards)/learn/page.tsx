@@ -3,6 +3,7 @@ import DashboardActionItem from '#/components/dashboard/DashboardActionItem'
 import LearnKanjiItem from '#/components/learn/LearnKanjiItem'
 import { serverClient } from '#/app/_trpc/server-client'
 import LearnDiscoveredKanji from '#/components/learn/LearnDiscoveredKanji'
+import DashboardLearningOverview from '#/components/dashboard/DashboardLearningOverview'
 
 export default async function Learn() {
   const learningOverview = await serverClient.user.getSelectedUserProgress({
@@ -15,25 +16,16 @@ export default async function Learn() {
   return (
     <>
       <h1 className='text-2xl font-bold mb-8'>Learn</h1>
-      <div className='w-1/2 flex items-center gap-6 mb-8'>
-        {learningOverview.map(({ name, value }) => (
-          <DashboardProgressItem
-            key={name}
-            title={name}
-            progress={value}
-            className='w-full'
-          />
-        ))}
-      </div>
-      <div className='w-full flex items-center gap-6 mb-8'>
-        <DashboardActionItem title='Flashcards'>
-          Improve your Kanji skills <br />
-          with the help of flashcards
-        </DashboardActionItem>
-        <DashboardActionItem title='Test'>
-          Check your current knowledge <br />
-          with a quick Kanji test
-        </DashboardActionItem>
+      <div className='grid grid-cols-5 gap-6 mb-8'>
+        <div className='col-start-1 col-end-4'>
+          <DashboardActionItem title='Flashcards'>
+            Improve your Kanji skills <br />
+            with the help of flashcards
+          </DashboardActionItem>
+        </div>
+        <div className='col-start-4 col-end-6'>
+          <DashboardLearningOverview />
+        </div>
       </div>
       <div className='w-full flex justify-between items-end mb-4'>
         <p className='text-lg font-bold'>Recent kanji</p>

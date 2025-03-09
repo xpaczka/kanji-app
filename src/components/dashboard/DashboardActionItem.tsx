@@ -14,7 +14,7 @@ export default function DashboardActionItem({
 }: DashboardActionItemProps) {
   return (
     <Card
-      className={cn('w-full text-center py-16', props.className)}
+      className={cn('h-full w-full text-center py-16', props.className)}
       {...props}
     >
       <CardHeader>
