@@ -2,15 +2,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
 import { Table, TableBody, TableCell, TableRow } from '../ui/table'
 import DashboardImage from './DashboardImage'
 import { Button } from '../ui/button'
-import { Leaderboard } from '#/app/api/leaderboard/route'
+import { serverClient } from '#/app/_trpc/server-client'
 
 export default async function DashboardLeaderboard() {
-  const leaderboardResponse = await fetch(
-    'http://localhost:3000/api/leaderboard'
-  )
-
-  const { overall, learn, games } =
-    (await leaderboardResponse.json()) as Leaderboard
+  const { overall, learn, games } = await serverClient.getLeaderboard()
 
   return (
     <Tabs defaultValue='overall' className='w-full'>
