@@ -1,8 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
-import { Table, TableBody, TableCell, TableRow } from '../ui/table'
-import DashboardImage from './DashboardImage'
-import { Button } from '../ui/button'
+import { Table, TableBody, TableCell, TableRow } from '#/components/ui/table'
+import { Button } from '#/components/ui/button'
 import { serverClient } from '#/app/_trpc/server-client'
+import DashboardImage from './DashboardImage'
 
 export default async function DashboardLeaderboard() {
   const { overallLeaderboard, learnLeaderboard, gamesLeaderboard } =

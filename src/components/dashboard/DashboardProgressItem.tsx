@@ -1,5 +1,5 @@
 import { HTMLAttributes } from 'react'
-import { Progress } from '../ui/progress'
+import { Progress } from '#/components/ui/progress'
 import DashboardCardItem from './DashboardCardItem'
 import DashboardImage from './DashboardImage'
 

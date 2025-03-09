@@ -1,4 +1,4 @@
-import { Card, CardContent, CardFooter } from '../ui/card'
+import { Card, CardContent, CardFooter } from '#/components/ui/card'
 
 export type LearnKanjiItemProps = {
   kanji: string
