@@ -2,6 +2,7 @@ import DashboardProgressItem from '#/components/dashboard/DashboardProgressItem'
 import DashboardActionItem from '#/components/dashboard/DashboardActionItem'
 import LearnKanjiItem from '#/components/learn/LearnKanjiItem'
 import { serverClient } from '#/app/_trpc/server-client'
+import LearnDiscoveredKanji from '#/components/learn/LearnDiscoveredKanji'
 
 export default async function Learn() {
   const learningOverview = await serverClient.user.getSelectedUserProgress({
@@ -9,7 +10,7 @@ export default async function Learn() {
     key: 'learningOverview',
   })
 
-  const recentKanjis = await serverClient.learn.getRecentKanjis('user')
+  const recentKanji = await serverClient.learn.getRecentKanji('user')
 
   return (
     <>
@@ -35,11 +36,11 @@ export default async function Learn() {
         </DashboardActionItem>
       </div>
       <div className='w-full flex justify-between items-end mb-4'>
-        <p className='text-lg font-bold'>Recent symbols</p>
-        <p className='pointer underline'>All symbols</p>
+        <p className='text-lg font-bold'>Recent kanji</p>
+        <LearnDiscoveredKanji />
       </div>
       <div className='w-full flex gap-6'>
-        {recentKanjis.map(({ kanji, proficiency, level }) => (
+        {recentKanji.map(({ kanji, proficiency, level }) => (
           <LearnKanjiItem
             key={kanji}
             kanji={kanji}
