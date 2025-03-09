@@ -1,24 +1,11 @@
+import {
+  leaderboardKeySchema,
+  leaderboardPaginationSchema,
+} from '#/schemas/leaderboard'
 import { publicProcedure, router } from '../trpc'
 import { z } from 'zod'
 
 export const LEADERBOARD_CHUNK = 5
-
-const leaderboardKeySchema = z.enum([
-  'overallLeaderboard',
-  'learnLeaderboard',
-  'gamesLeaderboard',
-])
-
-const leaderboardPaginationSchema = z
-  .object({
-    from: z.number().nonnegative(),
-    to: z.number().nonnegative(),
-  })
-  .refine((data) => data.to > data.from, {
-    message: '"to" value must greater than "from" value',
-    path: ['to'],
-  })
-  .optional()
 
 const LEADERBOARD_ITEMS = {
   overallLeaderboard: [
