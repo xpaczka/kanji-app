@@ -1,6 +1,11 @@
+'use client'
+
 import { AspectRatio } from '#/components/ui/aspect-ratio'
 import { Card, CardContent } from '#/components/ui/card'
 import { cn } from '#/lib/utils'
+import { useRouter } from 'next/navigation'
+import { useCallback } from 'react'
+import { v4 as uuid } from 'uuid'
 
 type FlashcardsLevelChoiceProps = {
   title: string
@@ -11,8 +16,21 @@ export default function FlashcardsLevelChoice({
   title,
   isDisabled,
 }: FlashcardsLevelChoiceProps) {
+  const { push, forward } = useRouter()
+
+  const flashcardsSessionHandler = useCallback(() => {
+    const sessionId = uuid()
+
+    push(`/learn/flashcards/${sessionId}`)
+    forward()
+  }, [push, forward])
+
   return (
-    <AspectRatio ratio={16 / 9}>
+    <AspectRatio
+      className='cursor-pointer'
+      ratio={16 / 9}
+      onClick={flashcardsSessionHandler}
+    >
       <Card
         className={cn(
           'h-full w-full',
