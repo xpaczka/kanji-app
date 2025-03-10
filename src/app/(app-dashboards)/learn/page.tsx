@@ -10,7 +10,6 @@ export default async function Learn() {
 
   return (
     <>
-      <h1 className='text-2xl font-bold mb-8'>Learn</h1>
       <div className='grid grid-cols-5 gap-6 mb-8'>
         <div className='col-start-1 col-end-4'>
           <Link href='/learn/flashcards'>
