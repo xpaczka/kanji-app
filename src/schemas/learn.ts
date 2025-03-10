@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const kanjiLevelSchema = z.enum(['N5', 'N4', 'N3', 'N2', 'N2'])
+export const kanjiLevelSchema = z.enum(['N5', 'N4', 'N3', 'N2', 'N1'])
 
 export const kanjiItemSchema = z.object({
   kanji: z.string(),
