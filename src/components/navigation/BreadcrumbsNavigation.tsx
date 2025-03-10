@@ -8,6 +8,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '#/components/ui/breadcrumb'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Fragment } from 'react'
 
@@ -31,8 +32,10 @@ export default function BreadcrumbsNavigation() {
           ) : (
             <Fragment key={pathname}>
               <BreadcrumbItem>
-                <BreadcrumbLink href='/' className='text-lg'>
-                  {capitalizePathname(pathname)}
+                <BreadcrumbLink className='text-lg' asChild>
+                  <Link href={`/${pathname}`}>
+                    {capitalizePathname(pathname)}
+                  </Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
