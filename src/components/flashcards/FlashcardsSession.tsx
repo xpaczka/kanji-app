@@ -3,6 +3,7 @@
 import FlashcardSessionItem from './FlashcardsSessionItem'
 import FlashcardsSessionSummary from './FlashcardsSessionSummary'
 import { useFlashcardsSession } from '#/hooks/flashcards'
+import { Spinner } from '#/components/ui/spinner'
 
 export default function FlashcardsSession() {
   const {
@@ -19,8 +20,11 @@ export default function FlashcardsSession() {
   } = useFlashcardsSession()
 
   if (isLoading) {
-    // TODO: Implement loading spinner
-    return 'Loading'
+    return (
+      <Spinner size='large'>
+        <span className='text-sm'>Fetching flashcards...</span>
+      </Spinner>
+    )
   }
 
   if (!kanjiSet) return null
