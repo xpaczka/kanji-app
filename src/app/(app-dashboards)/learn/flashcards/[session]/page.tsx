@@ -7,7 +7,7 @@ export default async function FlashcardsSessionPage() {
   )
 
   return (
-    <div className='mx-auto max-w-[400px] w-full'>
+    <div className='mx-auto max-w-[420px] w-full'>
       <FlashcardsSession kanjiSet={kanjiSet} />
     </div>
   )

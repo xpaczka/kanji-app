@@ -19,10 +19,26 @@ export default function FlashcardSessionItem({
     return (
       <Card className='w-full aspect-square items-center p-12'>
         <CardContent className='flex flex-col justify-center items-center flex-1 text-center'>
-          {/* TODO: Conditionally render kun or on readings: https://www.thoughtco.com/learning-japanese-4070947 */}
-          <p className='font-bold text-xl'>{kanji.kun_readings.join(', ')}</p>
-          <p> {/* TODO: Add romaji */}</p>
-          <p>{kanji.meanings.join(', ')}</p>
+          {/* TODO: Add tooltip explaining difference: https://www.thoughtco.com/learning-japanese-4070947 */}
+          <div className='flex flex-col items-center gap-2 mb-6'>
+            <div>
+              {kanji.on_readings.length > 0 && (
+                <p className='text-sm'>On readings</p>
+              )}
+              <p className='font-bold text-2xl'>
+                {kanji.on_readings.join(', ')}
+              </p>
+            </div>
+            <div>
+              {kanji.kun_readings.length > 0 && (
+                <p className='text-sm'>Kun readings</p>
+              )}
+              <p className='font-bold text-2xl'>
+                {kanji.kun_readings.join(', ')}
+              </p>
+            </div>
+          </div>
+          <p className='italic'>{kanji.meanings.join(', ')}</p>
         </CardContent>
         <CardFooter className='flex items-center gap-2'>
           <Button size='lg' onClick={onEvaluateClick}>
