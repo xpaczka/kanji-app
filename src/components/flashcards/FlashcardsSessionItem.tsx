@@ -1,12 +1,13 @@
 import { Card, CardContent, CardFooter } from '#/components/ui/card'
 import { Button } from '#/components/ui/button'
 import { KanjiItem } from '#/schemas/kanji'
+import { SessionItemEvaluation } from './FlashcardsSessionSummary'
 
 type FlashcardSessionItemProps = {
   kanji: KanjiItem
   isRevealed: boolean
   onRevealClick: () => void
-  onEvaluateClick: () => void
+  onEvaluateClick: (evalution: SessionItemEvaluation) => void
 }
 
 export default function FlashcardSessionItem({
@@ -41,16 +42,32 @@ export default function FlashcardSessionItem({
           <p className='italic'>{kanji.meanings.join(', ')}</p>
         </CardContent>
         <CardFooter className='flex items-center gap-2'>
-          <Button size='lg' onClick={onEvaluateClick}>
+          <Button
+            className='cursor-pointer'
+            size='lg'
+            onClick={() => onEvaluateClick(SessionItemEvaluation.FAIL)}
+          >
             Fail
           </Button>
-          <Button size='lg' onClick={onEvaluateClick}>
+          <Button
+            className='cursor-pointer'
+            size='lg'
+            onClick={() => onEvaluateClick(SessionItemEvaluation.HARD)}
+          >
             Hard
           </Button>
-          <Button size='lg' onClick={onEvaluateClick}>
+          <Button
+            className='cursor-pointer'
+            size='lg'
+            onClick={() => onEvaluateClick(SessionItemEvaluation.GOOD)}
+          >
             Good
           </Button>
-          <Button size='lg' onClick={onEvaluateClick}>
+          <Button
+            className='cursor-pointer'
+            size='lg'
+            onClick={() => onEvaluateClick(SessionItemEvaluation.EASY)}
+          >
             Easy
           </Button>
         </CardFooter>
@@ -64,7 +81,7 @@ export default function FlashcardSessionItem({
         {kanji.kanji}
       </CardContent>
       <CardFooter>
-        <Button size='lg' onClick={onRevealClick}>
+        <Button className='cursor-pointer' size='lg' onClick={onRevealClick}>
           Flip
         </Button>
       </CardFooter>
