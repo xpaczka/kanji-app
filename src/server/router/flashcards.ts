@@ -32,10 +32,10 @@ const getRandomKanjiSet = (
 
 export const flashcardsRouter = router({
   getFlashcardsSessionKanji: publicProcedure
-    .input(kanjiItemJlptLevel)
+    .input(kanjiItemJlptLevel.optional())
     .query(async ({ input }) => {
-      const currentLevelKanjis = kanjiData.filter(
-        (item) => item.level === input
+      const currentLevelKanjis = (
+        input ? kanjiData.filter((item) => item.level === input) : kanjiData
       ) as KanjiItem[]
 
       return getRandomKanjiSet(currentLevelKanjis)

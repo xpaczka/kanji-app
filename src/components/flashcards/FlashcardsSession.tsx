@@ -7,6 +7,7 @@ import FlashcardsSessionSummary, {
   KanjiSessionSet,
   SessionItemEvaluation,
 } from './FlashcardsSessionSummary'
+import { useNavigation } from '#/hooks/router'
 
 type FlashcardsSessionProps = {
   kanjiSet: KanjiItem[]
@@ -17,9 +18,11 @@ export default function FlashcardsSession({
 }: FlashcardsSessionProps) {
   const [kanjiIndex, setKanjiIndex] = useState(0)
   const [isRevealed, setIsRevealed] = useState(false)
-  const [sessionCompleted, setSessionCompleted] = useState(false)
 
+  const [sessionCompleted, setSessionCompleted] = useState(false)
   const [sessionSet, setSessionSet] = useState<KanjiSessionSet[]>([])
+
+  const { navigate } = useNavigation()
 
   const evaluateKanjiHandler = useCallback(
     (evaluation: SessionItemEvaluation) => {
@@ -41,8 +44,14 @@ export default function FlashcardsSession({
   // TODO: Implement new session handler
   const newSessionHandler = useCallback(() => {}, [])
 
-  // TODO: Implement end session handler
-  const endSessionHandler = useCallback(() => {}, [])
+  const endSessionHandler = useCallback(() => {
+    navigate('/learn/flashcards')
+
+    setKanjiIndex(0)
+    setIsRevealed(false)
+    setSessionCompleted(false)
+    setSessionSet([])
+  }, [navigate])
 
   if (sessionCompleted) {
     return (
