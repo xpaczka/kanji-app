@@ -2,6 +2,7 @@ import { Card, CardContent, CardFooter } from '#/components/ui/card'
 import { Button } from '#/components/ui/button'
 import { KanjiItem } from '#/schemas/kanji'
 import { SessionItemEvaluation } from './FlashcardsSessionSummary'
+import FlashcardsSessionReading from './FlashcardsSessionReading'
 
 type FlashcardSessionItemProps = {
   kanji: KanjiItem
@@ -20,19 +21,22 @@ export default function FlashcardSessionItem({
     return (
       <Card className='w-full aspect-square items-center p-12'>
         <CardContent className='flex flex-col justify-center items-center flex-1 text-center'>
-          {/* TODO: Add tooltip explaining difference: https://www.thoughtco.com/learning-japanese-4070947 */}
-          <div className='flex flex-col items-center gap-2 mb-6'>
-            <div>
+          <div className='flex flex-col items-center gap-3 mb-6'>
+            <div className='flex flex-col items-center'>
               {kanji.on_readings.length > 0 && (
-                <p className='text-sm'>On readings</p>
+                <FlashcardsSessionReading tooltipContent='On-reading is usually used when the kanji is a part of a compound (two or more kanji characters are placed side by site)'>
+                  On readings
+                </FlashcardsSessionReading>
               )}
               <p className='font-bold text-2xl'>
                 {kanji.on_readings.join(', ')}
               </p>
             </div>
-            <div>
+            <div className='flex flex-col items-center'>
               {kanji.kun_readings.length > 0 && (
-                <p className='text-sm'>Kun readings</p>
+                <FlashcardsSessionReading tooltipContent='Kun-reading is used when the kanji is used on its own, either as a complete noun or as adjective stems and verb stems'>
+                  Kun readings
+                </FlashcardsSessionReading>
               )}
               <p className='font-bold text-2xl'>
                 {kanji.kun_readings.join(', ')}
