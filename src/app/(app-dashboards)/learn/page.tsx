@@ -28,9 +28,9 @@ export default async function Learn() {
         <LearnDiscoveredKanji />
       </div>
       <div className='w-full flex gap-6'>
-        {recentKanji.map(({ kanji, proficiency, level }) => (
+        {recentKanji.map(({ kanji, proficiency, level }, index) => (
           <LearnKanjiItem
-            key={kanji}
+            key={`${kanji}-${index}`}
             kanji={kanji}
             proficiency={proficiency}
             level={level}

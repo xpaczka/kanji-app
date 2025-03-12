@@ -46,9 +46,9 @@ export default function FlashcardsSessionSummary({
       </CardHeader>
       <CardContent>
         <div className='grid grid-cols-2 gap-y-2 gap-x-8 mb-10'>
-          {kanjiSet.map(({ kanji, evaluation }) => (
+          {kanjiSet.map(({ kanji, evaluation }, index) => (
             <div
-              key={kanji}
+              key={`${kanji}-${index}`}
               className='w-full flex justify-between items-center gap-2'
             >
               <div className='text-3xl font-bold'>{kanji}</div>

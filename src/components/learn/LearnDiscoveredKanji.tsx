@@ -24,9 +24,9 @@ export default async function LearnDiscoveredKanji() {
           <div className='grid grid-cols-3 gap-2'>
             {kanji
               .sort((a, b) => b.proficiency - a.proficiency)
-              .map(({ kanji, proficiency, level }) => (
+              .map(({ kanji, proficiency, level }, index) => (
                 <LearnKanjiItem
-                  key={kanji}
+                  key={`${kanji}-${index}`}
                   kanji={kanji}
                   proficiency={proficiency}
                   level={level}
