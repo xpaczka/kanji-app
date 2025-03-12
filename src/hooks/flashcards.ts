@@ -28,6 +28,9 @@ export const useFlashcardsSession = () => {
     null
   )
 
+  // TODO: Read initial data from user preference
+  const [showRomaji, setShowRomaji] = useState(false)
+
   useEffect(() => {
     setSessionStartTime(DateTime.now())
   }, [])
@@ -80,6 +83,8 @@ export const useFlashcardsSession = () => {
     sessionStartTime,
     sessionCompleted,
     sessionSet,
+    showRomaji,
+    setShowRomaji,
     evaluateKanji: evaluateKanjiHandler,
     newSession: newSessionHandler,
     endSession: endSessionHandler,

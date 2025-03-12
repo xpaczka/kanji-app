@@ -4,6 +4,7 @@ import FlashcardSessionItem from './FlashcardsSessionItem'
 import FlashcardsSessionSummary from './FlashcardsSessionSummary'
 import { useFlashcardsSession } from '#/hooks/flashcards'
 import { Spinner } from '#/components/ui/spinner'
+import { Switch } from '#/components/ui/switch'
 
 export default function FlashcardsSession() {
   const {
@@ -15,6 +16,8 @@ export default function FlashcardsSession() {
     sessionSet,
     sessionCompleted,
     sessionStartTime,
+    showRomaji,
+    setShowRomaji,
     evaluateKanji,
     newSession,
     endSession,
@@ -49,9 +52,17 @@ export default function FlashcardsSession() {
       <FlashcardSessionItem
         kanji={kanjiSet[kanjiIndex]}
         isRevealed={isRevealed}
+        showRomaji={showRomaji}
         onEvaluateClick={evaluateKanji}
         onRevealClick={() => setIsRevealed(true)}
       />
+      <div className='flex items-center gap-2 mt-4'>
+        <Switch
+          checked={showRomaji}
+          onCheckedChange={() => setShowRomaji((prev) => !prev)}
+        />
+        <p>Show romaji</p>
+      </div>
     </div>
   )
 }
