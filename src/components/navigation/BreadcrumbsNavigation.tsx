@@ -22,19 +22,19 @@ export default function BreadcrumbsNavigation() {
   return (
     <Breadcrumb className='mb-8'>
       <BreadcrumbList>
-        {paths.map((pathname, index) =>
+        {paths.map((path, index) =>
           index === paths.length - 1 ? (
-            <BreadcrumbItem key={pathname}>
+            <BreadcrumbItem key={path}>
               <BreadcrumbPage className='font-bold text-lg'>
-                {capitalizePathname(pathname)}
+                {capitalizePathname(path)}
               </BreadcrumbPage>
             </BreadcrumbItem>
           ) : (
-            <Fragment key={pathname}>
+            <Fragment key={path}>
               <BreadcrumbItem>
                 <BreadcrumbLink className='text-lg' asChild>
-                  <Link href={`/${pathname}`}>
-                    {capitalizePathname(pathname)}
+                  <Link href={`/${paths.slice(0, -index - 1).join('/')}`}>
+                    {capitalizePathname(path)}
                   </Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>

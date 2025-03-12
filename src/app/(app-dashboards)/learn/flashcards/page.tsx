@@ -1,17 +1,17 @@
 import FlashcardsLevelChoice from '#/components/flashcards/FlashcardsLevelChoice'
-import { KanjiLevel } from '#/schemas/learn'
+import { KanjiItemJlptLevel } from '#/schemas/kanji'
 
 type FlashcardsLevelChoiceItem = {
-  level: KanjiLevel
+  level: KanjiItemJlptLevel
   isDisabled?: boolean
 }
 
 const LEVELS: FlashcardsLevelChoiceItem[] = [
-  { level: 'N5' },
-  { level: 'N4' },
-  { level: 'N3', isDisabled: true },
-  { level: 'N2', isDisabled: true },
-  { level: 'N1', isDisabled: true },
+  { level: 'jlpt-n5' },
+  { level: 'jlpt-n4' },
+  { level: 'jlpt-n3', isDisabled: true },
+  { level: 'jlpt-n2', isDisabled: true },
+  { level: 'jlpt-n1', isDisabled: true },
 ]
 
 export default function FlashcardsPage() {
@@ -22,9 +22,10 @@ export default function FlashcardsPage() {
           key={level}
           title={level}
           isDisabled={!!isDisabled}
+          level={level}
         />
       ))}
-      <FlashcardsLevelChoice title='All evels' isDisabled={false} />
+      <FlashcardsLevelChoice title='All levels' isDisabled={false} />
     </div>
   )
 }
