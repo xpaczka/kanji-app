@@ -33,7 +33,7 @@ export default function BreadcrumbsNavigation() {
             <Fragment key={path}>
               <BreadcrumbItem>
                 <BreadcrumbLink className='text-lg' asChild>
-                  <Link href={`/${paths.slice(0, -index).join('/')}`}>
+                  <Link href={`/${paths.slice(0, -index - 1).join('/')}`}>
                     {capitalizePathname(path)}
                   </Link>
                 </BreadcrumbLink>
