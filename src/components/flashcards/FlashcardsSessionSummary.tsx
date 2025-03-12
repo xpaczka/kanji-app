@@ -9,8 +9,8 @@ import {
 } from '#/components/ui/card'
 import { Button } from '#/components/ui/button'
 import { Label } from '#/components/ui/label'
-import { useEffect, useMemo, useState } from 'react'
 import { DateTime } from 'luxon'
+import { useFlashcardsSessionSummary } from '#/hooks/flashcards'
 
 export enum SessionItemEvaluation {
   FAIL = 'fail',
@@ -37,24 +37,7 @@ export default function FlashcardsSessionSummary({
   onNewSessionClick,
   onEndSessionClick,
 }: FlashcardsSessionSummaryProps) {
-  const [sessionEndTime, setSessionEndTime] = useState<DateTime | null>(null)
-
-  useEffect(() => {
-    setSessionEndTime(DateTime.now())
-  }, [])
-
-  const timeSpent = useMemo(() => {
-    if (!sessionStartTime || !sessionEndTime) return '0:00'
-
-    const duration = sessionEndTime.diff(sessionStartTime, [
-      'minutes',
-      'seconds',
-    ])
-    const minutes = duration.minutes.toFixed(0)
-    const seconds = duration.seconds.toFixed(0).padStart(2, '0')
-
-    return `${minutes}:${seconds}`
-  }, [sessionStartTime, sessionEndTime])
+  const { timeSpent } = useFlashcardsSessionSummary(sessionStartTime)
 
   return (
     <Card>

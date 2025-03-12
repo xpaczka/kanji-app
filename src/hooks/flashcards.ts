@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { trpc } from '#/app/_trpc/client'
 import { KanjiItemJlptLevel } from '#/schemas/kanji'
 import { useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigation } from './router'
 import {
   KanjiSessionSet,
@@ -58,6 +58,7 @@ export const useFlashcardsSession = () => {
     setIsRevealed(false)
     setSessionCompleted(false)
     setSessionSet([])
+    setSessionStartTime(DateTime.now())
   }, [])
 
   const newSessionHandler = useCallback(() => {
@@ -83,4 +84,29 @@ export const useFlashcardsSession = () => {
     newSession: newSessionHandler,
     endSession: endSessionHandler,
   }
+}
+
+export const useFlashcardsSessionSummary = (
+  sessionStartTime: DateTime | null
+) => {
+  const [sessionEndTime, setSessionEndTime] = useState<DateTime | null>(null)
+
+  useEffect(() => {
+    setSessionEndTime(DateTime.now())
+  }, [])
+
+  const timeSpent = useMemo(() => {
+    if (!sessionStartTime || !sessionEndTime) return '0:00'
+
+    const duration = sessionEndTime.diff(sessionStartTime, [
+      'minutes',
+      'seconds',
+    ])
+    const minutes = duration.minutes.toFixed(0)
+    const seconds = duration.seconds.toFixed(0).padStart(2, '0')
+
+    return `${minutes}:${seconds}`
+  }, [sessionStartTime, sessionEndTime])
+
+  return { timeSpent }
 }
