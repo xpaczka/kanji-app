@@ -14,6 +14,7 @@ export default function FlashcardsSession() {
     kanjiIndex,
     sessionSet,
     sessionCompleted,
+    sessionStartTime,
     evaluateKanji,
     newSession,
     endSession,
@@ -33,6 +34,7 @@ export default function FlashcardsSession() {
     return (
       <FlashcardsSessionSummary
         kanjiSet={sessionSet}
+        sessionStartTime={sessionStartTime}
         onNewSessionClick={newSession}
         onEndSessionClick={endSession}
       />

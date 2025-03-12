@@ -1,7 +1,8 @@
+import { DateTime } from 'luxon'
 import { trpc } from '#/app/_trpc/client'
 import { KanjiItemJlptLevel } from '#/schemas/kanji'
 import { useSearchParams } from 'next/navigation'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigation } from './router'
 import {
   KanjiSessionSet,
@@ -23,6 +24,13 @@ export const useFlashcardsSession = () => {
 
   const [sessionCompleted, setSessionCompleted] = useState(false)
   const [sessionSet, setSessionSet] = useState<KanjiSessionSet[]>([])
+  const [sessionStartTime, setSessionStartTime] = useState<DateTime | null>(
+    null
+  )
+
+  useEffect(() => {
+    setSessionStartTime(DateTime.now())
+  }, [])
 
   const { navigate } = useNavigation()
 
@@ -68,6 +76,7 @@ export const useFlashcardsSession = () => {
     kanjiIndex,
     isRevealed,
     setIsRevealed,
+    sessionStartTime,
     sessionCompleted,
     sessionSet,
     evaluateKanji: evaluateKanjiHandler,

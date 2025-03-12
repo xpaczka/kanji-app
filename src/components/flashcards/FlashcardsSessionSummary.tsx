@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Card,
   CardContent,
@@ -7,6 +9,8 @@ import {
 } from '#/components/ui/card'
 import { Button } from '#/components/ui/button'
 import { Label } from '#/components/ui/label'
+import { useEffect, useMemo, useState } from 'react'
+import { DateTime } from 'luxon'
 
 export enum SessionItemEvaluation {
   FAIL = 'fail',
@@ -22,15 +26,36 @@ export type KanjiSessionSet = {
 
 type FlashcardsSessionSummaryProps = {
   kanjiSet: KanjiSessionSet[]
+  sessionStartTime: DateTime | null
   onNewSessionClick: () => void
   onEndSessionClick: () => void
 }
 
 export default function FlashcardsSessionSummary({
   kanjiSet,
+  sessionStartTime,
   onNewSessionClick,
   onEndSessionClick,
 }: FlashcardsSessionSummaryProps) {
+  const [sessionEndTime, setSessionEndTime] = useState<DateTime | null>(null)
+
+  useEffect(() => {
+    setSessionEndTime(DateTime.now())
+  }, [])
+
+  const timeSpent = useMemo(() => {
+    if (!sessionStartTime || !sessionEndTime) return '0:00'
+
+    const duration = sessionEndTime.diff(sessionStartTime, [
+      'minutes',
+      'seconds',
+    ])
+    const minutes = duration.minutes.toFixed(0)
+    const seconds = duration.seconds.toFixed(0).padStart(2, '0')
+
+    return `${minutes}:${seconds}`
+  }, [sessionStartTime, sessionEndTime])
+
   return (
     <Card>
       <CardHeader className='text-center'>
@@ -53,8 +78,7 @@ export default function FlashcardsSessionSummary({
         <div className='flex gap-4'>
           <div className='flex flex-col items-center flex-1'>
             <Label>Time spent</Label>
-            {/* TODO: Calculate time spent */}
-            <div className='text-3xl font-bold'>2:47</div>
+            <div className='text-3xl font-bold'>{timeSpent}</div>
           </div>
           <div className='flex flex-col items-center flex-1'>
             <Label>Points earned</Label>
