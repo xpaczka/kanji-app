@@ -4,6 +4,6 @@ CREATE TABLE "kanji" (
 	"level" varchar(7) NOT NULL,
 	"meanings" text[] NOT NULL,
 	"kun_readings" text[] NOT NULL,
-	"on_readings" text[],
+	"on_readings" text[] NOT NULL,
 	CONSTRAINT "kanji_kanji_unique" UNIQUE("kanji")
 );

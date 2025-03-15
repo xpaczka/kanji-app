@@ -1,5 +1,5 @@
 {
-  "id": "3dd0ef7f-72e8-4bab-9e59-10b297507907",
+  "id": "e6e80089-641b-4694-bf1c-d7fca55dcc90",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -42,7 +42,7 @@
           "name": "on_readings",
           "type": "text[]",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         }
       },
       "indexes": {},
