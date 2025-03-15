@@ -3,6 +3,7 @@ import {
   leaderboardRouter,
   learnRouter,
   userRouter,
+  sessionRouter,
 } from './router'
 import { router } from './trpc'
 
@@ -11,6 +12,7 @@ export const appRouter = router({
   leaderboard: leaderboardRouter,
   learn: learnRouter,
   user: userRouter,
+  session: sessionRouter,
 })
 
 export type AppRouter = typeof appRouter

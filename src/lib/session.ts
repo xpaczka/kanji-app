@@ -1,8 +1,3 @@
-import {
-  encodeBase32LowerCaseNoPadding,
-  encodeHexLowerCase,
-} from '@oslojs/encoding'
-import { sha256 } from '@oslojs/crypto/sha2'
 import { eq } from 'drizzle-orm'
 
 import {
@@ -12,18 +7,23 @@ import {
   userTable,
 } from '#/database/schema'
 import { database } from '#/database'
+import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from './utils'
 
-type SessionValidationResult = {
+export type SessionValidationResult = {
   session: DatabaseSession | null
   user: DatabaseUser | null
 }
 
 const SESSION_EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 30
 
-const getSessionId = (token: string): string =>
-  encodeHexLowerCase(sha256(new TextEncoder().encode(token)))
+const getSessionId = async (token: string): Promise<string> => {
+  const encodedToken = new TextEncoder().encode(token)
+  const hashBuffer = await crypto.subtle.digest('SHA-256', encodedToken)
 
-export const generateSessionToken = (): string => {
+  return encodeHexLowerCase(new Uint8Array(hashBuffer))
+}
+
+export const generateSessionToken = async (): Promise<string> => {
   const bytes = new Uint8Array(20)
   crypto.getRandomValues(bytes)
 
@@ -34,7 +34,7 @@ export const createSesion = async (
   token: string,
   userId: number
 ): Promise<DatabaseSession> => {
-  const sessionId = getSessionId(token)
+  const sessionId = await getSessionId(token)
 
   // Create database session object
   const session: DatabaseSession = {
@@ -52,7 +52,7 @@ export const createSesion = async (
 export const validateSessionToken = async (
   token: string
 ): Promise<SessionValidationResult> => {
-  const sessionId = getSessionId(token)
+  const sessionId = await getSessionId(token)
 
   // Query user's session from database
   const result = await database
@@ -63,7 +63,6 @@ export const validateSessionToken = async (
 
   // There can only be one valid session for user
   if (result.length < 1) {
-    // TODO: Should throw an error
     return { session: null, user: null }
   }
 

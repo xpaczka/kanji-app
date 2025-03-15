@@ -1,6 +1,8 @@
 import { z } from 'zod'
 
-export const createSessionSchema = z.object({
+export const sessionTokenCookieSchema = z.object({
   token: z.string(),
-  userId: z.number(),
+  expiresAt: z.date(),
 })
+
+export type SessionTokenCookie = z.infer<typeof sessionTokenCookieSchema>

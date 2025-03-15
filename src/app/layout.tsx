@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import { ClerkProvider } from '@clerk/nextjs'
 import TrpcProvider from './_trpc/TrpcProvider'
 
 const geistSans = Geist({
@@ -25,16 +24,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ClerkProvider>
-      <TrpcProvider>
-        <html lang='en'>
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
-          >
-            {children}
-          </body>
-        </html>
-      </TrpcProvider>
-    </ClerkProvider>
+    <TrpcProvider>
+      <html lang='en'>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+        >
+          {children}
+        </body>
+      </html>
+    </TrpcProvider>
   )
 }
