@@ -1,14 +1,16 @@
-import { flashcardsRouter } from '#/server/router/flashcards'
-import { leaderboardRouter } from './router/leaderboard'
-import { learnRouter } from './router/learn'
-import { userRouter } from './router/user'
+import {
+  flashcardsRouter,
+  leaderboardRouter,
+  learnRouter,
+  userRouter,
+} from './router'
 import { router } from './trpc'
 
 export const appRouter = router({
-  user: userRouter,
-  learn: learnRouter,
-  leaderboard: leaderboardRouter,
   flashcards: flashcardsRouter,
+  leaderboard: leaderboardRouter,
+  learn: learnRouter,
+  user: userRouter,
 })
 
 export type AppRouter = typeof appRouter
