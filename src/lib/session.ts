@@ -14,7 +14,8 @@ export type SessionValidationResult = {
   user: DatabaseUser | null
 }
 
-const SESSION_EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 30
+export const SESSION_TOKEN_COOKIE_NAME = 'KANJI_SESSION'
+export const SESSION_EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 30
 
 const getSessionId = async (token: string): Promise<string> => {
   const encodedToken = new TextEncoder().encode(token)
@@ -23,14 +24,14 @@ const getSessionId = async (token: string): Promise<string> => {
   return encodeHexLowerCase(new Uint8Array(hashBuffer))
 }
 
-export const generateSessionToken = async (): Promise<string> => {
+export const generateSessionToken = (): string => {
   const bytes = new Uint8Array(20)
   crypto.getRandomValues(bytes)
 
   return encodeBase32LowerCaseNoPadding(bytes)
 }
 
-export const createSesion = async (
+export const createSession = async (
   token: string,
   userId: number
 ): Promise<DatabaseSession> => {

@@ -1,13 +1,37 @@
 import { NextResponse } from 'next/server'
 
 import type { NextRequest } from 'next/server'
-import { SESSION_TOKEN_COOKIE_NAME } from './server/router'
+import { SESSION_TOKEN_COOKIE_NAME } from './lib/session'
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for:
+     * - API routes (/_next, /api)
+     * - Static files (_next/static, _next/image, favicon.ico, etc.)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
+}
 
 const middleware = async (request: NextRequest): Promise<NextResponse> => {
-  if (request.method === 'GET') {
+  if (request.method === 'OPTIONS') {
     const response = NextResponse.next()
-    const token = request.cookies.get(SESSION_TOKEN_COOKIE_NAME)?.value ?? null
 
+    response.headers.set('Access-Control-Allow-Credentials', 'true')
+    response.headers.set('Access-Control-Allow-Origin', '*')
+    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, DELETE')
+    response.headers.set(
+      'Access-Control-Allow-Headers',
+      'Content-Type, Authorization'
+    )
+    return response
+  }
+
+  const token = request.cookies.get(SESSION_TOKEN_COOKIE_NAME)?.value ?? null
+  const response = NextResponse.next()
+
+  if (request.method === 'GET') {
     if (token !== null) {
       // Only extend cookie expiration on GET requests since we can be sure
       // a new session wasn't set when handling the request.
@@ -40,7 +64,10 @@ const middleware = async (request: NextRequest): Promise<NextResponse> => {
     return new NextResponse(null, { status: 403 })
   }
 
-  return NextResponse.next()
+  response.headers.set('Access-Control-Allow-Origin', '*')
+  response.headers.set('Access-Control-Allow-Credentials', 'true')
+
+  return response
 }
 
 export default middleware
