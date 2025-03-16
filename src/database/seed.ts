@@ -5,10 +5,21 @@ import { v4 as uuid } from 'uuid'
 import { drizzle } from 'drizzle-orm/node-postgres'
 import { KanjiItemJlptLevel } from '#/schemas/kanji'
 
+const args = process.argv.slice(2)
+const argsMap = new Map()
+
+for (let i = 0; i < args.length; i += 2) {
+  argsMap.set(args[i], args[i + 1])
+}
+
+const databaseUrl = argsMap.get('--database-url')
+
 const main = async () => {
-  const pool = new Pool({
-    connectionString: 'postgres://postgres:postgres@localhost:5432/postgres',
-  })
+  if (!databaseUrl) {
+    throw Error('Database URL not defined')
+  }
+
+  const pool = new Pool({ connectionString: databaseUrl })
   const database = drizzle(pool)
 
   const data: (typeof kanjiTable.$inferInsert)[] = kanjiData.map((item) => ({
