@@ -5,8 +5,6 @@ const url =
     ? process.env.DATABASE_URL
     : process.env.DATABASE_LOCAL_URL
 
-console.log(url)
-
 if (!url)
   throw new Error(
     `Connection string to ${

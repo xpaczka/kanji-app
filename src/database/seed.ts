@@ -15,6 +15,10 @@ for (let i = 0; i < args.length; i += 2) {
 const databaseUrl = argsMap.get('--database-url')
 
 const main = async () => {
+  if (!kanjiData) {
+    throw Error('No data to be seeded')
+  }
+
   if (!databaseUrl) {
     throw Error('Database URL not defined')
   }
