@@ -7,11 +7,7 @@ import {
 } from '#/store/app-session'
 import { ReactNode, useRef } from 'react'
 
-export default function AppSessionStoreProvider({
-  children,
-}: {
-  children: ReactNode
-}) {
+export default function StoreProvider({ children }: { children: ReactNode }) {
   const appSessionStoreRef = useRef<AppSessionStoreApi | null>(null)
 
   if (appSessionStoreRef.current === null) {
