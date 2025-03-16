@@ -1,8 +1,8 @@
-import { KanjiItem } from '#/schemas/learn'
+import { KanjiProficiency } from '#/schemas/learn'
 import { publicProcedure, router } from '../trpc'
 import { z } from 'zod'
 
-const RECENT_KANJI: KanjiItem[] = [
+const RECENT_KANJI: KanjiProficiency[] = [
   { kanji: '私', level: 'N5', proficiency: 33 },
   { kanji: '水', level: 'N4', proficiency: 50 },
   { kanji: '足', level: 'N5', proficiency: 77 },
@@ -10,7 +10,7 @@ const RECENT_KANJI: KanjiItem[] = [
   { kanji: '空', level: 'N5', proficiency: 5 },
 ]
 
-const ALL_DISCOVERED_KANJI: KanjiItem[] = [
+const ALL_DISCOVERED_KANJI: KanjiProficiency[] = [
   { kanji: '私', level: 'N5', proficiency: 33 },
   { kanji: '水', level: 'N4', proficiency: 50 },
   { kanji: '足', level: 'N5', proficiency: 77 },

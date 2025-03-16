@@ -1,11 +1,11 @@
 import { Card, CardContent, CardFooter } from '#/components/ui/card'
-import { KanjiItem } from '#/schemas/learn'
+import { KanjiProficiency } from '#/schemas/learn'
 
 export default function LearnKanjiItem({
   kanji,
   level,
   proficiency,
-}: KanjiItem) {
+}: KanjiProficiency) {
   return (
     <Card className='flex-1'>
       <CardContent className='text-6xl font-bold text-center mb-4'>

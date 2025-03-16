@@ -2,9 +2,9 @@
 
 import { AspectRatio } from '#/components/ui/aspect-ratio'
 import { Card, CardContent } from '#/components/ui/card'
+import { KanjiItemJlptLevel } from '#/database/schema'
 import { useNavigation } from '#/hooks/router'
 import { cn } from '#/lib/utils'
-import { KanjiItemJlptLevel } from '#/schemas/kanji'
 import { useCallback } from 'react'
 import { v4 as uuid } from 'uuid'
 

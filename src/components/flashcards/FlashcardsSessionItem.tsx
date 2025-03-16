@@ -3,13 +3,13 @@
 import { toRomaji } from 'wanakana'
 import { Card, CardContent, CardFooter } from '#/components/ui/card'
 import { Button } from '#/components/ui/button'
-import { KanjiItem } from '#/schemas/kanji'
 import { SessionItemEvaluation } from './FlashcardsSessionSummary'
 import FlashcardsSessionReading from './FlashcardsSessionReading'
 import { useMemo } from 'react'
+import { DatabaseKanji } from '#/database/schema'
 
 type FlashcardSessionItemProps = {
-  kanji: KanjiItem
+  kanji: DatabaseKanji
   isRevealed: boolean
   showRomaji: boolean
   onRevealClick: () => void

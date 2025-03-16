@@ -1,13 +1,18 @@
-import { KanjiItem, kanjiItemJlptLevel } from '#/schemas/kanji'
+import { database } from '#/database'
+import {
+  DatabaseKanji,
+  kanjiItemJlptLevel,
+  kanjiTable,
+} from '#/database/schema'
 import { publicProcedure, router } from '#/server/trpc'
-import { data as kanjiData } from '../../../scripts/data.json'
+import { eq } from 'drizzle-orm'
 
 const KANJI_SESSION_COUNT = 10
 
 const getRandomKanjiSet = (
-  kanjiSet: KanjiItem[],
+  kanjiSet: DatabaseKanji[],
   count: number = KANJI_SESSION_COUNT
-): KanjiItem[] => {
+): DatabaseKanji[] => {
   const uniqueKanjiSet = Array.from(
     new Map(kanjiSet.map((item) => [item.kanji, item])).values()
   )
@@ -34,9 +39,12 @@ export const flashcardsRouter = router({
   getFlashcardsSessionKanji: publicProcedure
     .input(kanjiItemJlptLevel.optional())
     .query(async ({ input }) => {
-      const currentLevelKanjis = (
-        input ? kanjiData.filter((item) => item.level === input) : kanjiData
-      ) as KanjiItem[]
+      const currentLevelKanjis = input
+        ? await database
+            .select()
+            .from(kanjiTable)
+            .where(eq(kanjiTable.level, input))
+        : await database.select().from(kanjiTable)
 
       return getRandomKanjiSet(currentLevelKanjis)
     }),
