@@ -8,6 +8,8 @@ import {
   SessionItemEvaluation,
 } from '#/components/flashcards/FlashcardsSessionSummary'
 import { KanjiItemJlptLevel } from '#/database/schema'
+import { useAppSessionStore } from '#/store/app-session'
+import { v4 as uuid } from 'uuid'
 
 export const useFlashcardsSession = () => {
   const params = useSearchParams()
@@ -89,6 +91,32 @@ export const useFlashcardsSession = () => {
     newSession: newSessionHandler,
     endSession: endSessionHandler,
   }
+}
+
+export const useFlashcardsLevelChoice = (
+  isDisabled: boolean,
+  level?: KanjiItemJlptLevel
+) => {
+  const setSession = useAppSessionStore((state) => state.setSession)
+  const { navigate } = useNavigation()
+
+  const flashcardsSessionHandler = useCallback(() => {
+    if (isDisabled) return
+
+    const currentUrl = '/learn/flashcards'
+    const sessionId = uuid()
+    const levelParam = level ? `?level=${level}` : ''
+
+    setSession({
+      sessionId,
+      sessionType: 'flashcards',
+      sessionParentUrl: currentUrl,
+    })
+
+    navigate(`${currentUrl}/${sessionId}${levelParam}`)
+  }, [navigate, level, isDisabled, setSession])
+
+  return { startFlashcardsSession: flashcardsSessionHandler }
 }
 
 export const useFlashcardsSessionSummary = (

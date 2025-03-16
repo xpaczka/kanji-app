@@ -3,10 +3,8 @@
 import { AspectRatio } from '#/components/ui/aspect-ratio'
 import { Card, CardContent } from '#/components/ui/card'
 import { KanjiItemJlptLevel } from '#/database/schema'
-import { useNavigation } from '#/hooks/router'
+import { useFlashcardsLevelChoice } from '#/hooks/flashcards'
 import { cn } from '#/lib/utils'
-import { useCallback } from 'react'
-import { v4 as uuid } from 'uuid'
 
 type FlashcardsLevelChoiceProps = {
   title: string
@@ -19,22 +17,13 @@ export default function FlashcardsLevelChoice({
   level,
   isDisabled,
 }: FlashcardsLevelChoiceProps) {
-  const { navigate } = useNavigation()
-
-  const flashcardsSessionHandler = useCallback(() => {
-    if (isDisabled) return
-
-    const sessionId = uuid()
-    const levelParam = level ? `?level=${level}` : ''
-
-    navigate(`/learn/flashcards/${sessionId}${levelParam}`)
-  }, [navigate, level, isDisabled])
+  const { startFlashcardsSession } = useFlashcardsLevelChoice(isDisabled, level)
 
   return (
     <AspectRatio
       className={isDisabled ? 'cursor-auto' : 'cursor-pointer'}
       ratio={16 / 9}
-      onClick={flashcardsSessionHandler}
+      onClick={startFlashcardsSession}
     >
       <Card
         className={cn(
