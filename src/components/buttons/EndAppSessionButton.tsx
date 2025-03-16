@@ -15,7 +15,7 @@ import { useNavigation } from '#/hooks/router'
 import { useAppSessionStore } from '#/store/app-session'
 import { useCallback } from 'react'
 
-export default function EndAppSession() {
+export default function EndAppSessionButton() {
   const { navigate } = useNavigation()
 
   const { sessionParentUrl, resetSession } = useAppSessionStore(
