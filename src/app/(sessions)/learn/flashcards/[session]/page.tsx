@@ -1,10 +1,11 @@
 'use client'
 
 import FlashcardsSession from '#/components/flashcards/FlashcardsSession'
+import { ROUTES } from '#/constants/router'
 import { useAppSession } from '#/hooks/app-session'
 
 export default function FlashcardsSessionPage() {
-  const { sessionId } = useAppSession('/learn/flashcards')
+  const { sessionId } = useAppSession(ROUTES.flashcards)
 
   if (!sessionId) return null
 

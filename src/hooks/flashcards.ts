@@ -10,6 +10,7 @@ import {
 import { KanjiItemJlptLevel } from '#/database/schema'
 import { useAppSessionStore } from '#/store/app-session'
 import { v4 as uuid } from 'uuid'
+import { ROUTES } from '#/constants/router'
 
 export const useFlashcardsSession = () => {
   const params = useSearchParams()
@@ -66,14 +67,16 @@ export const useFlashcardsSession = () => {
     setSessionStartTime(DateTime.now())
   }, [])
 
+  // TODO: Create new session in Zustand and redirect
   const newSessionHandler = useCallback(() => {
     resetSessionState()
     refetch()
   }, [resetSessionState, refetch])
 
+  // TODO: Reset Zustand state
   const endSessionHandler = useCallback(() => {
     resetSessionState()
-    navigate('/learn/flashcards')
+    navigate(ROUTES.flashcards)
   }, [navigate, resetSessionState])
 
   return {
@@ -103,17 +106,17 @@ export const useFlashcardsLevelChoice = (
   const flashcardsSessionHandler = useCallback(() => {
     if (isDisabled) return
 
-    const currentUrl = '/learn/flashcards'
     const sessionId = uuid()
+    // TODO: Save level in Zustand and read this param from store
     const levelParam = level ? `?level=${level}` : ''
 
     setSession({
       sessionId,
       sessionType: 'flashcards',
-      sessionParentUrl: currentUrl,
+      sessionParentUrl: ROUTES.flashcards,
     })
 
-    navigate(`${currentUrl}/${sessionId}${levelParam}`)
+    navigate(`${ROUTES.flashcards}/${sessionId}${levelParam}`)
   }, [navigate, level, isDisabled, setSession])
 
   return { startFlashcardsSession: flashcardsSessionHandler }
