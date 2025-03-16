@@ -13,4 +13,6 @@ export const useAppSession = (redirectTo: string) => {
 
     navigate(redirectTo)
   }, [sessionId, navigate, redirectTo])
+
+  return { sessionId }
 }
