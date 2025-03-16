@@ -1,12 +1,10 @@
+import { kanjiItemJlptLevel } from '#/database/schema'
 import { z } from 'zod'
 
-export const kanjiLevelSchema = z.enum(['N5', 'N4', 'N3', 'N2', 'N1'])
-
-export const kanjiItemSchema = z.object({
+export const kanjiProficiencySchema = z.object({
   kanji: z.string(),
-  level: kanjiLevelSchema,
+  level: kanjiItemJlptLevel,
   proficiency: z.number().gte(0),
 })
 
-export type KanjiLevel = z.infer<typeof kanjiLevelSchema>
-export type KanjiItem = z.infer<typeof kanjiItemSchema>
+export type KanjiProficiency = z.infer<typeof kanjiProficiencySchema>

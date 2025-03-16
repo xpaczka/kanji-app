@@ -1,9 +1,8 @@
 import { Pool } from 'pg'
 import { data as kanjiData } from '../../scripts/data.json'
-import { kanjiTable } from './schema'
+import { KanjiItemJlptLevel, kanjiTable } from './schema'
 import { v4 as uuid } from 'uuid'
 import { drizzle } from 'drizzle-orm/node-postgres'
-import { KanjiItemJlptLevel } from '#/schemas/kanji'
 
 const args = process.argv.slice(2)
 const argsMap = new Map()

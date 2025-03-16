@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon'
 import { trpc } from '#/app/_trpc/client'
-import { KanjiItemJlptLevel } from '#/schemas/kanji'
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigation } from './router'
@@ -8,6 +7,7 @@ import {
   KanjiSessionSet,
   SessionItemEvaluation,
 } from '#/components/flashcards/FlashcardsSessionSummary'
+import { KanjiItemJlptLevel } from '#/database/schema'
 
 export const useFlashcardsSession = () => {
   const params = useSearchParams()

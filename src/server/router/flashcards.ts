@@ -1,15 +1,18 @@
 import { database } from '#/database'
-import { kanjiTable } from '#/database/schema'
-import { KanjiItem, kanjiItemJlptLevel } from '#/schemas/kanji'
+import {
+  DatabaseKanji,
+  kanjiItemJlptLevel,
+  kanjiTable,
+} from '#/database/schema'
 import { publicProcedure, router } from '#/server/trpc'
 import { eq } from 'drizzle-orm'
 
 const KANJI_SESSION_COUNT = 10
 
 const getRandomKanjiSet = (
-  kanjiSet: KanjiItem[],
+  kanjiSet: DatabaseKanji[],
   count: number = KANJI_SESSION_COUNT
-): KanjiItem[] => {
+): DatabaseKanji[] => {
   const uniqueKanjiSet = Array.from(
     new Map(kanjiSet.map((item) => [item.kanji, item])).values()
   )
