@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactNode, useState } from 'react'
-import { trpc } from './client'
+import { trpc } from '../app/_trpc/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { TRPC_LINKS } from '#/constants/misc'
 

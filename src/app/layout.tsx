@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
-import TrpcProvider from './_trpc/TrpcProvider'
-import AppSessionStoreProvider from '#/provider/AppSessionStoreProvider'
+import TrpcProvider from '../providers/TrpcProvider'
+import AppSessionStoreProvider from '#/providers/AppSessionStoreProvider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,13 +28,15 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <TrpcProvider>
-        <html lang='en'>
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
-          >
-            <AppSessionStoreProvider>{children}</AppSessionStoreProvider>
-          </body>
-        </html>
+        <AppSessionStoreProvider>
+          <html lang='en'>
+            <body
+              className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+            >
+              {children}
+            </body>
+          </html>
+        </AppSessionStoreProvider>
       </TrpcProvider>
     </ClerkProvider>
   )
