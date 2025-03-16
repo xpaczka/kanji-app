@@ -5,7 +5,6 @@ import FlashcardsSessionSummary from './FlashcardsSessionSummary'
 import { useFlashcardsSession } from '#/hooks/flashcards'
 import { Spinner } from '#/components/ui/spinner'
 import { Switch } from '#/components/ui/switch'
-import { useAppSessionStore } from '#/store/app-session'
 
 export default function FlashcardsSession() {
   const {
@@ -23,8 +22,6 @@ export default function FlashcardsSession() {
     newSession,
     endSession,
   } = useFlashcardsSession()
-
-  console.log(useAppSessionStore((state) => state))
 
   if (isLoading) {
     return (

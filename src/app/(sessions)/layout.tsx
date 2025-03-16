@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import EndSessionButton from '#/components/buttons/EndSessionButton'
+import EndAppSession from '#/components/buttons/EndAppSession'
 
 export default function SessionLayout({ children }: { children: ReactNode }) {
   return (
@@ -7,7 +7,7 @@ export default function SessionLayout({ children }: { children: ReactNode }) {
       <div className='absolute top-0 left-0 right-0 px-10 pt-6 flex justify-between items-center'>
         {/* TODO: Dynamically generate page title */}
         <h1 className='text-lg'>Flashcards</h1>
-        <EndSessionButton />
+        <EndAppSession />
       </div>
       {children}
     </div>

@@ -11,12 +11,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '#/components/ui/dialog'
+import { useNavigation } from '#/hooks/router'
+import { useAppSessionStore } from '#/store/app-session'
 import { useCallback } from 'react'
 
-export default function EndSessionButton() {
-  const endSessionHandler = useCallback(() => {
-    console.log('session end')
-  }, [])
+export default function EndAppSession() {
+  const { navigate } = useNavigation()
+
+  const { sessionParentUrl, resetSession } = useAppSessionStore(
+    (state) => state
+  )
+
+  const endAppSessionHandler = useCallback(() => {
+    if (!sessionParentUrl) return
+
+    navigate(sessionParentUrl)
+    resetSession()
+  }, [navigate, sessionParentUrl, resetSession])
 
   return (
     <Dialog>
@@ -40,7 +51,7 @@ export default function EndSessionButton() {
               <Button>Back to session</Button>
             </DialogClose>
             <DialogClose asChild>
-              <Button onClick={endSessionHandler} variant='secondary'>
+              <Button onClick={endAppSessionHandler} variant='secondary'>
                 End session
               </Button>
             </DialogClose>
