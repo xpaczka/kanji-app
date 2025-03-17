@@ -1,4 +1,5 @@
 import { Button } from '#/components/ui/button'
+import { ROUTES } from '#/constants/router'
 import { SignedIn, SignedOut } from '@clerk/nextjs'
 import Link from 'next/link'
 
@@ -8,15 +9,15 @@ export default function Home() {
       <main className='flex gap-8 row-start-2 items-center sm:items-start'>
         <SignedOut>
           <Button>
-            <Link href='/sign-in'>Sign in</Link>
+            <Link href={ROUTES.signIn}>Sign in</Link>
           </Button>
           <Button variant='secondary'>
-            <Link href='/sign-up'>Sign up</Link>
+            <Link href={ROUTES.signUp}>Sign up</Link>
           </Button>
         </SignedOut>
         <SignedIn>
           <Button>
-            <Link href='/dashboard'>Dashboard</Link>
+            <Link href={ROUTES.mainDashboard}>Dashboard</Link>
           </Button>
         </SignedIn>
       </main>

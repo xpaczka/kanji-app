@@ -8,10 +8,41 @@ import {
   SessionItemEvaluation,
 } from '#/components/flashcards/FlashcardsSessionSummary'
 import { KanjiItemJlptLevel } from '#/database/schema'
+import { useAppSessionStore } from '#/store/app-session'
+import { v4 as uuid } from 'uuid'
+import { ROUTES } from '#/constants/router'
+
+export const useInitiateFlashcardsSession = () => {
+  const { setSession } = useAppSessionStore((state) => state)
+  const { navigate } = useNavigation()
+
+  const initiateFlashcardsSessionHandler = useCallback(
+    (level: KanjiItemJlptLevel | undefined) => {
+      const sessionId = uuid()
+      // TODO: Save level in Zustand and read this param from store
+      const levelParam = level ? `?level=${level}` : ''
+
+      setSession({
+        sessionId,
+        sessionType: 'flashcards',
+        sessionParentUrl: ROUTES.flashcards,
+      })
+
+      navigate(`${ROUTES.flashcards}/${sessionId}${levelParam}`)
+    },
+    [navigate, setSession]
+  )
+
+  return { initiateFlashcardsSession: initiateFlashcardsSessionHandler }
+}
 
 export const useFlashcardsSession = () => {
   const params = useSearchParams()
-  const level = params.get('level') as KanjiItemJlptLevel | null
+  // TODO: Read value from state instead of param
+  const level = params.get('level') as KanjiItemJlptLevel | undefined
+
+  const { resetSession } = useAppSessionStore((state) => state)
+  const { initiateFlashcardsSession } = useInitiateFlashcardsSession()
 
   const {
     data: kanjiSet,
@@ -66,13 +97,16 @@ export const useFlashcardsSession = () => {
 
   const newSessionHandler = useCallback(() => {
     resetSessionState()
+    initiateFlashcardsSession(level)
     refetch()
-  }, [resetSessionState, refetch])
+  }, [resetSessionState, refetch, initiateFlashcardsSession, level])
 
   const endSessionHandler = useCallback(() => {
+    navigate(ROUTES.flashcards)
+
     resetSessionState()
-    navigate('/learn/flashcards')
-  }, [navigate, resetSessionState])
+    resetSession()
+  }, [navigate, resetSessionState, resetSession])
 
   return {
     kanjiSet,
@@ -89,6 +123,21 @@ export const useFlashcardsSession = () => {
     newSession: newSessionHandler,
     endSession: endSessionHandler,
   }
+}
+
+export const useFlashcardsLevelChoice = (
+  isDisabled: boolean,
+  level?: KanjiItemJlptLevel
+) => {
+  const { initiateFlashcardsSession } = useInitiateFlashcardsSession()
+
+  const flashcardsSessionHandler = useCallback(() => {
+    if (isDisabled) return
+
+    initiateFlashcardsSession(level)
+  }, [level, isDisabled, initiateFlashcardsSession])
+
+  return { startFlashcardsSession: flashcardsSessionHandler }
 }
 
 export const useFlashcardsSessionSummary = (
