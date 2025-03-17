@@ -156,6 +156,7 @@ export const useFlashcardsSessionSummary = (
       'minutes',
       'seconds',
     ])
+
     const minutes = duration.minutes.toFixed(0)
     const seconds = duration.seconds.toFixed(0).padStart(2, '0')
 

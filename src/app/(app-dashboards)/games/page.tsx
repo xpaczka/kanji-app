@@ -13,7 +13,7 @@ export default async function Games() {
   return (
     <div className='grid grid-cols-3 grid-rows-2 gap-8'>
       <div className='col-start-1 col-end-3 row-start-1 row-end-2'>
-        <DashboardActionItem title='Memo'>
+        <DashboardActionItem title='Memo' href='/games/memo/something'>
           Polish your Kanji skill <br />
           with a quick memo games
         </DashboardActionItem>
