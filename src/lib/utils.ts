@@ -1,4 +1,3 @@
-import { DatabaseKanji } from '#/database/schema'
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
@@ -13,19 +12,4 @@ export const shuffle = <T>(items: T[]): T[] => {
   }
 
   return newItems
-}
-
-export const getRandomKanjiSet = (
-  kanjiSet: DatabaseKanji[],
-  count: number
-): DatabaseKanji[] => {
-  const uniqueKanjiSet = Array.from(
-    new Map(kanjiSet.map((item) => [item.kanji, item])).values()
-  )
-
-  if (count >= uniqueKanjiSet.length) return uniqueKanjiSet
-
-  const newKanjiSet = shuffle(uniqueKanjiSet)
-
-  return newKanjiSet.slice(newKanjiSet.length - count)
 }

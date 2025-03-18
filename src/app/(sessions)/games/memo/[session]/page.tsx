@@ -3,9 +3,10 @@
 import { trpc } from '#/app/_trpc/client'
 import MemoGameItem from '#/components/memo-game/MemoGameItem'
 import { Spinner } from '#/components/ui/spinner'
+import { useMemoGameCards } from '#/hooks/memo-game'
 import { shuffle } from '#/lib/utils'
 import { DateTime } from 'luxon'
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useInterval } from 'usehooks-ts'
 
 export default function MemoGameSessionPage() {
@@ -14,15 +15,6 @@ export default function MemoGameSessionPage() {
 
   const [time, setTime] = useState(1000)
   const [guessCount] = useState(0)
-
-  const memoGamePairs = useMemo(() => {
-    if (!kanjiSet || !kanjiSet.length) return []
-
-    return kanjiSet.map((item) => {
-      const values = Object.values(item)
-      return { [values[0]]: values[1] }
-    })
-  }, [kanjiSet])
 
   useInterval(() => {
     setTime((prev) => prev + 1000)
@@ -36,35 +28,7 @@ export default function MemoGameSessionPage() {
     [kanjiSet]
   )
 
-  const [cardsRevealed, setCardsRevealed] = useState(cards.map(() => false))
-  const [firstChoice, setFirstChoice] = useState<string | null>(null)
-  const [secondChoice, setSecondChoice] = useState<string | null>(null)
-
-  const toggleCard = useCallback(
-    (value: string, index: number) => {
-      console.log(firstChoice, secondChoice)
-
-      if (
-        firstChoice === value ||
-        (firstChoice !== null && secondChoice !== null)
-      )
-        return
-
-      if (firstChoice === null) {
-        setFirstChoice(value)
-      } else if (secondChoice === null) {
-        setSecondChoice(value)
-      }
-
-      setCardsRevealed((prev) => {
-        const prevState = [...prev]
-        prevState[index] = prevState[index] ? false : true
-
-        return prevState
-      })
-    },
-    [firstChoice, secondChoice]
-  )
+  const { cardsRevealed, toggleCard } = useMemoGameCards(kanjiSet, cards)
 
   if (isLoading) {
     return (

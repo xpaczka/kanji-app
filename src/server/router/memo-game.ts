@@ -1,5 +1,5 @@
 import { getAllKanjiQuery } from '#/database/queries'
-import { getRandomKanjiSet } from '#/lib/utils'
+import { getRandomKanjiSet } from '#/lib/kanji'
 import { MemoGameItem } from '#/schemas/games'
 import { publicProcedure, router } from '#/server/trpc'
 

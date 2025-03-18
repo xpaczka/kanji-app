@@ -1,6 +1,6 @@
 import { getAllKanjiQuery, getKanjiByLevelQuery } from '#/database/queries'
 import { DatabaseKanji, kanjiItemJlptLevel } from '#/database/schema'
-import { getRandomKanjiSet } from '#/lib/utils'
+import { getRandomKanjiSet } from '#/lib/kanji'
 import { publicProcedure, router } from '#/server/trpc'
 
 const KANJI_SESSION_COUNT = 10
