@@ -5,7 +5,7 @@ import MemoGameItem from '#/components/memo-game/MemoGameItem'
 import MemoGameSummary from '#/components/memo-game/MemoGameSummary'
 import { Spinner } from '#/components/ui/spinner'
 import { useMemoGameCards } from '#/hooks/memo-game'
-import { shuffle } from '#/lib/utils'
+import { calculateTimeDifferenceToFormat, shuffle } from '#/lib/utils'
 import { DateTime } from 'luxon'
 import { useMemo, useState } from 'react'
 import { useInterval } from 'usehooks-ts'
@@ -14,12 +14,17 @@ export default function MemoGameSessionPage() {
   const { data: kanjiSet, isLoading } =
     trpc.memoGame.getMemoGameKanji.useQuery()
 
-  const [time, setTime] = useState(1000)
+  const initialTime = useMemo(() => DateTime.now(), [])
+
+  const [time, setTime] = useState<DateTime>(initialTime)
   const [guessCount, setGuessCount] = useState(0)
 
   useInterval(() => {
-    setTime((prev) => prev + 1000)
-  }, 1000)
+    const newTime = initialTime.plus({
+      milliseconds: DateTime.now().diff(initialTime).milliseconds,
+    })
+    setTime(newTime)
+  }, 500)
 
   const cards = useMemo(
     () =>
@@ -36,7 +41,7 @@ export default function MemoGameSessionPage() {
   )
 
   if (gameWon) {
-    return <MemoGameSummary />
+    return <MemoGameSummary gameStartTimestamp={initialTime} />
   }
 
   if (isLoading) {
@@ -53,7 +58,8 @@ export default function MemoGameSessionPage() {
     <div className='flex flex-col items-center'>
       <div className='flex gap-10 mb-4'>
         <div>
-          Time: <strong>{DateTime.fromMillis(time).toFormat('mm:ss')}</strong>
+          Time:{' '}
+          <strong>{calculateTimeDifferenceToFormat(initialTime, time)}</strong>
         </div>
         <div>
           Guesses: <strong>{guessCount}</strong>

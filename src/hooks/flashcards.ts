@@ -11,6 +11,7 @@ import { KanjiItemJlptLevel } from '#/database/schema'
 import { useAppSessionStore } from '#/store/app-session'
 import { v4 as uuid } from 'uuid'
 import { ROUTES } from '#/constants/router'
+import { calculateTimeDifferenceToFormat } from '#/lib/utils'
 
 export const useInitiateFlashcardsSession = () => {
   const { setSession } = useAppSessionStore((state) => state)
@@ -149,19 +150,14 @@ export const useFlashcardsSessionSummary = (
     setSessionEndTime(DateTime.now())
   }, [])
 
-  const timeSpent = useMemo(() => {
-    if (!sessionStartTime || !sessionEndTime) return '0:00'
+  const timeSpent = useMemo(
+    () =>
+      sessionStartTime && sessionEndTime
+        ? calculateTimeDifferenceToFormat(sessionStartTime, sessionEndTime)
+        : '0:00',
 
-    const duration = sessionEndTime.diff(sessionStartTime, [
-      'minutes',
-      'seconds',
-    ])
-
-    const minutes = duration.minutes.toFixed(0)
-    const seconds = duration.seconds.toFixed(0).padStart(2, '0')
-
-    return `${minutes}:${seconds}`
-  }, [sessionStartTime, sessionEndTime])
+    [sessionStartTime, sessionEndTime]
+  )
 
   return { timeSpent }
 }
