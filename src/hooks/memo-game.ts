@@ -16,6 +16,7 @@ export const useMemoGameCards = (
   setGuessCount: Dispatch<SetStateAction<number>>
 ) => {
   const [cardsRevealed, setCardsRevealed] = useState(cards.map(() => false))
+  const [gameWon, setGameWon] = useState(false)
 
   const [firstChoice, setFirstChoice] = useState<MemoGameChoice>(null)
   const [secondChoice, setSecondChoice] = useState<MemoGameChoice>(null)
@@ -64,6 +65,8 @@ export const useMemoGameCards = (
 
           return prevState
         })
+      } else if (cardsRevealed.every((card) => card)) {
+        setGameWon(true)
       }
 
       setGuessCount((prev) => prev + 1)
@@ -72,7 +75,7 @@ export const useMemoGameCards = (
     }, 1_000)
 
     return () => clearTimeout(timeout)
-  }, [firstChoice, secondChoice, memoGamePairs, setGuessCount])
+  }, [firstChoice, secondChoice, memoGamePairs, cardsRevealed, setGuessCount])
 
-  return { cardsRevealed, toggleCard }
+  return { cardsRevealed, toggleCard, gameWon }
 }

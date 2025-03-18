@@ -2,6 +2,7 @@
 
 import { trpc } from '#/app/_trpc/client'
 import MemoGameItem from '#/components/memo-game/MemoGameItem'
+import MemoGameSummary from '#/components/memo-game/MemoGameSummary'
 import { Spinner } from '#/components/ui/spinner'
 import { useMemoGameCards } from '#/hooks/memo-game'
 import { shuffle } from '#/lib/utils'
@@ -28,11 +29,15 @@ export default function MemoGameSessionPage() {
     [kanjiSet]
   )
 
-  const { cardsRevealed, toggleCard } = useMemoGameCards(
+  const { cardsRevealed, toggleCard, gameWon } = useMemoGameCards(
     kanjiSet,
     cards,
     setGuessCount
   )
+
+  if (gameWon) {
+    return <MemoGameSummary />
+  }
 
   if (isLoading) {
     return (
