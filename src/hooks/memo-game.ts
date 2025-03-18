@@ -34,7 +34,12 @@ export const useMemoGameCards = (
 
   const toggleCard = useCallback(
     (value: string, index: number) => {
-      if (firstChoice?.value === value || (firstChoice && secondChoice)) return
+      if (
+        firstChoice?.value === value ||
+        (firstChoice && secondChoice) ||
+        cardsRevealed[index]
+      )
+        return
 
       if (!firstChoice) {
         setFirstChoice({ value, index })
@@ -49,7 +54,7 @@ export const useMemoGameCards = (
         return prevState
       })
     },
-    [firstChoice, secondChoice]
+    [firstChoice, secondChoice, cardsRevealed]
   )
 
   useEffect(() => {
@@ -65,7 +70,7 @@ export const useMemoGameCards = (
 
           return prevState
         })
-      } else if (cardsRevealed.every((card) => card)) {
+      } else if (cardsRevealed.every((card) => card === true)) {
         setGameWon(true)
       }
 
