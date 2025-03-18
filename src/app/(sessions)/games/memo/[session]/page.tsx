@@ -14,7 +14,7 @@ export default function MemoGameSessionPage() {
     trpc.memoGame.getMemoGameKanji.useQuery()
 
   const [time, setTime] = useState(1000)
-  const [guessCount] = useState(0)
+  const [guessCount, setGuessCount] = useState(0)
 
   useInterval(() => {
     setTime((prev) => prev + 1000)
@@ -28,7 +28,11 @@ export default function MemoGameSessionPage() {
     [kanjiSet]
   )
 
-  const { cardsRevealed, toggleCard } = useMemoGameCards(kanjiSet, cards)
+  const { cardsRevealed, toggleCard } = useMemoGameCards(
+    kanjiSet,
+    cards,
+    setGuessCount
+  )
 
   if (isLoading) {
     return (

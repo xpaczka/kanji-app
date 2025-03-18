@@ -1,11 +1,19 @@
 'use client'
 import { checkMemoGamePairs, MemoGameChoice } from '#/lib/memo-game'
 import { MemoGameItem } from '#/schemas/games'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 
 export const useMemoGameCards = (
   kanjiSet: MemoGameItem[] | undefined,
-  cards: string[]
+  cards: string[],
+  setGuessCount: Dispatch<SetStateAction<number>>
 ) => {
   const [cardsRevealed, setCardsRevealed] = useState(cards.map(() => false))
 
@@ -58,12 +66,13 @@ export const useMemoGameCards = (
         })
       }
 
+      setGuessCount((prev) => prev + 1)
       setFirstChoice(null)
       setSecondChoice(null)
-    }, 3_000)
+    }, 1_000)
 
     return () => clearTimeout(timeout)
-  }, [firstChoice, secondChoice, memoGamePairs])
+  }, [firstChoice, secondChoice, memoGamePairs, setGuessCount])
 
   return { cardsRevealed, toggleCard }
 }
