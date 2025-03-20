@@ -6,6 +6,7 @@ export const ROUTES = {
   learnDashboard: '/learn',
   gamesDashboard: '/games',
   flashcards: '/learn/flashcards',
+  memoGame: '/games/memo',
   apiTrpc: '/api/trpc',
 }
 

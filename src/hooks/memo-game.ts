@@ -1,6 +1,7 @@
 'use client'
 import { checkMemoGamePairs, MemoGameChoice } from '#/lib/memo-game'
 import { MemoGameItem } from '#/schemas/games'
+import { useAppSessionStore } from '#/store/app-session'
 import {
   Dispatch,
   SetStateAction,
@@ -9,6 +10,28 @@ import {
   useMemo,
   useState,
 } from 'react'
+import { useNavigation } from './router'
+import { ROUTES } from '#/constants/router'
+import { v4 as uuid } from 'uuid'
+
+export const useInitiateMemoGameSession = () => {
+  const { setSession } = useAppSessionStore((state) => state)
+  const { navigate } = useNavigation()
+
+  const initiateMemoGameSessionHandler = useCallback(() => {
+    const sessionId = uuid()
+
+    setSession({
+      sessionId,
+      sessionType: 'flashcards',
+      sessionParentUrl: ROUTES.gamesDashboard,
+    })
+
+    navigate(`${ROUTES.memoGame}/${sessionId}`)
+  }, [navigate, setSession])
+
+  return { initiateMemoGameSession: initiateMemoGameSessionHandler }
+}
 
 export const useMemoGameCards = (
   kanjiSet: MemoGameItem[] | undefined,

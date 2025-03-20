@@ -4,6 +4,8 @@ import { trpc } from '#/app/_trpc/client'
 import MemoGameItem from '#/components/memo-game/MemoGameItem'
 import MemoGameSummary from '#/components/memo-game/MemoGameSummary'
 import { Spinner } from '#/components/ui/spinner'
+import { ROUTES } from '#/constants/router'
+import { useAppSession } from '#/hooks/app-session'
 import { useMemoGameCards } from '#/hooks/memo-game'
 import { calculateTimeDifferenceToFormat, shuffle } from '#/lib/utils'
 import { DateTime } from 'luxon'
@@ -39,6 +41,10 @@ export default function MemoGameSessionPage() {
     cards,
     setGuessCount
   )
+
+  const { sessionId } = useAppSession(ROUTES.gamesDashboard)
+
+  if (!sessionId) return null
 
   if (gameWon) {
     return <MemoGameSummary gameStartTimestamp={initialTime} />
