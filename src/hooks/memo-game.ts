@@ -1,18 +1,14 @@
 'use client'
 import { checkMemoGamePairs, MemoGameChoice } from '#/lib/memo-game'
-import { MemoGameItem } from '#/schemas/games'
 import { useAppSessionStore } from '#/store/app-session'
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigation } from './router'
 import { ROUTES } from '#/constants/router'
 import { v4 as uuid } from 'uuid'
+import { trpc } from '#/app/_trpc/client'
+import { shuffle } from '#/lib/utils'
+import { DateTime } from 'luxon'
+import { useInterval } from 'usehooks-ts'
 
 export const useInitiateMemoGameSession = () => {
   const { setSession } = useAppSessionStore((state) => state)
@@ -33,16 +29,51 @@ export const useInitiateMemoGameSession = () => {
   return { initiateMemoGameSession: initiateMemoGameSessionHandler }
 }
 
-export const useMemoGameCards = (
-  kanjiSet: MemoGameItem[] | undefined,
-  cards: string[],
-  setGuessCount: Dispatch<SetStateAction<number>>
-) => {
+export const useMemoGameCards = () => {
+  const {
+    data: kanjiSet,
+    isLoading,
+    refetch,
+  } = trpc.memoGame.getMemoGameKanji.useQuery()
+
+  const cards = useMemo(
+    () =>
+      kanjiSet && kanjiSet.length > 0
+        ? shuffle(kanjiSet.flatMap((item) => Object.values(item)))
+        : [],
+    [kanjiSet]
+  )
+
+  const [initialTime, setInitialTime] = useState<DateTime | null>(null)
+  const [time, setTime] = useState<DateTime | null>(null)
+
+  useEffect(() => {
+    const now = DateTime.now()
+
+    setInitialTime(now)
+    setTime(now)
+  }, [])
+
+  useInterval(() => {
+    if (!initialTime) return
+
+    const newTime = initialTime.plus({
+      milliseconds: DateTime.now().diff(initialTime).milliseconds,
+    })
+    setTime(newTime)
+  }, 500)
+
+  const [guessCount, setGuessCount] = useState(0)
+
   const [cardsRevealed, setCardsRevealed] = useState(cards.map(() => false))
   const [gameWon, setGameWon] = useState(false)
 
   const [firstChoice, setFirstChoice] = useState<MemoGameChoice>(null)
   const [secondChoice, setSecondChoice] = useState<MemoGameChoice>(null)
+
+  const { navigate } = useNavigation()
+  const { resetSession } = useAppSessionStore((state) => state)
+  const { initiateMemoGameSession } = useInitiateMemoGameSession()
 
   const memoGamePairs = useMemo(() => {
     if (!kanjiSet || !kanjiSet.length) return {}
@@ -80,6 +111,29 @@ export const useMemoGameCards = (
     [firstChoice, secondChoice, cardsRevealed]
   )
 
+  const resetSessionState = useCallback(() => {
+    setCardsRevealed(cards.map(() => false))
+    setGameWon(false)
+    setFirstChoice(null)
+    setSecondChoice(null)
+    setGuessCount(0)
+    setInitialTime(DateTime.now())
+    setTime(DateTime.now())
+  }, [cards])
+
+  const newSessionHandler = useCallback(() => {
+    resetSessionState()
+    initiateMemoGameSession()
+    refetch()
+  }, [resetSessionState, refetch, initiateMemoGameSession])
+
+  const endSessionHandler = useCallback(() => {
+    navigate(ROUTES.gamesDashboard)
+
+    resetSessionState()
+    resetSession()
+  }, [navigate, resetSessionState, resetSession])
+
   useEffect(() => {
     if (!firstChoice || !secondChoice) return
 
@@ -105,5 +159,16 @@ export const useMemoGameCards = (
     return () => clearTimeout(timeout)
   }, [firstChoice, secondChoice, memoGamePairs, cardsRevealed, setGuessCount])
 
-  return { cardsRevealed, toggleCard, gameWon }
+  return {
+    cards,
+    isLoading,
+    cardsRevealed,
+    toggleCard,
+    gameWon,
+    gameStartTime: initialTime,
+    currentTime: time,
+    guessCount,
+    newSession: newSessionHandler,
+    endSession: endSessionHandler,
+  }
 }

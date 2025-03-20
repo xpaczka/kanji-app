@@ -12,11 +12,15 @@ import { DateTime } from 'luxon'
 import { calculateTimeDifferenceToFormat } from '#/lib/utils'
 
 type MemoGameSummaryProps = {
-  gameStartTimestamp: DateTime
+  gameStartTimestamp: DateTime | null
+  endSessionHandler: () => void
+  newSessionHandler: () => void
 }
 
 export default function MemoGameSummary({
   gameStartTimestamp,
+  endSessionHandler,
+  newSessionHandler,
 }: MemoGameSummaryProps) {
   const [sessionEndTime, setSessionEndTime] = useState<DateTime | null>(null)
 
@@ -51,8 +55,10 @@ export default function MemoGameSummary({
         </div>
       </CardContent>
       <CardFooter className='flex items-center gap-4'>
-        <Button>Play again</Button>
-        <Button variant='secondary'>Go to dashboard</Button>
+        <Button onClick={newSessionHandler}>Play again</Button>
+        <Button onClick={endSessionHandler} variant='secondary'>
+          Go to dashboard
+        </Button>
       </CardFooter>
     </Card>
   )

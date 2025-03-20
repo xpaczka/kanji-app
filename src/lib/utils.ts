@@ -16,9 +16,11 @@ export const shuffle = <T>(items: T[]): T[] => {
 }
 
 export const calculateTimeDifferenceToFormat = (
-  startTime: DateTime,
-  endTime: DateTime
+  startTime: DateTime | null,
+  endTime: DateTime | null
 ) => {
+  if (!startTime || !endTime) return '0:00'
+
   const duration = endTime.diff(startTime, ['minutes', 'seconds'])
 
   const minutes = duration.minutes.toFixed(0)
