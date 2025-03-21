@@ -1,0 +1,19 @@
+'use client'
+
+import { ROUTES } from '#/constants/router'
+import { useNavigation } from '#/hooks/router'
+import DashboardActionItem from '../dashboard/DashboardActionItem'
+
+export default function FlashcardsButton() {
+  const { navigate } = useNavigation()
+
+  return (
+    <DashboardActionItem
+      title='Flashcards'
+      onClick={() => navigate(ROUTES.flashcards)}
+    >
+      Improve your Kanji skills <br />
+      with the help of flashcards
+    </DashboardActionItem>
+  )
+}
