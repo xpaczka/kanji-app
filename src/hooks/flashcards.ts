@@ -20,7 +20,6 @@ export const useInitiateFlashcardsSession = () => {
   const initiateFlashcardsSessionHandler = useCallback(
     (level: KanjiItemJlptLevel | undefined) => {
       const sessionId = uuid()
-      // TODO: Save level in Zustand and read this param from store
       const levelParam = level ? `?level=${level}` : ''
 
       setSession({
@@ -39,7 +38,6 @@ export const useInitiateFlashcardsSession = () => {
 
 export const useFlashcardsSession = () => {
   const params = useSearchParams()
-  // TODO: Read value from state instead of param
   const level = params.get('level') as KanjiItemJlptLevel | undefined
 
   const { resetSession } = useAppSessionStore((state) => state)
