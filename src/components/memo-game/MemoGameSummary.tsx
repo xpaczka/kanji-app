@@ -10,15 +10,18 @@ import { Label } from '#/components/ui/label'
 import { useEffect, useMemo, useState } from 'react'
 import { DateTime } from 'luxon'
 import { calculateTimeDifferenceToFormat } from '#/lib/utils'
+import { calculateMemoGameScore } from '#/lib/memo-game'
 
 type MemoGameSummaryProps = {
   gameStartTimestamp: DateTime | null
+  guessCount: number
   endSessionHandler: () => void
   newSessionHandler: () => void
 }
 
 export default function MemoGameSummary({
   gameStartTimestamp,
+  guessCount,
   endSessionHandler,
   newSessionHandler,
 }: MemoGameSummaryProps) {
@@ -30,10 +33,20 @@ export default function MemoGameSummary({
 
   const gameTime = useMemo(
     () =>
-      sessionEndTime
-        ? calculateTimeDifferenceToFormat(gameStartTimestamp, sessionEndTime)
-        : '0:00',
+      sessionEndTime && gameStartTimestamp
+        ? sessionEndTime.diff(gameStartTimestamp).as('seconds')
+        : 0,
     [gameStartTimestamp, sessionEndTime]
+  )
+
+  const displayedGameTime = useMemo(
+    () => calculateTimeDifferenceToFormat(gameStartTimestamp, sessionEndTime),
+    [gameStartTimestamp, sessionEndTime]
+  )
+
+  const memoGameScore = useMemo(
+    () => calculateMemoGameScore(guessCount, gameTime),
+    [guessCount, gameTime]
   )
 
   return (
@@ -45,12 +58,11 @@ export default function MemoGameSummary({
         <div className='flex flex-col items-center text-center py-8 gap-8'>
           <div className='flex flex-col items-center'>
             <Label>Time</Label>
-            <div className='font-bold text-2xl'>{gameTime}</div>
+            <div className='font-bold text-2xl'>{displayedGameTime}</div>
           </div>
           <div className='flex flex-col items-center'>
             <Label>Points earned</Label>
-            {/* TODO: Calculate points earned from memo game */}
-            <div className='font-bold text-2xl'>+10</div>
+            <div className='font-bold text-2xl'>{memoGameScore}</div>
           </div>
         </div>
       </CardContent>

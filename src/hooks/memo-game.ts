@@ -1,5 +1,9 @@
 'use client'
-import { checkMemoGamePairs, MemoGameChoice } from '#/lib/memo-game'
+import {
+  checkMemoGamePairs,
+  MEMO_GAME_GUESS_COOLDOWN,
+  MemoGameChoice,
+} from '#/lib/memo-game'
 import { useAppSessionStore } from '#/store/app-session'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigation } from './router'
@@ -154,7 +158,7 @@ export const useMemoGameCards = () => {
       setGuessCount((prev) => prev + 1)
       setFirstChoice(null)
       setSecondChoice(null)
-    }, 1_000)
+    }, MEMO_GAME_GUESS_COOLDOWN * 1_000)
 
     return () => clearTimeout(timeout)
   }, [firstChoice, secondChoice, memoGamePairs, cardsRevealed, setGuessCount])

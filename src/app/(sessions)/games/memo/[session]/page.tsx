@@ -38,6 +38,7 @@ export default function MemoGameSessionPage() {
     return (
       <MemoGameSummary
         gameStartTimestamp={gameStartTime}
+        guessCount={guessCount}
         endSessionHandler={endSession}
         newSessionHandler={newSession}
       />
