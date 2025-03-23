@@ -1,19 +1,24 @@
-import { serverClient } from '#/app/_trpc/server-client'
+'use client'
+
+import { trpc } from '#/app/_trpc/client'
 import DashboardActionItem from '#/components/dashboard/DashboardActionItem'
 import DashboardCard from '#/components/dashboard/DashboardCard'
 import DashboardImage from '#/components/dashboard/DashboardImage'
 import { Label } from '#/components/ui/label'
 import { Table, TableBody, TableCell, TableRow } from '#/components/ui/table'
+import { useInitiateMemoGameSession } from '#/hooks/memo-game'
 
-export default async function Games() {
-  const leaderboard = await serverClient.leaderboard.getLeaderboard({
+export default function Games() {
+  const { data: leaderboard } = trpc.leaderboard.getLeaderboard.useQuery({
     key: 'gamesLeaderboard',
   })
+
+  const { initiateMemoGameSession } = useInitiateMemoGameSession()
 
   return (
     <div className='grid grid-cols-3 grid-rows-2 gap-8'>
       <div className='col-start-1 col-end-3 row-start-1 row-end-2'>
-        <DashboardActionItem title='Memo'>
+        <DashboardActionItem title='Memo' onClick={initiateMemoGameSession}>
           Polish your Kanji skill <br />
           with a quick memo games
         </DashboardActionItem>
@@ -43,18 +48,19 @@ export default async function Games() {
         <DashboardCard title='Leaderboard' className='h-full'>
           <Table>
             <TableBody>
-              {leaderboard
-                .sort((a, b) => b.score - a.score)
-                .map(({ username, score }, index) => (
-                  <TableRow key={username}>
-                    <TableCell>#{index + 1}</TableCell>
-                    <TableCell>
-                      <DashboardImage />
-                    </TableCell>
-                    <TableCell className='w-full'>{username}</TableCell>
-                    <TableCell className='text-right'>{score}</TableCell>
-                  </TableRow>
-                ))}
+              {leaderboard &&
+                leaderboard
+                  .sort((a, b) => b.score - a.score)
+                  .map(({ username, score }, index) => (
+                    <TableRow key={username}>
+                      <TableCell>#{index + 1}</TableCell>
+                      <TableCell>
+                        <DashboardImage />
+                      </TableCell>
+                      <TableCell className='w-full'>{username}</TableCell>
+                      <TableCell className='text-right'>{score}</TableCell>
+                    </TableRow>
+                  ))}
             </TableBody>
           </Table>
         </DashboardCard>

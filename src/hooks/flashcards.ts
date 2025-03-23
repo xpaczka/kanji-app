@@ -11,15 +11,15 @@ import { KanjiItemJlptLevel } from '#/database/schema'
 import { useAppSessionStore } from '#/store/app-session'
 import { v4 as uuid } from 'uuid'
 import { ROUTES } from '#/constants/router'
+import { calculateTimeDifferenceToFormat } from '#/lib/utils'
 
 export const useInitiateFlashcardsSession = () => {
-  const { setSession } = useAppSessionStore((state) => state)
+  const setSession = useAppSessionStore((state) => state.setSession)
   const { navigate } = useNavigation()
 
   const initiateFlashcardsSessionHandler = useCallback(
     (level: KanjiItemJlptLevel | undefined) => {
       const sessionId = uuid()
-      // TODO: Save level in Zustand and read this param from store
       const levelParam = level ? `?level=${level}` : ''
 
       setSession({
@@ -38,7 +38,6 @@ export const useInitiateFlashcardsSession = () => {
 
 export const useFlashcardsSession = () => {
   const params = useSearchParams()
-  // TODO: Read value from state instead of param
   const level = params.get('level') as KanjiItemJlptLevel | undefined
 
   const { resetSession } = useAppSessionStore((state) => state)
@@ -149,18 +148,14 @@ export const useFlashcardsSessionSummary = (
     setSessionEndTime(DateTime.now())
   }, [])
 
-  const timeSpent = useMemo(() => {
-    if (!sessionStartTime || !sessionEndTime) return '0:00'
+  const timeSpent = useMemo(
+    () =>
+      sessionStartTime && sessionEndTime
+        ? calculateTimeDifferenceToFormat(sessionStartTime, sessionEndTime)
+        : '0:00',
 
-    const duration = sessionEndTime.diff(sessionStartTime, [
-      'minutes',
-      'seconds',
-    ])
-    const minutes = duration.minutes.toFixed(0)
-    const seconds = duration.seconds.toFixed(0).padStart(2, '0')
-
-    return `${minutes}:${seconds}`
-  }, [sessionStartTime, sessionEndTime])
+    [sessionStartTime, sessionEndTime]
+  )
 
   return { timeSpent }
 }

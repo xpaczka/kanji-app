@@ -1,10 +1,8 @@
-import DashboardActionItem from '#/components/dashboard/DashboardActionItem'
 import LearnKanjiItem from '#/components/learn/LearnKanjiItem'
 import { serverClient } from '#/app/_trpc/server-client'
 import LearnDiscoveredKanji from '#/components/learn/LearnDiscoveredKanji'
 import DashboardLearningOverview from '#/components/dashboard/DashboardLearningOverview'
-import Link from 'next/link'
-import { ROUTES } from '#/constants/router'
+import FlashcardsButton from '#/components/flashcards/FlashcardsButton'
 
 export default async function Learn() {
   const recentKanji = await serverClient.learn.getRecentKanji('user')
@@ -13,12 +11,7 @@ export default async function Learn() {
     <>
       <div className='grid grid-cols-5 gap-6 mb-8'>
         <div className='col-start-1 col-end-4'>
-          <Link href={ROUTES.flashcards}>
-            <DashboardActionItem title='Flashcards'>
-              Improve your Kanji skills <br />
-              with the help of flashcards
-            </DashboardActionItem>
-          </Link>
+          <FlashcardsButton />
         </div>
         <div className='col-start-4 col-end-6'>
           <DashboardLearningOverview />
