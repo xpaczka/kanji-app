@@ -5,7 +5,8 @@ export type MemoGameChoice = {
   index: number
 } | null
 
-export const MEMO_GAME_GUESS_COOLDOWN = 1
+export const MEMO_GAME_GUESS_COOLDOWN = 1 // in seconds
+export const MEMO_GAME_PERFECT_GAME_BONUS = 200
 
 export const checkMemoGamePairs = (
   pairs: { [key: string]: string },
@@ -49,7 +50,7 @@ export const calculateMemoGameScore = (
 
   // Bonus for perfect play
   if (guessCount === minGuesses) {
-    score += 100
+    score += MEMO_GAME_PERFECT_GAME_BONUS
   }
 
   return Math.floor(Math.max(score, 0))
