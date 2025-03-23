@@ -1,9 +1,5 @@
 'use client'
-import {
-  checkMemoGamePairs,
-  MEMO_GAME_GUESS_COOLDOWN,
-  MemoGameChoice,
-} from '#/lib/memo-game'
+import { checkMemoGamePairs, MemoGameChoice } from '#/lib/memo-game'
 import { useAppSessionStore } from '#/store/app-session'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigation } from './router'
@@ -13,6 +9,7 @@ import { trpc } from '#/app/_trpc/client'
 import { shuffle } from '#/lib/utils'
 import { DateTime } from 'luxon'
 import { useInterval } from 'usehooks-ts'
+import { MEMO_GAME_GUESS_COOLDOWN } from '#/constants/memo-game'
 
 export const useInitiateMemoGameSession = () => {
   const setSession = useAppSessionStore((state) => state.setSession)

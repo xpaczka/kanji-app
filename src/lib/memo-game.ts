@@ -1,12 +1,13 @@
-import { MEMO_GAME_KANJI_COUNT } from '#/constants/memo-game'
+import {
+  MEMO_GAME_GUESS_COOLDOWN,
+  MEMO_GAME_KANJI_COUNT,
+  MEMO_GAME_PERFECT_GAME_BONUS,
+} from '#/constants/memo-game'
 
 export type MemoGameChoice = {
   value: string
   index: number
 } | null
-
-export const MEMO_GAME_GUESS_COOLDOWN = 1 // in seconds
-export const MEMO_GAME_PERFECT_GAME_BONUS = 200
 
 export const checkMemoGamePairs = (
   pairs: { [key: string]: string },
