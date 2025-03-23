@@ -15,7 +15,7 @@ import { DateTime } from 'luxon'
 import { useInterval } from 'usehooks-ts'
 
 export const useInitiateMemoGameSession = () => {
-  const { setSession } = useAppSessionStore((state) => state)
+  const setSession = useAppSessionStore((state) => state.setSession)
   const { navigate } = useNavigation()
 
   const initiateMemoGameSessionHandler = useCallback(() => {

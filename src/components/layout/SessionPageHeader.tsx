@@ -4,7 +4,7 @@ import { useAppSessionStore } from '#/store/app-session'
 import { useMemo } from 'react'
 
 export default function SessionPageHeader() {
-  const { sessionType } = useAppSessionStore((state) => state)
+  const sessionType = useAppSessionStore((state) => state.sessionType)
 
   const pageHeader = useMemo(
     () =>

@@ -14,7 +14,7 @@ import { ROUTES } from '#/constants/router'
 import { calculateTimeDifferenceToFormat } from '#/lib/utils'
 
 export const useInitiateFlashcardsSession = () => {
-  const { setSession } = useAppSessionStore((state) => state)
+  const setSession = useAppSessionStore((state) => state.setSession)
   const { navigate } = useNavigation()
 
   const initiateFlashcardsSessionHandler = useCallback(

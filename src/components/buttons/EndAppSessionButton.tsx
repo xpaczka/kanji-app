@@ -18,9 +18,8 @@ import { useCallback } from 'react'
 export default function EndAppSessionButton() {
   const { navigate } = useNavigation()
 
-  const { sessionParentUrl, resetSession } = useAppSessionStore(
-    (state) => state
-  )
+  const sessionParentUrl = useAppSessionStore((state) => state.sessionParentUrl)
+  const resetSession = useAppSessionStore((state) => state.resetSession)
 
   const endAppSessionHandler = useCallback(() => {
     if (!sessionParentUrl) return
