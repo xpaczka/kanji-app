@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import { ClerkProvider } from '@clerk/nextjs'
 import TrpcProvider from '../providers/TrpcProvider'
 import StoreProvider from '#/providers/StoreProvider'
 
@@ -26,18 +25,16 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ClerkProvider>
-      <TrpcProvider>
-        <StoreProvider>
-          <html lang='en'>
-            <body
-              className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
-            >
-              {children}
-            </body>
-          </html>
-        </StoreProvider>
-      </TrpcProvider>
-    </ClerkProvider>
+    <TrpcProvider>
+      <StoreProvider>
+        <html lang='en'>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+          >
+            {children}
+          </body>
+        </html>
+      </StoreProvider>
+    </TrpcProvider>
   )
 }

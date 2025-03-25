@@ -1,6 +1,5 @@
 'use client'
 
-import { UserButton } from '@clerk/nextjs'
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -26,7 +25,6 @@ export default function TopNavigation() {
           </NavigationMenuItem>
         ))}
       </NavigationMenuList>
-      <UserButton />
     </NavigationMenu>
   )
 }
