@@ -3,7 +3,7 @@ import { data as kanjiData } from '../../scripts/data.json'
 import { KanjiItemJlptLevel, kanjiTable } from './schema'
 import { v4 as uuid } from 'uuid'
 import { drizzle } from 'drizzle-orm/node-postgres'
-import { reset, seed } from 'drizzle-seed'
+import { reset } from 'drizzle-seed'
 
 const args = process.argv.slice(2)
 const argsMap = new Map()
@@ -35,13 +35,9 @@ const main = async () => {
     kun_readings: item.kun_readings ?? [],
   }))
 
-  console.log('Resetting database...')
-
-  await reset(database, { kanji })
-
   console.log('Seeding database..')
 
-  await seed(database, { kanji })
+  await reset(database, { kanji })
 
   console.log('Seeding completed')
 }
