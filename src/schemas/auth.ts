@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 export type SignUpForm = z.infer<typeof signupFormSchema>
+export type SessionPayload = z.infer<typeof sessionPayloadSchema>
 
 export const signupFormSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email.' }).trim(),
@@ -17,4 +18,9 @@ export const signupFormSchema = z.object({
       message: 'Must contain at least one special character.',
     })
     .trim(),
+})
+
+export const sessionPayloadSchema = z.object({
+  userId: z.string().uuid(),
+  expiresAt: z.date(),
 })

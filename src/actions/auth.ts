@@ -4,6 +4,8 @@ import bcrypt from 'bcryptjs'
 import { database } from '#/database'
 import { userTable } from '#/database/schema'
 import { SignUpForm, signupFormSchema } from '#/schemas/auth'
+import { createSession } from '#/lib/session'
+import { redirect } from 'next/navigation'
 
 export const signup = async (formData: SignUpForm) => {
   const { email, username, password } = formData
@@ -41,7 +43,9 @@ export const signup = async (formData: SignUpForm) => {
     }
   }
 
-  // TODO: Create user session
+  // Create user session
+  await createSession(user.id)
 
-  // TODO: Redirect user to dashboard
+  // Redirect user to dashboard
+  redirect('/dashboard')
 }

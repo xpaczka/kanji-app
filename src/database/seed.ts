@@ -35,7 +35,7 @@ const main = async () => {
 
   console.log('Seeding database..')
 
-  await reset(database, { kanji })
+  await reset(database, { kanji, user: [] })
 
   console.log('Seeding completed')
 }
