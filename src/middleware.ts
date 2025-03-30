@@ -6,7 +6,7 @@ const protectedRoutes = ['/dashboard']
 const publicRoutes = ['/']
 
 const middleware = async (req: NextRequest) => {
-  updateSession(req)
+  await updateSession(req)
 
   const path = req.nextUrl.pathname
   const isProtectedRoute = protectedRoutes.includes(path)

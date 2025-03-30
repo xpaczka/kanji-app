@@ -9,8 +9,14 @@ import {
 } from '#/components/ui/navigation-menu'
 import Link from 'next/link'
 import { NAVIGATION_ITEMS } from '#/constants/router'
+import { DatabaseUser } from '#/database/schema'
+import UserAccount from './UserAccount'
 
-export default function TopNavigation() {
+type TopNavigationProps = {
+  user: Omit<DatabaseUser, 'password'> | null
+}
+
+export default function TopNavigation({ user }: TopNavigationProps) {
   return (
     <NavigationMenu className='py-4 px-10 justify-between max-w-full'>
       <div>KANJI APP</div>
@@ -25,6 +31,7 @@ export default function TopNavigation() {
           </NavigationMenuItem>
         ))}
       </NavigationMenuList>
+      <UserAccount user={user} />
     </NavigationMenu>
   )
 }
