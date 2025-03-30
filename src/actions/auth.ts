@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs'
 import { database } from '#/database'
 import { userTable } from '#/database/schema'
 import { SignUpForm, signupFormSchema } from '#/schemas/auth'
-import { createSession } from '#/lib/session'
+import { createSession, deleteSession } from '#/lib/session'
 import { redirect } from 'next/navigation'
 
 export const signup = async (formData: SignUpForm) => {
@@ -48,4 +48,9 @@ export const signup = async (formData: SignUpForm) => {
 
   // Redirect user to dashboard
   redirect('/dashboard')
+}
+
+export const logout = async () => {
+  await deleteSession()
+  redirect('/')
 }

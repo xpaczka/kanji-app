@@ -19,7 +19,7 @@ type TopNavigationProps = {
 export default function TopNavigation({ user }: TopNavigationProps) {
   return (
     <NavigationMenu className='py-4 px-10 justify-between max-w-full'>
-      <div>KANJI APP</div>
+      <Link href='/'>KANJI APP</Link>
       <NavigationMenuList>
         {NAVIGATION_ITEMS.map(({ href, title }) => (
           <NavigationMenuItem key={title}>

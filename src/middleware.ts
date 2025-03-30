@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { decrypt, SESSION_COOKIE_NAME, updateSession } from './lib/session'
 
 const protectedRoutes = ['/dashboard']
-const publicRoutes = ['/']
+const publicRoutes = ['/auth']
 
 const middleware = async (req: NextRequest) => {
   await updateSession(req)

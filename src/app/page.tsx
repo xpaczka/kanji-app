@@ -1,10 +1,21 @@
 import SignUp from '#/components/auth/SignUp'
+import { Button } from '#/components/ui/button'
+import { getSession } from '#/lib/session'
+import Link from 'next/link'
 
-export default function Home() {
+export default async function Home() {
+  const session = await getSession()
+
   return (
     <div className='grid grid-rows-[20px_1fr_20px] items-center justify-items-center p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
       <main className='flex gap-8 row-start-2 items-center sm:items-start'>
-        <SignUp />
+        {session ? (
+          <Link href='/dashboard'>
+            <Button>Go to dashboard</Button>
+          </Link>
+        ) : (
+          <SignUp />
+        )}
       </main>
     </div>
   )
