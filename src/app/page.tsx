@@ -1,4 +1,4 @@
-import SignUp from '#/components/auth/SignUp'
+import Auth from '#/components/auth/Auth'
 import { Button } from '#/components/ui/button'
 import { getSession } from '#/lib/session'
 import Link from 'next/link'
@@ -14,7 +14,7 @@ export default async function Home() {
             <Button>Go to dashboard</Button>
           </Link>
         ) : (
-          <SignUp />
+          <Auth />
         )}
       </main>
     </div>
