@@ -15,7 +15,7 @@ export const kanjiItemJlptLevel = z.enum([
 ])
 
 export const kanjiTable = pgTable('kanji', {
-  id: uuid().primaryKey(),
+  id: uuid().primaryKey().defaultRandom(),
   kanji: varchar({ length: 1 }).notNull().unique(),
   level: varchar({ length: 7 }).notNull().$type<KanjiItemJlptLevel>(),
   meanings: text().array().notNull(),
@@ -24,7 +24,7 @@ export const kanjiTable = pgTable('kanji', {
 })
 
 export const userTable = pgTable('user', {
-  id: uuid().primaryKey(),
+  id: uuid().primaryKey().defaultRandom(),
   email: varchar().notNull().unique(),
   username: varchar().notNull().unique(),
   password: varchar().notNull(),

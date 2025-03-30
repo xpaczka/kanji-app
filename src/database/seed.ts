@@ -1,7 +1,6 @@
 import { Pool } from 'pg'
 import { data as kanjiData } from '../../scripts/data.json'
 import { KanjiItemJlptLevel, kanjiTable } from './schema'
-import { v4 as uuid } from 'uuid'
 import { drizzle } from 'drizzle-orm/node-postgres'
 import { reset } from 'drizzle-seed'
 
@@ -27,7 +26,6 @@ const main = async () => {
   const database = drizzle(pool)
 
   const kanji: (typeof kanjiTable.$inferInsert)[] = kanjiData.map((item) => ({
-    id: uuid(),
     kanji: item.kanji,
     level: item.level as KanjiItemJlptLevel,
     meanings: item.meanings ?? [],

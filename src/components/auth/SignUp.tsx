@@ -1,9 +1,7 @@
 'use client'
 
-import { useCallback } from 'react'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { Input } from '../ui/input'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Form,
@@ -15,53 +13,18 @@ import {
 } from '../ui/form'
 import { Button } from '../ui/button'
 import { Card } from '../ui/card'
+import { signup } from '../../actions/auth'
+import { useCallback } from 'react'
+import { SignUpForm, signupFormSchema } from '#/schemas/auth'
 
-type SignUpForm = z.infer<typeof signupFormSchema>
-
-export const signupFormSchema = z.object({
-  email: z.string().email({ message: 'Please enter a valid email.' }).trim(),
-  username: z
-    .string()
-    .min(2, { message: 'Name must be at least 2 characters long.' })
-    .trim(),
-  password: z
-    .string()
-    .min(8, { message: 'Must be at least 8 characters long' })
-    .regex(/[a-zA-Z]/, { message: 'Must contain at least one letter.' })
-    .regex(/[0-9]/, { message: 'Must contain at least one number.' })
-    .regex(/[^a-zA-Z0-9]/, {
-      message: 'Must contain at least one special character.',
-    })
-    .trim(),
-})
-
-export default function SignUpForm() {
+export default function SignUp() {
   const form = useForm<SignUpForm>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: { email: '', username: '', password: '' },
   })
 
-  const onSubmit = useCallback((values: SignUpForm) => {
-    const { email, username, password } = values
-
-    // Validate sign up form fields
-    const validatedFields = signupFormSchema.safeParse({
-      email,
-      username,
-      password,
-    })
-
-    if (!validatedFields.success) {
-      return { errors: validatedFields.error.flatten().fieldErrors }
-    }
-
-    // TODO: Prepare data for insertion into database
-
-    // TODO: Insert user into database
-
-    // TODO: Create user session
-
-    // TODO: Redirect user to dashboard
+  const onSubmit: SubmitHandler<SignUpForm> = useCallback(async (data) => {
+    await signup(data)
   }, [])
 
   return (
@@ -119,6 +82,7 @@ export default function SignUpForm() {
                 )}`}</FormLabel>
                 <FormControl>
                   <Input
+                    type='password'
                     placeholder={'*'.repeat(16)}
                     {...field}
                     className='text-center w-[280px]'
