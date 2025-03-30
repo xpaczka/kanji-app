@@ -2,6 +2,7 @@ import 'server-only'
 import { SignJWT, jwtVerify } from 'jose'
 import { SessionPayload } from '#/schemas/auth'
 import { cookies } from 'next/headers'
+import { NextRequest, NextResponse } from 'next/server'
 
 const secretKey = process.env.SESSION_SECRET_KEY
 const encodedKey = new TextEncoder().encode(secretKey)
@@ -30,6 +31,15 @@ export const decrypt = async (session: string | undefined = '') => {
   }
 }
 
+export async function getSession() {
+  const cookieStore = await cookies()
+  const session = cookieStore.get(SESSION_COOKIE_NAME)?.value
+
+  if (!session) return null
+
+  return await decrypt(session)
+}
+
 export const createSession = async (userId: string) => {
   const expiresAt = new Date(Date.now() + SESSION_EXPIRATION_TIME)
   const session = await encrypt({ userId, expiresAt })
@@ -37,29 +47,25 @@ export const createSession = async (userId: string) => {
 
   cookieStore.set(SESSION_COOKIE_NAME, session, {
     httpOnly: true,
-    secure: true,
     expires: expiresAt,
-    sameSite: 'lax',
-    path: '/',
   })
 }
 
-export const updateSession = async () => {
-  const session = (await cookies()).get(SESSION_COOKIE_NAME)?.value
+export const updateSession = async (request: NextRequest) => {
+  const session = request.cookies.get(SESSION_COOKIE_NAME)?.value
   const payload = await decrypt(session)
 
   if (!session || !payload) return null
 
-  const expires = new Date(Date.now() + SESSION_EXPIRATION_TIME)
-  const cookieStore = await cookies()
+  const expiresAt = new Date(Date.now() + SESSION_EXPIRATION_TIME)
+  const response = NextResponse.next()
 
-  cookieStore.set(SESSION_COOKIE_NAME, session, {
+  response.cookies.set(SESSION_COOKIE_NAME, session, {
     httpOnly: true,
-    secure: true,
-    expires: expires,
-    sameSite: 'lax',
-    path: '/',
+    expires: expiresAt,
   })
+
+  return response
 }
 
 export const deleteSession = async () => {

@@ -1,11 +1,13 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
-import { decrypt, SESSION_COOKIE_NAME } from './lib/session'
+import { decrypt, SESSION_COOKIE_NAME, updateSession } from './lib/session'
 
 const protectedRoutes = ['/dashboard']
 const publicRoutes = ['/']
 
 const middleware = async (req: NextRequest) => {
+  updateSession(req)
+
   const path = req.nextUrl.pathname
   const isProtectedRoute = protectedRoutes.includes(path)
   const isPublicRoute = publicRoutes.includes(path)
