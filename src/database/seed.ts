@@ -1,8 +1,8 @@
-import { Pool } from 'pg'
-import { data as kanjiData } from '../../scripts/data.json'
-import { KanjiItemJlptLevel, kanjiTable } from './schema'
-import { drizzle } from 'drizzle-orm/node-postgres'
-import { reset } from 'drizzle-seed'
+import { Pool } from "pg"
+import { data as kanjiData } from "../../scripts/data.json"
+import { KanjiItemJlptLevel, kanjiTable, userTable } from "./schema"
+import { drizzle } from "drizzle-orm/node-postgres"
+import { reset, seed } from "drizzle-seed"
 
 const args = process.argv.slice(2)
 const argsMap = new Map()
@@ -11,15 +11,15 @@ for (let i = 0; i < args.length; i += 2) {
   argsMap.set(args[i], args[i + 1])
 }
 
-const databaseUrl = argsMap.get('--database-url')
+const databaseUrl = argsMap.get("--database-url")
 
 const main = async () => {
   if (!kanjiData) {
-    throw Error('No data to be seeded')
+    throw Error("No data to be seeded")
   }
 
   if (!databaseUrl) {
-    throw Error('Database URL not defined')
+    throw Error("Database URL not defined")
   }
 
   const pool = new Pool({ connectionString: databaseUrl })
@@ -33,11 +33,12 @@ const main = async () => {
     kun_readings: item.kun_readings ?? [],
   }))
 
-  console.log('Seeding database..')
+  console.log("Seeding database..")
 
-  await reset(database, { kanji, user: [] })
+  await reset(database, { kanjiTable, userTable })
+  await seed(database, { kanjiTable: kanji })
 
-  console.log('Seeding completed')
+  console.log("Seeding completed")
 }
 
 main()
