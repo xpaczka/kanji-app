@@ -1,23 +1,38 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { cookies } from "next/headers"
+import { NextRequest, NextResponse } from "next/server"
+import { decrypt, SESSION_COOKIE_NAME, updateSession } from "./lib/session"
+import { ROUTES } from "./constants/router"
 
-const isPublicRoute = createRouteMatcher([
-  '/',
-  '/sign-in(.*)',
-  '/sign-up(.*)',
-  '/api(.*)',
-])
+const protectedRoutes = [ROUTES.mainDashboard]
+const publicRoutes = [ROUTES.index]
 
-export default clerkMiddleware(async (auth, request) => {
-  if (!isPublicRoute(request)) {
-    await auth.protect()
+const middleware = async (req: NextRequest) => {
+  await updateSession(req)
+
+  const path = req.nextUrl.pathname
+  const isProtectedRoute = protectedRoutes.includes(path)
+  const isPublicRoute = publicRoutes.includes(path)
+
+  const cookie = (await cookies()).get(SESSION_COOKIE_NAME)?.value
+  const session = await decrypt(cookie)
+
+  if (isProtectedRoute && !session?.userId) {
+    return NextResponse.redirect(new URL(ROUTES.index, req.nextUrl))
   }
-})
+
+  if (
+    isPublicRoute &&
+    session?.userId &&
+    !req.nextUrl.pathname.startsWith(ROUTES.mainDashboard)
+  ) {
+    return NextResponse.redirect(new URL(ROUTES.mainDashboard, req.nextUrl))
+  }
+
+  return NextResponse.next()
+}
 
 export const config = {
-  matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
-    '/(api|trpc)(.*)',
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
 }
+
+export default middleware

@@ -1,3 +1,4 @@
+import { getUserById } from '#/database/queries'
 import { publicProcedure, router } from '../trpc'
 import { z } from 'zod'
 
@@ -36,6 +37,9 @@ const USER_DATA = {
 }
 
 export const userRouter = router({
+  getUser: publicProcedure
+    .input(z.string())
+    .query(async ({ input }) => await getUserById(input)),
   getUserData: publicProcedure.input(z.string()).query(async () => USER_DATA),
   getSelectedUserProgress: publicProcedure
     .input(z.object({ username: z.string(), key: userProgressKeySchema }))

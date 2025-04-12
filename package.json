@@ -10,7 +10,6 @@
     "drizzle:seed": "node --loader esbuild-register/loader -r esbuild-register ./src/database/seed.ts"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.12.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^4.1.2",
@@ -31,9 +30,12 @@
     "@trpc/next": "^11.0.0-rc.824",
     "@trpc/react-query": "^11.0.0-rc.824",
     "@trpc/server": "^11.0.0-rc.824",
+    "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.40.0",
+    "drizzle-seed": "^0.3.1",
+    "jose": "^6.0.10",
     "lucide-react": "^0.477.0",
     "luxon": "^3.5.0",
     "next": "15.2.0",
@@ -42,6 +44,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
     "recharts": "^2.15.1",
+    "server-only": "^0.0.1",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
     "usehooks-ts": "^3.1.1",
