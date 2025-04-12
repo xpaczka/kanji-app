@@ -1,17 +1,46 @@
-'use server'
+"use server"
 
-import bcrypt from 'bcryptjs'
-import { database } from '#/database'
-import { userTable } from '#/database/schema'
-import { SignUpForm, signupFormSchema } from '#/schemas/auth'
-import { createSession, deleteSession } from '#/lib/session'
-import { redirect } from 'next/navigation'
+import bcrypt from "bcryptjs"
+import { database } from "#/database"
+import { userTable } from "#/database/schema"
+import {
+  SignInForm,
+  signInFormSchema,
+  SignUpForm,
+  signUpFormSchema,
+} from "#/schemas/auth"
+import { createSession, deleteSession } from "#/lib/session"
+import { redirect } from "next/navigation"
+import { ROUTES } from "#/constants/router"
 
-export const signup = async (formData: SignUpForm) => {
+export const signIn = async (formData: SignInForm) => {
+  const { email, password } = formData
+
+  // Validate sign in form fields
+  const validatedFields = signInFormSchema.safeParse({
+    email,
+    password,
+  })
+
+  if (!validatedFields.success) {
+    return { errors: validatedFields.error.flatten().fieldErrors }
+  }
+
+  // Find user in database by email
+
+  // Decrypt user password
+
+  // Create user session
+
+  // Redirect user to dashboard
+  redirect(ROUTES.mainDashboard)
+}
+
+export const signUp = async (formData: SignUpForm) => {
   const { email, username, password } = formData
 
   // Validate sign up form fields
-  const validatedFields = signupFormSchema.safeParse({
+  const validatedFields = signUpFormSchema.safeParse({
     email,
     username,
     password,
@@ -39,7 +68,7 @@ export const signup = async (formData: SignUpForm) => {
 
   if (!user) {
     return {
-      message: 'An error occurred while creating your account.',
+      message: "An error occurred while creating your account.",
     }
   }
 
@@ -47,10 +76,10 @@ export const signup = async (formData: SignUpForm) => {
   await createSession(user.id)
 
   // Redirect user to dashboard
-  redirect('/dashboard')
+  redirect(ROUTES.mainDashboard)
 }
 
 export const logout = async () => {
   await deleteSession()
-  redirect('/')
+  redirect("/")
 }

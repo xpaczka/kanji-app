@@ -1,21 +1,35 @@
-import { z } from 'zod'
+import { z } from "zod"
 
-export type SignUpForm = z.infer<typeof signupFormSchema>
+export type SignInForm = z.infer<typeof signInFormSchema>
+export type SignUpForm = z.infer<typeof signUpFormSchema>
 export type SessionPayload = z.infer<typeof sessionPayloadSchema>
 
-export const signupFormSchema = z.object({
-  email: z.string().email({ message: 'Please enter a valid email.' }).trim(),
+export const signInFormSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email." }).trim(),
+  password: z
+    .string()
+    .min(8, { message: "Must be at least 8 characters long" })
+    .regex(/[a-zA-Z]/, { message: "Must contain at least one letter." })
+    .regex(/[0-9]/, { message: "Must contain at least one number." })
+    .regex(/[^a-zA-Z0-9]/, {
+      message: "Must contain at least one special character.",
+    })
+    .trim(),
+})
+
+export const signUpFormSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email." }).trim(),
   username: z
     .string()
-    .min(2, { message: 'Name must be at least 2 characters long.' })
+    .min(2, { message: "Name must be at least 2 characters long." })
     .trim(),
   password: z
     .string()
-    .min(8, { message: 'Must be at least 8 characters long' })
-    .regex(/[a-zA-Z]/, { message: 'Must contain at least one letter.' })
-    .regex(/[0-9]/, { message: 'Must contain at least one number.' })
+    .min(8, { message: "Must be at least 8 characters long" })
+    .regex(/[a-zA-Z]/, { message: "Must contain at least one letter." })
+    .regex(/[0-9]/, { message: "Must contain at least one number." })
     .regex(/[^a-zA-Z0-9]/, {
-      message: 'Must contain at least one special character.',
+      message: "Must contain at least one special character.",
     })
     .trim(),
 })

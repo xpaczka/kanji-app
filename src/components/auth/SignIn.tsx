@@ -12,18 +12,18 @@ import {
   FormMessage,
 } from "../ui/form"
 import { Button } from "../ui/button"
-import { signUp } from "../../actions/auth"
+import { signIn } from "../../actions/auth"
 import { useCallback } from "react"
-import { SignUpForm, signUpFormSchema } from "#/schemas/auth"
+import { SignInForm, signInFormSchema } from "#/schemas/auth"
 
-export default function SignUp() {
-  const form = useForm<SignUpForm>({
-    resolver: zodResolver(signUpFormSchema),
-    defaultValues: { email: "", username: "", password: "" },
+export default function SignIn() {
+  const form = useForm<SignInForm>({
+    resolver: zodResolver(signInFormSchema),
+    defaultValues: { email: "", password: "" },
   })
 
-  const onSubmit: SubmitHandler<SignUpForm> = useCallback(async (data) => {
-    await signUp(data)
+  const onSubmit: SubmitHandler<SignInForm> = useCallback(async (data) => {
+    await signIn(data)
   }, [])
 
   return (
@@ -43,25 +43,6 @@ export default function SignUp() {
               <FormControl>
                 <Input
                   placeholder="example@gmail.com"
-                  {...field}
-                  className="text-center w-[280px]"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem className="flex flex-col items-center">
-              <FormLabel>{`${field.name[0].toUpperCase()}${field.name.slice(
-                1
-              )}`}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Your username"
                   {...field}
                   className="text-center w-[280px]"
                 />
