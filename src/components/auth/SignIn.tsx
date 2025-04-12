@@ -71,7 +71,7 @@ export default function SignIn() {
             </FormItem>
           )}
         />
-        <Button type="submit">Sign up</Button>
+        <Button type="submit">Sign in</Button>
       </form>
     </Form>
   )

@@ -1,8 +1,6 @@
 "use server"
 
 import bcrypt from "bcryptjs"
-import { database } from "#/database"
-import { userTable } from "#/database/schema"
 import {
   SignInForm,
   signInFormSchema,
@@ -12,74 +10,74 @@ import {
 import { createSession, deleteSession } from "#/lib/session"
 import { redirect } from "next/navigation"
 import { ROUTES } from "#/constants/router"
+import { createNewUser, getUserByEmail } from "#/database/queries"
+import { ZodSchema } from "zod"
+
+const validateCredentials = <T>(schema: ZodSchema<T>, formData: T) => {
+  const { success } = schema.safeParse(formData)
+  return success
+}
+
+const authorizeAndRedirect = async (userId: string) => {
+  await createSession(userId)
+  redirect(ROUTES.mainDashboard)
+}
+
+const hashPassword = async (password: string) => {
+  const salt = await bcrypt.genSalt(10)
+  return bcrypt.hash(password, salt)
+}
+
+const comparePassword = async (password: string, hashedPassword: string) => {
+  return await bcrypt.compare(password, hashedPassword)
+}
 
 export const signIn = async (formData: SignInForm) => {
-  const { email, password } = formData
+  const validCredentials = validateCredentials(signInFormSchema, formData)
 
-  // Validate sign in form fields
-  const validatedFields = signInFormSchema.safeParse({
-    email,
-    password,
-  })
-
-  if (!validatedFields.success) {
-    return { errors: validatedFields.error.flatten().fieldErrors }
+  if (!validCredentials) {
+    // TODO: Add better error handling
+    return null
   }
 
   // Find user in database by email
+  const { email, password } = formData
+  const user = await getUserByEmail(email)
 
-  // Decrypt user password
+  if (!user || !(await comparePassword(password, user.password))) {
+    // TODO: Add better error handling
+    return null
+  }
 
-  // Create user session
-
-  // Redirect user to dashboard
-  redirect(ROUTES.mainDashboard)
+  // Authorize user
+  await authorizeAndRedirect(user.id)
 }
 
 export const signUp = async (formData: SignUpForm) => {
-  const { email, username, password } = formData
+  const validCredentials = validateCredentials(signUpFormSchema, formData)
 
-  // Validate sign up form fields
-  const validatedFields = signUpFormSchema.safeParse({
-    email,
-    username,
-    password,
-  })
-
-  if (!validatedFields.success) {
-    return { errors: validatedFields.error.flatten().fieldErrors }
+  if (!validCredentials) {
+    // TODO: Add better error handling
+    return null
   }
 
   // Prepare data for insertion into database
-  const salt = await bcrypt.genSalt(10)
-  const hashedPassword = await bcrypt.hash(password, salt)
+  const { email, username, password } = formData
+  const hashedPassword = await hashPassword(password)
 
   // Insert user into database
-  const data = await database
-    .insert(userTable)
-    .values({ username, email, password: hashedPassword })
-    .returning({
-      id: userTable.id,
-      username: userTable.username,
-      email: userTable.email,
-    })
-
-  const user = data[0]
+  const user = await createNewUser(username, email, hashedPassword)
 
   if (!user) {
-    return {
-      message: "An error occurred while creating your account.",
-    }
+    // TODO: Add better error handling
+    return null
   }
 
-  // Create user session
-  await createSession(user.id)
-
-  // Redirect user to dashboard
-  redirect(ROUTES.mainDashboard)
+  // Authorize user
+  await authorizeAndRedirect(user.id)
 }
 
-export const logout = async () => {
+export const signOut = async () => {
   await deleteSession()
-  redirect("/")
+  redirect(ROUTES.index)
 }
