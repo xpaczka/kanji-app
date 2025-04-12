@@ -1,9 +1,10 @@
-import { cookies } from 'next/headers'
-import { NextRequest, NextResponse } from 'next/server'
-import { decrypt, SESSION_COOKIE_NAME, updateSession } from './lib/session'
+import { cookies } from "next/headers"
+import { NextRequest, NextResponse } from "next/server"
+import { decrypt, SESSION_COOKIE_NAME, updateSession } from "./lib/session"
+import { ROUTES } from "./constants/router"
 
-const protectedRoutes = ['/dashboard']
-const publicRoutes = ['/auth']
+const protectedRoutes = [ROUTES.mainDashboard]
+const publicRoutes = [ROUTES.index]
 
 const middleware = async (req: NextRequest) => {
   await updateSession(req)
@@ -16,22 +17,22 @@ const middleware = async (req: NextRequest) => {
   const session = await decrypt(cookie)
 
   if (isProtectedRoute && !session?.userId) {
-    return NextResponse.redirect(new URL('/', req.nextUrl))
+    return NextResponse.redirect(new URL(ROUTES.index, req.nextUrl))
   }
 
   if (
     isPublicRoute &&
     session?.userId &&
-    !req.nextUrl.pathname.startsWith('/dashboard')
+    !req.nextUrl.pathname.startsWith(ROUTES.mainDashboard)
   ) {
-    return NextResponse.redirect(new URL('/dashboard', req.nextUrl))
+    return NextResponse.redirect(new URL(ROUTES.mainDashboard, req.nextUrl))
   }
 
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
 }
 
 export default middleware
