@@ -1,7 +1,7 @@
-'use client'
+"use client"
 
-import { useRouter } from 'next/navigation'
-import { useCallback } from 'react'
+import { useRouter } from "next/navigation"
+import { useCallback } from "react"
 
 export const useNavigation = () => {
   const { push, forward } = useRouter()

@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
-import FlashcardsSession from '#/components/flashcards/FlashcardsSession'
-import { ROUTES } from '#/constants/router'
-import { useAppSession } from '#/hooks/app-session'
+import FlashcardsSession from "#/components/flashcards/FlashcardsSession"
+import { ROUTES } from "#/constants/router"
+import { useAppSession } from "#/hooks/app-session"
 
 export default function FlashcardsSessionPage() {
   const { sessionId } = useAppSession(ROUTES.flashcards)
@@ -10,7 +10,7 @@ export default function FlashcardsSessionPage() {
   if (!sessionId) return null
 
   return (
-    <div className='mx-auto max-w-[420px] w-full'>
+    <div className="mx-auto w-full max-w-[420px]">
       <FlashcardsSession />
     </div>
   )

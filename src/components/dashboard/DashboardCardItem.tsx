@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from 'react'
+import { HTMLAttributes, ReactNode } from "react"
 
 type DashboardCardItemProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode
@@ -12,7 +12,7 @@ export default function DashboardCardItem({
 }: DashboardCardItemProps) {
   return (
     <div {...props}>
-      <p className='mb-2'>{title}</p>
+      <p className="mb-2">{title}</p>
       {children}
     </div>
   )

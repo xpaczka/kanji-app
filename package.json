@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prettier:write": "prettier -w '**/*.@(js|ts|jsx|tsx)'",
+    "prettier:check": "prettier -c '**/*.@(js|ts|jsx|tsx)'",
     "drizzle:seed": "node --loader esbuild-register/loader -r esbuild-register ./src/database/seed.ts"
   },
   "dependencies": {
@@ -40,6 +42,8 @@
     "luxon": "^3.5.0",
     "next": "15.2.0",
     "pg": "^8.14.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",

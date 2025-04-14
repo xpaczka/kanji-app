@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import { AspectRatio } from '#/components/ui/aspect-ratio'
-import { Card, CardContent } from '#/components/ui/card'
-import { KanjiItemJlptLevel } from '#/database/schema'
-import { useFlashcardsLevelChoice } from '#/hooks/flashcards'
-import { cn } from '#/lib/utils'
+import { AspectRatio } from "#/components/ui/aspect-ratio"
+import { Card, CardContent } from "#/components/ui/card"
+import { KanjiItemJlptLevel } from "#/database/schema"
+import { useFlashcardsLevelChoice } from "#/hooks/flashcards"
+import { cn } from "#/lib/utils"
 
 type FlashcardsLevelChoiceProps = {
   title: string
@@ -15,23 +15,23 @@ type FlashcardsLevelChoiceProps = {
 export default function FlashcardsLevelChoice({
   title,
   level,
-  isDisabled,
+  isDisabled
 }: FlashcardsLevelChoiceProps) {
   const { startFlashcardsSession } = useFlashcardsLevelChoice(isDisabled, level)
 
   return (
     <AspectRatio
-      className={isDisabled ? 'cursor-auto' : 'cursor-pointer'}
+      className={isDisabled ? "cursor-auto" : "cursor-pointer"}
       ratio={16 / 9}
       onClick={startFlashcardsSession}
     >
       <Card
         className={cn(
-          'h-full w-full',
-          isDisabled ? 'opacity-30' : 'opacity-100'
+          "h-full w-full",
+          isDisabled ? "opacity-30" : "opacity-100"
         )}
       >
-        <CardContent className='w-full h-full flex justify-center items-center text-4xl font-bold'>
+        <CardContent className="flex h-full w-full items-center justify-center text-4xl font-bold">
           {title.toUpperCase()}
         </CardContent>
       </Card>

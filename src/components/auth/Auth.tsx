@@ -7,7 +7,7 @@ import SignIn from "./SignIn"
 
 enum AuthFlow {
   SIGN_IN = "sign-in",
-  SIGN_UP = "sign-up",
+  SIGN_UP = "sign-up"
 }
 
 export default function Auth() {
@@ -16,7 +16,7 @@ export default function Auth() {
   const isSignInFlow = useMemo(() => authFlow === AuthFlow.SIGN_IN, [authFlow])
 
   return (
-    <Card className="p-12 min-w-[420px]">
+    <Card className="min-w-[420px] p-12">
       <CardHeader>
         <CardTitle className="text-center">
           {isSignInFlow ? "Sign in" : "Sign up"}
@@ -27,7 +27,7 @@ export default function Auth() {
         <div>
           {isSignInFlow ? "No account yet?" : "Already have an account?"}{" "}
           <span
-            className="font-bold cursor-pointer"
+            className="cursor-pointer font-bold"
             onClick={() =>
               setAuthFlow(isSignInFlow ? AuthFlow.SIGN_UP : AuthFlow.SIGN_IN)
             }

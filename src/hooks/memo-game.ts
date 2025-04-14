@@ -1,15 +1,15 @@
-'use client'
-import { checkMemoGamePairs, MemoGameChoice } from '#/lib/memo-game'
-import { useAppSessionStore } from '#/store/app-session'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useNavigation } from './router'
-import { ROUTES } from '#/constants/router'
-import { v4 as uuid } from 'uuid'
-import { trpc } from '#/app/_trpc/client'
-import { shuffle } from '#/lib/utils'
-import { DateTime } from 'luxon'
-import { useInterval } from 'usehooks-ts'
-import { MEMO_GAME_GUESS_COOLDOWN } from '#/constants/memo-game'
+"use client"
+import { checkMemoGamePairs, MemoGameChoice } from "#/lib/memo-game"
+import { useAppSessionStore } from "#/store/app-session"
+import { useCallback, useEffect, useMemo, useState } from "react"
+import { useNavigation } from "./router"
+import { ROUTES } from "#/constants/router"
+import { v4 as uuid } from "uuid"
+import { trpc } from "#/app/_trpc/client"
+import { shuffle } from "#/lib/utils"
+import { DateTime } from "luxon"
+import { useInterval } from "usehooks-ts"
+import { MEMO_GAME_GUESS_COOLDOWN } from "#/constants/memo-game"
 
 export const useInitiateMemoGameSession = () => {
   const setSession = useAppSessionStore((state) => state.setSession)
@@ -20,8 +20,8 @@ export const useInitiateMemoGameSession = () => {
 
     setSession({
       sessionId,
-      sessionType: 'flashcards',
-      sessionParentUrl: ROUTES.gamesDashboard,
+      sessionType: "flashcards",
+      sessionParentUrl: ROUTES.gamesDashboard
     })
 
     navigate(`${ROUTES.memoGame}/${sessionId}`)
@@ -34,7 +34,7 @@ export const useMemoGameCards = () => {
   const {
     data: kanjiSet,
     isLoading,
-    refetch,
+    refetch
   } = trpc.memoGame.getMemoGameKanji.useQuery()
 
   const cards = useMemo(
@@ -59,7 +59,7 @@ export const useMemoGameCards = () => {
     if (!initialTime) return
 
     const newTime = initialTime.plus({
-      milliseconds: DateTime.now().diff(initialTime).milliseconds,
+      milliseconds: DateTime.now().diff(initialTime).milliseconds
     })
     setTime(newTime)
   }, 500)
@@ -170,6 +170,6 @@ export const useMemoGameCards = () => {
     currentTime: time,
     guessCount,
     newSession: newSessionHandler,
-    endSession: endSessionHandler,
+    endSession: endSessionHandler
   }
 }

@@ -1,7 +1,7 @@
-import { HTMLAttributes } from 'react'
-import { Progress } from '#/components/ui/progress'
-import DashboardCardItem from './DashboardCardItem'
-import DashboardImage from './DashboardImage'
+import { HTMLAttributes } from "react"
+import { Progress } from "#/components/ui/progress"
+import DashboardCardItem from "./DashboardCardItem"
+import DashboardImage from "./DashboardImage"
 
 type DashboardProgressItemProps = HTMLAttributes<HTMLDivElement> & {
   title: string
@@ -15,7 +15,7 @@ export default function DashboardProgressItem({
 }: DashboardProgressItemProps) {
   return (
     <DashboardCardItem title={title} {...props}>
-      <div className='flex items-center gap-2'>
+      <div className="flex items-center gap-2">
         <DashboardImage />
         <Progress value={progress} />
         <p>{progress}%</p>
