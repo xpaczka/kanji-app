@@ -12,9 +12,9 @@ export const signInFormSchema = z.object({
     .regex(/[a-zA-Z]/, { message: "Must contain at least one letter." })
     .regex(/[0-9]/, { message: "Must contain at least one number." })
     .regex(/[^a-zA-Z0-9]/, {
-      message: "Must contain at least one special character.",
+      message: "Must contain at least one special character."
     })
-    .trim(),
+    .trim()
 })
 
 export const signUpFormSchema = z.object({
@@ -29,12 +29,12 @@ export const signUpFormSchema = z.object({
     .regex(/[a-zA-Z]/, { message: "Must contain at least one letter." })
     .regex(/[0-9]/, { message: "Must contain at least one number." })
     .regex(/[^a-zA-Z0-9]/, {
-      message: "Must contain at least one special character.",
+      message: "Must contain at least one special character."
     })
-    .trim(),
+    .trim()
 })
 
 export const sessionPayloadSchema = z.object({
   userId: z.string().uuid(),
-  expiresAt: z.date(),
+  expiresAt: z.date()
 })

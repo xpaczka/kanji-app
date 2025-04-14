@@ -1,4 +1,4 @@
-import { Button } from '#/components/ui/button'
+import { Button } from "#/components/ui/button"
 
 type MemoGameItemProps = {
   content: string
@@ -9,12 +9,12 @@ type MemoGameItemProps = {
 export default function MemoGameItem({
   content,
   isRevealed,
-  onClick,
+  onClick
 }: MemoGameItemProps) {
   return (
-    <Button asChild variant='outline' onClick={onClick}>
-      <div className='flex justify-center items-center aspect-square h-24 w-24 border rounded-sm'>
-        {isRevealed ? content : ''}
+    <Button asChild variant="outline" onClick={onClick}>
+      <div className="flex aspect-square h-24 w-24 items-center justify-center rounded-sm border">
+        {isRevealed ? content : ""}
       </div>
     </Button>
   )

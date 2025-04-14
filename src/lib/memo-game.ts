@@ -1,8 +1,8 @@
 import {
   MEMO_GAME_GUESS_COOLDOWN,
   MEMO_GAME_KANJI_COUNT,
-  MEMO_GAME_PERFECT_GAME_BONUS,
-} from '#/constants/memo-game'
+  MEMO_GAME_PERFECT_GAME_BONUS
+} from "#/constants/memo-game"
 
 export type MemoGameChoice = {
   value: string

@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import FlashcardSessionItem from './FlashcardsSessionItem'
-import FlashcardsSessionSummary from './FlashcardsSessionSummary'
-import { useFlashcardsSession } from '#/hooks/flashcards'
-import { Spinner } from '#/components/ui/spinner'
-import { Switch } from '#/components/ui/switch'
+import FlashcardSessionItem from "./FlashcardsSessionItem"
+import FlashcardsSessionSummary from "./FlashcardsSessionSummary"
+import { useFlashcardsSession } from "#/hooks/flashcards"
+import { Spinner } from "#/components/ui/spinner"
+import { Switch } from "#/components/ui/switch"
 
 export default function FlashcardsSession() {
   const {
@@ -20,13 +20,13 @@ export default function FlashcardsSession() {
     setShowRomaji,
     evaluateKanji,
     newSession,
-    endSession,
+    endSession
   } = useFlashcardsSession()
 
   if (isLoading) {
     return (
-      <Spinner size='large'>
-        <span className='text-sm'>Fetching flashcards...</span>
+      <Spinner size="large">
+        <span className="text-sm">Fetching flashcards...</span>
       </Spinner>
     )
   }
@@ -45,8 +45,8 @@ export default function FlashcardsSession() {
   }
 
   return (
-    <div className='flex flex-col items-center'>
-      <p className='font-bold text-lg mb-4'>
+    <div className="flex flex-col items-center">
+      <p className="mb-4 text-lg font-bold">
         {kanjiIndex + 1} / {kanjiSet.length}
       </p>
       <FlashcardSessionItem
@@ -56,7 +56,7 @@ export default function FlashcardsSession() {
         onEvaluateClick={evaluateKanji}
         onRevealClick={() => setIsRevealed(true)}
       />
-      <div className='flex items-center gap-2 mt-4'>
+      <div className="mt-4 flex items-center gap-2">
         <Switch
           checked={showRomaji}
           onCheckedChange={() => setShowRomaji((prev) => !prev)}

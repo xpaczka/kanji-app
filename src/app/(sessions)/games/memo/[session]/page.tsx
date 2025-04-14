@@ -1,12 +1,12 @@
-'use client'
+"use client"
 
-import MemoGameItem from '#/components/memo-game/MemoGameItem'
-import MemoGameSummary from '#/components/memo-game/MemoGameSummary'
-import { Spinner } from '#/components/ui/spinner'
-import { ROUTES } from '#/constants/router'
-import { useAppSession } from '#/hooks/app-session'
-import { useMemoGameCards } from '#/hooks/memo-game'
-import { calculateTimeDifferenceToFormat } from '#/lib/utils'
+import MemoGameItem from "#/components/memo-game/MemoGameItem"
+import MemoGameSummary from "#/components/memo-game/MemoGameSummary"
+import { Spinner } from "#/components/ui/spinner"
+import { ROUTES } from "#/constants/router"
+import { useAppSession } from "#/hooks/app-session"
+import { useMemoGameCards } from "#/hooks/memo-game"
+import { calculateTimeDifferenceToFormat } from "#/lib/utils"
 
 export default function MemoGameSessionPage() {
   const {
@@ -19,7 +19,7 @@ export default function MemoGameSessionPage() {
     newSession,
     gameStartTime,
     currentTime,
-    guessCount,
+    guessCount
   } = useMemoGameCards()
 
   const { sessionId } = useAppSession(ROUTES.gamesDashboard)
@@ -28,8 +28,8 @@ export default function MemoGameSessionPage() {
 
   if (isLoading) {
     return (
-      <Spinner size='large'>
-        <span className='text-sm'>Loading your game...</span>
+      <Spinner size="large">
+        <span className="text-sm">Loading your game...</span>
       </Spinner>
     )
   }
@@ -48,10 +48,10 @@ export default function MemoGameSessionPage() {
   if (!cards) return null
 
   return (
-    <div className='flex flex-col items-center'>
-      <div className='flex gap-10 mb-4'>
+    <div className="flex flex-col items-center">
+      <div className="mb-4 flex gap-10">
         <div>
-          Time:{' '}
+          Time:{" "}
           <strong>
             {calculateTimeDifferenceToFormat(gameStartTime, currentTime)}
           </strong>
@@ -60,7 +60,7 @@ export default function MemoGameSessionPage() {
           Guesses: <strong>{guessCount}</strong>
         </div>
       </div>
-      <div className='grid grid-cols-4 grid-rows-4 gap-4'>
+      <div className="grid grid-cols-4 grid-rows-4 gap-4">
         {cards &&
           cards.map((card, index) => (
             <MemoGameItem

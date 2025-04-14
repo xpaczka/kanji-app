@@ -1,6 +1,6 @@
-import { clsx, type ClassValue } from 'clsx'
-import { DateTime } from 'luxon'
-import { twMerge } from 'tailwind-merge'
+import { clsx, type ClassValue } from "clsx"
+import { DateTime } from "luxon"
+import { twMerge } from "tailwind-merge"
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
 
@@ -19,12 +19,12 @@ export const calculateTimeDifferenceToFormat = (
   startTime: DateTime | null,
   endTime: DateTime | null
 ) => {
-  if (!startTime || !endTime) return '0:00'
+  if (!startTime || !endTime) return "0:00"
 
-  const duration = endTime.diff(startTime, ['minutes', 'seconds'])
+  const duration = endTime.diff(startTime, ["minutes", "seconds"])
 
   const minutes = duration.minutes.toFixed(0)
-  const seconds = duration.seconds.toFixed(0).padStart(2, '0')
+  const seconds = duration.seconds.toFixed(0).padStart(2, "0")
 
   return `${minutes}:${seconds}`
 }

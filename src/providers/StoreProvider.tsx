@@ -1,11 +1,11 @@
-'use client'
+"use client"
 
 import {
   AppSessionStoreApi,
   AppSessionStoreContext,
-  createAppSessionStore,
-} from '#/store/app-session'
-import { ReactNode, useRef } from 'react'
+  createAppSessionStore
+} from "#/store/app-session"
+import { ReactNode, useRef } from "react"
 
 export default function StoreProvider({ children }: { children: ReactNode }) {
   const appSessionStoreRef = useRef<AppSessionStoreApi | null>(null)

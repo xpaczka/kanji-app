@@ -30,7 +30,7 @@ const main = async () => {
     level: item.level as KanjiItemJlptLevel,
     meanings: item.meanings ?? [],
     on_readings: item.on_readings ?? [],
-    kun_readings: item.kun_readings ?? [],
+    kun_readings: item.kun_readings ?? []
   }))
 
   console.log("Seeding database..")

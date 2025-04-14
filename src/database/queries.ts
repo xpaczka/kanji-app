@@ -19,7 +19,7 @@ export const createNewUser = async (
     .returning({
       id: userTable.id,
       username: userTable.username,
-      email: userTable.email,
+      email: userTable.email
     })
 
   return data[0]
@@ -30,7 +30,7 @@ export const getUserById = async (id: string) => {
     .select({
       id: userTable.id,
       email: userTable.email,
-      username: userTable.username,
+      username: userTable.username
     })
     .from(userTable)
     .where(eq(userTable.id, id))
@@ -44,7 +44,7 @@ export const getUserByEmail = async (email: string) => {
     .select({
       id: userTable.id,
       email: userTable.email,
-      password: userTable.password,
+      password: userTable.password
     })
     .from(userTable)
     .where(eq(userTable.email, email))

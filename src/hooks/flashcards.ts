@@ -1,17 +1,17 @@
-import { DateTime } from 'luxon'
-import { trpc } from '#/app/_trpc/client'
-import { useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useNavigation } from './router'
+import { DateTime } from "luxon"
+import { trpc } from "#/app/_trpc/client"
+import { useSearchParams } from "next/navigation"
+import { useCallback, useEffect, useMemo, useState } from "react"
+import { useNavigation } from "./router"
 import {
   KanjiSessionSet,
-  SessionItemEvaluation,
-} from '#/components/flashcards/FlashcardsSessionSummary'
-import { KanjiItemJlptLevel } from '#/database/schema'
-import { useAppSessionStore } from '#/store/app-session'
-import { v4 as uuid } from 'uuid'
-import { ROUTES } from '#/constants/router'
-import { calculateTimeDifferenceToFormat } from '#/lib/utils'
+  SessionItemEvaluation
+} from "#/components/flashcards/FlashcardsSessionSummary"
+import { KanjiItemJlptLevel } from "#/database/schema"
+import { useAppSessionStore } from "#/store/app-session"
+import { v4 as uuid } from "uuid"
+import { ROUTES } from "#/constants/router"
+import { calculateTimeDifferenceToFormat } from "#/lib/utils"
 
 export const useInitiateFlashcardsSession = () => {
   const setSession = useAppSessionStore((state) => state.setSession)
@@ -20,12 +20,12 @@ export const useInitiateFlashcardsSession = () => {
   const initiateFlashcardsSessionHandler = useCallback(
     (level: KanjiItemJlptLevel | undefined) => {
       const sessionId = uuid()
-      const levelParam = level ? `?level=${level}` : ''
+      const levelParam = level ? `?level=${level}` : ""
 
       setSession({
         sessionId,
-        sessionType: 'flashcards',
-        sessionParentUrl: ROUTES.flashcards,
+        sessionType: "flashcards",
+        sessionParentUrl: ROUTES.flashcards
       })
 
       navigate(`${ROUTES.flashcards}/${sessionId}${levelParam}`)
@@ -38,7 +38,7 @@ export const useInitiateFlashcardsSession = () => {
 
 export const useFlashcardsSession = () => {
   const params = useSearchParams()
-  const level = params.get('level') as KanjiItemJlptLevel | undefined
+  const level = params.get("level") as KanjiItemJlptLevel | undefined
 
   const { resetSession } = useAppSessionStore((state) => state)
   const { initiateFlashcardsSession } = useInitiateFlashcardsSession()
@@ -46,7 +46,7 @@ export const useFlashcardsSession = () => {
   const {
     data: kanjiSet,
     isLoading,
-    refetch,
+    refetch
   } = trpc.flashcards.getFlashcardsSessionKanji.useQuery(level ?? undefined)
 
   const [kanjiIndex, setKanjiIndex] = useState(0)
@@ -77,7 +77,7 @@ export const useFlashcardsSession = () => {
 
       setSessionSet((prev) => [
         ...prev,
-        { kanji: kanjiSet[kanjiIndex].kanji, evaluation },
+        { kanji: kanjiSet[kanjiIndex].kanji, evaluation }
       ])
 
       setKanjiIndex((prev) => prev + 1)
@@ -120,7 +120,7 @@ export const useFlashcardsSession = () => {
     setShowRomaji,
     evaluateKanji: evaluateKanjiHandler,
     newSession: newSessionHandler,
-    endSession: endSessionHandler,
+    endSession: endSessionHandler
   }
 }
 
@@ -152,7 +152,7 @@ export const useFlashcardsSessionSummary = (
     () =>
       sessionStartTime && sessionEndTime
         ? calculateTimeDifferenceToFormat(sessionStartTime, sessionEndTime)
-        : '0:00',
+        : "0:00",
 
     [sessionStartTime, sessionEndTime]
   )

@@ -1,22 +1,22 @@
-'use client'
+"use client"
 
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from '#/components/ui/card'
-import { Button } from '#/components/ui/button'
-import { Label } from '#/components/ui/label'
-import { DateTime } from 'luxon'
-import { useFlashcardsSessionSummary } from '#/hooks/flashcards'
+  CardTitle
+} from "#/components/ui/card"
+import { Button } from "#/components/ui/button"
+import { Label } from "#/components/ui/label"
+import { DateTime } from "luxon"
+import { useFlashcardsSessionSummary } from "#/hooks/flashcards"
 
 export enum SessionItemEvaluation {
-  FAIL = 'fail',
-  HARD = 'hard',
-  GOOD = 'good',
-  EASY = 'easy',
+  FAIL = "fail",
+  HARD = "hard",
+  GOOD = "good",
+  EASY = "easy"
 }
 
 export type KanjiSessionSet = {
@@ -35,52 +35,52 @@ export default function FlashcardsSessionSummary({
   kanjiSet,
   sessionStartTime,
   onNewSessionClick,
-  onEndSessionClick,
+  onEndSessionClick
 }: FlashcardsSessionSummaryProps) {
   const { timeSpent } = useFlashcardsSessionSummary(sessionStartTime)
 
   return (
     <Card>
-      <CardHeader className='text-center'>
+      <CardHeader className="text-center">
         <CardTitle>Summary</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className='grid grid-cols-2 gap-y-2 gap-x-8 mb-10'>
+        <div className="mb-10 grid grid-cols-2 gap-x-8 gap-y-2">
           {kanjiSet.map(({ kanji, evaluation }, index) => (
             <div
               key={`${kanji}-${index}`}
-              className='w-full flex justify-between items-center gap-2'
+              className="flex w-full items-center justify-between gap-2"
             >
-              <div className='text-3xl font-bold'>{kanji}</div>
+              <div className="text-3xl font-bold">{kanji}</div>
               <div>{evaluation}</div>
               {/* TODO: Calculate new grade */}
               <div>70%</div>
             </div>
           ))}
         </div>
-        <div className='flex gap-4'>
-          <div className='flex flex-col items-center flex-1'>
+        <div className="flex gap-4">
+          <div className="flex flex-1 flex-col items-center">
             <Label>Time spent</Label>
-            <div className='text-3xl font-bold'>{timeSpent}</div>
+            <div className="text-3xl font-bold">{timeSpent}</div>
           </div>
-          <div className='flex flex-col items-center flex-1'>
+          <div className="flex flex-1 flex-col items-center">
             <Label>Points earned</Label>
             {/* TODO: Add function calculating points */}
-            <div className='text-3xl font-bold'>+10</div>
+            <div className="text-3xl font-bold">+10</div>
           </div>
         </div>
       </CardContent>
-      <CardFooter className='flex flex-col items-center gap-4'>
+      <CardFooter className="flex flex-col items-center gap-4">
         <Button
-          className='cursor-pointer w-[200px]'
+          className="w-[200px] cursor-pointer"
           onClick={onNewSessionClick}
         >
           New session
         </Button>
         <Button
-          className='cursor-pointer w-[200px]'
+          className="w-[200px] cursor-pointer"
           onClick={onEndSessionClick}
-          variant='secondary'
+          variant="secondary"
         >
           Go to dashboard
         </Button>

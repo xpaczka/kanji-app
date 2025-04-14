@@ -9,7 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "../ui/form"
 import { Button } from "../ui/button"
 import { signIn } from "../../actions/auth"
@@ -19,7 +19,7 @@ import { SignInForm, signInFormSchema } from "#/schemas/auth"
 export default function SignIn() {
   const form = useForm<SignInForm>({
     resolver: zodResolver(signInFormSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { email: "", password: "" }
   })
 
   const onSubmit: SubmitHandler<SignInForm> = useCallback(async (data) => {
@@ -30,7 +30,7 @@ export default function SignIn() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="gap-4 flex flex-col items-center"
+        className="flex flex-col items-center gap-4"
       >
         <FormField
           control={form.control}
@@ -44,7 +44,7 @@ export default function SignIn() {
                 <Input
                   placeholder="example@gmail.com"
                   {...field}
-                  className="text-center w-[280px]"
+                  className="w-[280px] text-center"
                 />
               </FormControl>
               <FormMessage />
@@ -64,7 +64,7 @@ export default function SignIn() {
                   type="password"
                   placeholder={"*".repeat(16)}
                   {...field}
-                  className="text-center w-[280px]"
+                  className="w-[280px] text-center"
                 />
               </FormControl>
               <FormMessage />

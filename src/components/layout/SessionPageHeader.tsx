@@ -1,7 +1,7 @@
-'use client'
+"use client"
 
-import { useAppSessionStore } from '#/store/app-session'
-import { useMemo } from 'react'
+import { useAppSessionStore } from "#/store/app-session"
+import { useMemo } from "react"
 
 export default function SessionPageHeader() {
   const sessionType = useAppSessionStore((state) => state.sessionType)
@@ -14,5 +14,5 @@ export default function SessionPageHeader() {
     [sessionType]
   )
 
-  return <h1 className='text-lg'>{pageHeader ?? ''}</h1>
+  return <h1 className="text-lg">{pageHeader ?? ""}</h1>
 }

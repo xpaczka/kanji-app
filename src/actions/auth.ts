@@ -5,7 +5,7 @@ import {
   SignInForm,
   signInFormSchema,
   SignUpForm,
-  signUpFormSchema,
+  signUpFormSchema
 } from "#/schemas/auth"
 import { createSession, deleteSession } from "#/lib/session"
 import { redirect } from "next/navigation"

@@ -1,33 +1,33 @@
-import 'server-only'
-import { SignJWT, jwtVerify } from 'jose'
-import { SessionPayload } from '#/schemas/auth'
-import { cookies } from 'next/headers'
-import { NextRequest, NextResponse } from 'next/server'
+import "server-only"
+import { SignJWT, jwtVerify } from "jose"
+import { SessionPayload } from "#/schemas/auth"
+import { cookies } from "next/headers"
+import { NextRequest, NextResponse } from "next/server"
 
 const secretKey = process.env.SESSION_SECRET_KEY
 const encodedKey = new TextEncoder().encode(secretKey)
 
 export const SESSION_EXPIRATION_TIME = 7 * 24 * 60 * 60 * 1000
-export const SESSION_COOKIE_NAME = 'KANJI_SESSION'
+export const SESSION_COOKIE_NAME = "KANJI_SESSION"
 
 export const encrypt = async (payload: SessionPayload) =>
   new SignJWT(payload)
-    .setProtectedHeader({ alg: 'HS256' })
+    .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime('7d')
+    .setExpirationTime("7d")
     .sign(encodedKey)
 
-export const decrypt = async (session: string | undefined = '') => {
+export const decrypt = async (session: string | undefined = "") => {
   if (!session) return undefined
 
   try {
     const { payload } = await jwtVerify(session, encodedKey, {
-      algorithms: ['HS256'],
+      algorithms: ["HS256"]
     })
 
     return payload
   } catch (err) {
-    console.error('Failed to verify session', err)
+    console.error("Failed to verify session", err)
   }
 }
 
@@ -47,7 +47,7 @@ export const createSession = async (userId: string) => {
 
   cookieStore.set(SESSION_COOKIE_NAME, session, {
     httpOnly: true,
-    expires: expiresAt,
+    expires: expiresAt
   })
 }
 
@@ -62,7 +62,7 @@ export const updateSession = async (request: NextRequest) => {
 
   response.cookies.set(SESSION_COOKIE_NAME, session, {
     httpOnly: true,
-    expires: expiresAt,
+    expires: expiresAt
   })
 
   return response

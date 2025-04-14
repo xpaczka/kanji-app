@@ -1,5 +1,5 @@
-import { DatabaseKanji } from '#/database/schema'
-import { shuffle } from './utils'
+import { DatabaseKanji } from "#/database/schema"
+import { shuffle } from "./utils"
 
 export const getRandomKanjiSet = (
   kanjiSet: DatabaseKanji[],

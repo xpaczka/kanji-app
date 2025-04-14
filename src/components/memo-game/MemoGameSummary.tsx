@@ -3,14 +3,14 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from '#/components/ui/card'
-import { Button } from '#/components/ui/button'
-import { Label } from '#/components/ui/label'
-import { useEffect, useMemo, useState } from 'react'
-import { DateTime } from 'luxon'
-import { calculateTimeDifferenceToFormat } from '#/lib/utils'
-import { calculateMemoGameScore } from '#/lib/memo-game'
+  CardTitle
+} from "#/components/ui/card"
+import { Button } from "#/components/ui/button"
+import { Label } from "#/components/ui/label"
+import { useEffect, useMemo, useState } from "react"
+import { DateTime } from "luxon"
+import { calculateTimeDifferenceToFormat } from "#/lib/utils"
+import { calculateMemoGameScore } from "#/lib/memo-game"
 
 type MemoGameSummaryProps = {
   gameStartTimestamp: DateTime | null
@@ -23,7 +23,7 @@ export default function MemoGameSummary({
   gameStartTimestamp,
   guessCount,
   endSessionHandler,
-  newSessionHandler,
+  newSessionHandler
 }: MemoGameSummaryProps) {
   const [sessionEndTime, setSessionEndTime] = useState<DateTime | null>(null)
 
@@ -34,7 +34,7 @@ export default function MemoGameSummary({
   const gameTime = useMemo(
     () =>
       sessionEndTime && gameStartTimestamp
-        ? sessionEndTime.diff(gameStartTimestamp).as('seconds')
+        ? sessionEndTime.diff(gameStartTimestamp).as("seconds")
         : 0,
     [gameStartTimestamp, sessionEndTime]
   )
@@ -52,23 +52,23 @@ export default function MemoGameSummary({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className='text-center'>Game summary</CardTitle>
+        <CardTitle className="text-center">Game summary</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className='flex flex-col items-center text-center py-8 gap-8'>
-          <div className='flex flex-col items-center'>
+        <div className="flex flex-col items-center gap-8 py-8 text-center">
+          <div className="flex flex-col items-center">
             <Label>Time</Label>
-            <div className='font-bold text-2xl'>{displayedGameTime}</div>
+            <div className="text-2xl font-bold">{displayedGameTime}</div>
           </div>
-          <div className='flex flex-col items-center'>
+          <div className="flex flex-col items-center">
             <Label>Points earned</Label>
-            <div className='font-bold text-2xl'>{memoGameScore}</div>
+            <div className="text-2xl font-bold">{memoGameScore}</div>
           </div>
         </div>
       </CardContent>
-      <CardFooter className='flex items-center gap-4'>
+      <CardFooter className="flex items-center gap-4">
         <Button onClick={newSessionHandler}>Play again</Button>
-        <Button onClick={endSessionHandler} variant='secondary'>
+        <Button onClick={endSessionHandler} variant="secondary">
           Go to dashboard
         </Button>
       </CardFooter>
