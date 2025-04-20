@@ -1,4 +1,6 @@
-import { serverClient } from "#/app/_trpc/server-client"
+"use client"
+
+import { trpc } from "#/app/_trpc/client"
 import {
   Dialog,
   DialogContent,
@@ -6,10 +8,15 @@ import {
   DialogTitle,
   DialogTrigger
 } from "#/components/ui/dialog"
+import { useUserStore } from "#/store/user"
 import LearnKanjiItem from "./LearnKanjiItem"
+import { KanjiItemJlptLevel } from "#/database/schema"
 
-export default async function LearnDiscoveredKanji() {
-  const kanji = await serverClient.learn.getDiscoveredKanji("user")
+export default function LearnDiscoveredKanji() {
+  const userId = useUserStore((state) => state.userId)
+  const { data: kanji } = trpc.learn.getDiscoveredKanji.useQuery(userId)
+
+  if (!kanji || !kanji.length) return null
 
   return (
     <Dialog>
@@ -22,16 +29,15 @@ export default async function LearnDiscoveredKanji() {
             Discovered kanji
           </DialogTitle>
           <div className="grid grid-cols-3 gap-2">
-            {kanji
-              .sort((a, b) => b.proficiency - a.proficiency)
-              .map(({ kanji, proficiency, level }, index) => (
-                <LearnKanjiItem
-                  key={`${kanji}-${index}`}
-                  kanji={kanji}
-                  proficiency={proficiency}
-                  level={level}
-                />
-              ))}
+            {kanji.map(({ kanji, level }, index) => (
+              <LearnKanjiItem
+                key={`${kanji}-${index}`}
+                kanji={kanji as string}
+                // TODO: Calculate proficiency
+                proficiency={70}
+                level={level as KanjiItemJlptLevel}
+              />
+            ))}
           </div>
         </DialogHeader>
       </DialogContent>

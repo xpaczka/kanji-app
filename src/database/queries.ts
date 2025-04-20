@@ -71,3 +71,14 @@ export const updateUserKanjiHistory = async (
 
   await database.insert(userKanjiHistoryTable).values(kanjiHistoryData)
 }
+
+export const getUserKanjiHistory = async (userId: string) =>
+  await database
+    .selectDistinctOn([kanjiTable.kanji], {
+      kanji: kanjiTable.kanji,
+      level: kanjiTable.level,
+      timestamp: userKanjiHistoryTable.timestamp
+    })
+    .from(userKanjiHistoryTable)
+    .where(eq(userKanjiHistoryTable.user_id, userId))
+    .leftJoin(kanjiTable, eq(userKanjiHistoryTable.kanji_id, kanjiTable.id))
