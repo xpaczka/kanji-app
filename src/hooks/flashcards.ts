@@ -9,6 +9,7 @@ import { v4 as uuid } from "uuid"
 import { ROUTES } from "#/constants/router"
 import { calculateTimeDifferenceToFormat } from "#/lib/utils"
 import { KanjiSessionSetItem, SessionItemEvaluation } from "#/schemas/kanji"
+import { useUserStore } from "#/store/user"
 
 export const useInitiateFlashcardsSession = () => {
   const setSession = useAppSessionStore((state) => state.setSession)
@@ -37,7 +38,9 @@ export const useFlashcardsSession = () => {
   const params = useSearchParams()
   const level = params.get("level") as KanjiItemJlptLevel | undefined
 
-  const { resetSession } = useAppSessionStore((state) => state)
+  const resetSession = useAppSessionStore((state) => state.resetSession)
+  const userId = useUserStore((state) => state.userId)
+
   const { initiateFlashcardsSession } = useInitiateFlashcardsSession()
 
   const {
@@ -85,11 +88,13 @@ export const useFlashcardsSession = () => {
 
       if (kanjiIndex === kanjiSet.length - 1) {
         setSessionCompleted(true)
-        // TODO: Store user id so it is accessible accross application
-        updateKanjiHistory({ userId: "1", kanji: sessionSet })
+
+        if (userId) {
+          updateKanjiHistory({ userId, kanji: sessionSet })
+        }
       }
     },
-    [kanjiIndex, kanjiSet, sessionSet, updateKanjiHistory]
+    [kanjiIndex, kanjiSet, sessionSet, updateKanjiHistory, userId]
   )
 
   const resetSessionState = useCallback(() => {
