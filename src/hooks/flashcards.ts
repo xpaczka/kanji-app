@@ -3,15 +3,12 @@ import { trpc } from "#/app/_trpc/client"
 import { useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useNavigation } from "./router"
-import {
-  KanjiSessionSet,
-  SessionItemEvaluation
-} from "#/components/flashcards/FlashcardsSessionSummary"
 import { KanjiItemJlptLevel } from "#/database/schema"
 import { useAppSessionStore } from "#/store/app-session"
 import { v4 as uuid } from "uuid"
 import { ROUTES } from "#/constants/router"
 import { calculateTimeDifferenceToFormat } from "#/lib/utils"
+import { KanjiSessionSetItem, SessionItemEvaluation } from "#/schemas/kanji"
 
 export const useInitiateFlashcardsSession = () => {
   const setSession = useAppSessionStore((state) => state.setSession)
@@ -49,11 +46,14 @@ export const useFlashcardsSession = () => {
     refetch
   } = trpc.flashcards.getFlashcardsSessionKanji.useQuery(level ?? undefined)
 
+  const { mutate: updateKanjiHistory } =
+    trpc.flashcards.updateUserKanjiHistory.useMutation()
+
   const [kanjiIndex, setKanjiIndex] = useState(0)
   const [isRevealed, setIsRevealed] = useState(false)
 
   const [sessionCompleted, setSessionCompleted] = useState(false)
-  const [sessionSet, setSessionSet] = useState<KanjiSessionSet[]>([])
+  const [sessionSet, setSessionSet] = useState<KanjiSessionSetItem[]>([])
   const [sessionStartTime, setSessionStartTime] = useState<DateTime | null>(
     null
   )
@@ -68,22 +68,28 @@ export const useFlashcardsSession = () => {
   const { navigate } = useNavigation()
 
   const evaluateKanjiHandler = useCallback(
-    (evaluation: SessionItemEvaluation) => {
+    async (evaluation: SessionItemEvaluation) => {
       if (!kanjiSet) return
-
-      if (kanjiIndex === kanjiSet.length - 1) {
-        setSessionCompleted(true)
-      }
 
       setSessionSet((prev) => [
         ...prev,
-        { kanji: kanjiSet[kanjiIndex].kanji, evaluation }
+        {
+          id: kanjiSet[kanjiIndex].id,
+          kanji: kanjiSet[kanjiIndex].kanji,
+          evaluation
+        }
       ])
 
       setKanjiIndex((prev) => prev + 1)
       setIsRevealed(false)
+
+      if (kanjiIndex === kanjiSet.length - 1) {
+        setSessionCompleted(true)
+        // TODO: Store user id so it is accessible accross application
+        updateKanjiHistory({ userId: "1", kanji: sessionSet })
+      }
     },
-    [kanjiIndex, kanjiSet]
+    [kanjiIndex, kanjiSet, sessionSet, updateKanjiHistory]
   )
 
   const resetSessionState = useCallback(() => {

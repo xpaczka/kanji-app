@@ -1,5 +1,5 @@
 import { Card, CardContent, CardFooter } from "#/components/ui/card"
-import { KanjiProficiency } from "#/schemas/learn"
+import { KanjiProficiency } from "#/schemas/kanji"
 
 export default function LearnKanjiItem({
   kanji,

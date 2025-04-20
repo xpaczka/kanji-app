@@ -33,6 +33,8 @@ export default function FlashcardsSession() {
 
   if (!kanjiSet) return null
 
+  console.log(kanjiSet)
+
   if (sessionCompleted) {
     return (
       <FlashcardsSessionSummary

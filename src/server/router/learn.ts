@@ -1,4 +1,4 @@
-import { KanjiProficiency } from "#/schemas/learn"
+import { KanjiProficiency } from "#/schemas/kanji"
 import { publicProcedure, router } from "../trpc"
 import { z } from "zod"
 

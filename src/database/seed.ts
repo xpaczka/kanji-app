@@ -1,8 +1,13 @@
 import { Pool } from "pg"
 import { data as kanjiData } from "../../scripts/data.json"
-import { KanjiItemJlptLevel, kanjiTable, userTable } from "./schema"
+import {
+  KanjiItemJlptLevel,
+  kanjiTable,
+  userKanjiHistoryTable,
+  userTable
+} from "./schema"
 import { drizzle } from "drizzle-orm/node-postgres"
-import { reset, seed } from "drizzle-seed"
+import { reset } from "drizzle-seed"
 
 const args = process.argv.slice(2)
 const argsMap = new Map()
@@ -35,8 +40,8 @@ const main = async () => {
 
   console.log("Seeding database..")
 
-  await reset(database, { kanjiTable, userTable })
-  await seed(database, { kanjiTable: kanji })
+  await reset(database, { kanjiTable, userTable, userKanjiHistoryTable })
+  await database.insert(kanjiTable).values(kanji)
 
   console.log("Seeding completed")
 }

@@ -1,5 +1,5 @@
 {
-  "id": "94d8458a-e87e-4a6b-b388-05e976e3a10e",
+  "id": "2e4eec67-1796-49eb-b333-16e9dd33a568",
   "prevId": "362ea48b-dfd7-479e-b726-d19db848a3f4",
   "version": "7",
   "dialect": "postgresql",
@@ -62,8 +62,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.user_kanji": {
-      "name": "user_kanji",
+    "public.user_kanji_history": {
+      "name": "user_kanji_history",
       "schema": "",
       "columns": {
         "id": {
@@ -84,13 +84,20 @@
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
+        },
+        "timestamp": {
+          "name": "timestamp",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "user_kanji_user_id_user_id_fk": {
-          "name": "user_kanji_user_id_user_id_fk",
-          "tableFrom": "user_kanji",
+        "user_kanji_history_user_id_user_id_fk": {
+          "name": "user_kanji_history_user_id_user_id_fk",
+          "tableFrom": "user_kanji_history",
           "tableTo": "user",
           "columnsFrom": [
             "user_id"
@@ -101,9 +108,9 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "user_kanji_kanji_id_kanji_id_fk": {
-          "name": "user_kanji_kanji_id_kanji_id_fk",
-          "tableFrom": "user_kanji",
+        "user_kanji_history_kanji_id_kanji_id_fk": {
+          "name": "user_kanji_history_kanji_id_kanji_id_fk",
+          "tableFrom": "user_kanji_history",
           "tableTo": "kanji",
           "columnsFrom": [
             "kanji_id"

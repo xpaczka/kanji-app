@@ -8,6 +8,8 @@ const userProgressKeySchema = z.enum([
   "milestones"
 ])
 
+export const sessionItemEvaluation = z.enum(["fail", "hard", "good", "easy"])
+
 const USER_DATA = {
   learningOverview: [
     { name: "Level progress", value: 40 },

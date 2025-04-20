@@ -3,17 +3,17 @@
 import { toRomaji } from "wanakana"
 import { Card, CardContent, CardFooter } from "#/components/ui/card"
 import { Button } from "#/components/ui/button"
-import { SessionItemEvaluation } from "./FlashcardsSessionSummary"
 import FlashcardsSessionReading from "./FlashcardsSessionReading"
 import { useMemo } from "react"
 import { DatabaseKanji } from "#/database/schema"
+import { SessionItemEvaluation } from "#/schemas/kanji"
 
 type FlashcardSessionItemProps = {
   kanji: DatabaseKanji
   isRevealed: boolean
   showRomaji: boolean
   onRevealClick: () => void
-  onEvaluateClick: (evalution: SessionItemEvaluation) => void
+  onEvaluateClick: (evalution: SessionItemEvaluation) => Promise<void>
 }
 
 export default function FlashcardSessionItem({

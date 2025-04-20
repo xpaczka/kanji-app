@@ -1,6 +1,13 @@
 import { eq } from "drizzle-orm"
 import { database } from "."
-import { KanjiItemJlptLevel, kanjiTable, userTable } from "./schema"
+import {
+  DatabaseUserKanjiHistory,
+  KanjiItemJlptLevel,
+  kanjiTable,
+  userKanjiHistoryTable,
+  userTable
+} from "./schema"
+import { KanjiSessionSetItem } from "#/schemas/kanji"
 
 export const getAllKanjiQuery = async () =>
   await database.select().from(kanjiTable)
@@ -51,4 +58,16 @@ export const getUserByEmail = async (email: string) => {
     .limit(1)
 
   return data[0]
+}
+
+export const updateUserKanjiHistory = async (
+  userId: string,
+  kanji: KanjiSessionSetItem[]
+) => {
+  const kanjiHistoryData: DatabaseUserKanjiHistory[] = kanji.map((item) => ({
+    kanji_id: item.id,
+    user_id: userId
+  }))
+
+  await database.insert(userKanjiHistoryTable).values(kanjiHistoryData)
 }
