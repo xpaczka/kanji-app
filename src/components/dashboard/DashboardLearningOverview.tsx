@@ -1,11 +1,13 @@
 import { HTMLAttributes } from "react"
-import { serverClient } from "#/app/_trpc/server-client"
+import { createServerClient } from "#/app/_trpc/server-client"
 import DashboardCard from "./DashboardCard"
 import DashboardProgressItem from "./DashboardProgressItem"
 
 export default async function DashboardLearningOverview({
   ...props
 }: HTMLAttributes<HTMLDivElement>) {
+  const serverClient = await createServerClient()
+
   const learningOverview = await serverClient.user.getSelectedUserProgress({
     username: "user",
     key: "learningOverview"

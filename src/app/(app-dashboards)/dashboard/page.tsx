@@ -4,10 +4,12 @@ import DashboardWeeklyProgressChart from "#/components/dashboard/DashboardWeekyP
 import DashboardLeaderboard from "#/components/dashboard/DashboardLeaderboard"
 import DashboardProgressItem from "#/components/dashboard/DashboardProgressItem"
 import { Button } from "#/components/ui/button"
-import { serverClient } from "#/app/_trpc/server-client"
+import { createServerClient } from "#/app/_trpc/server-client"
 import DashboardLearningOverview from "#/components/dashboard/DashboardLearningOverview"
 
 export default async function Dashboard() {
+  const serverClient = await createServerClient()
+
   const { dailyChallenges, milestones, gamesOverview, weeklyProgress } =
     await serverClient.user.getUserData("user")
 

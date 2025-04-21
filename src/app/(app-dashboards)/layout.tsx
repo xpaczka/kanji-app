@@ -2,7 +2,7 @@ import BreadcrumbsNavigation from "#/components/navigation/BreadcrumbsNavigation
 import TopNavigation from "#/components/navigation/TopNavigation"
 import { getSession } from "#/lib/session"
 import { ReactNode } from "react"
-import { serverClient } from "../_trpc/server-client"
+import { createServerClient } from "../_trpc/server-client"
 
 export default async function AppRoutesLayout({
   children
@@ -10,6 +10,7 @@ export default async function AppRoutesLayout({
   children: ReactNode
 }) {
   const session = await getSession()
+  const serverClient = await createServerClient()
 
   const user =
     session && "userId" in session
