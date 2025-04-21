@@ -1,5 +1,5 @@
 {
-  "id": "0954f7c4-f1df-4086-9e23-21ed3571436e",
+  "id": "b44392b2-b41e-4a1d-8bcc-5edb84f18cb9",
   "prevId": "2a853bf9-0b11-48fd-85bd-27e6a3297050",
   "version": "7",
   "dialect": "postgresql",
@@ -171,7 +171,7 @@
           "type": "json",
           "primaryKey": false,
           "notNull": false,
-          "default": "'{\"_def\":{\"typeName\":\"ZodNull\"},\"~standard\":{\"version\":1,\"vendor\":\"zod\"}}'::json"
+          "default": "'null'::json"
         }
       },
       "indexes": {},
