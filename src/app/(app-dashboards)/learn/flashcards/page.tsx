@@ -6,6 +6,7 @@ type FlashcardsLevelChoiceItem = {
   isDisabled?: boolean
 }
 
+// TODO: Determine available levels based on user_kanji_history
 const LEVELS: FlashcardsLevelChoiceItem[] = [
   { level: "jlpt-n5" },
   { level: "jlpt-n4" },

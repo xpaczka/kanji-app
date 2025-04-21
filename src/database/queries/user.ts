@@ -1,12 +1,6 @@
 import { eq } from "drizzle-orm"
-import { database } from "."
-import { KanjiItemJlptLevel, kanjiTable, userTable } from "./schema"
-
-export const getAllKanjiQuery = async () =>
-  await database.select().from(kanjiTable)
-
-export const getKanjiByLevelQuery = async (level: KanjiItemJlptLevel) =>
-  await database.select().from(kanjiTable).where(eq(kanjiTable.level, level))
+import { database } from ".."
+import { userTable } from "../schema"
 
 export const createNewUser = async (
   username: string,

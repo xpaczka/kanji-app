@@ -1,0 +1,205 @@
+{
+  "id": "2a853bf9-0b11-48fd-85bd-27e6a3297050",
+  "prevId": "362ea48b-dfd7-479e-b726-d19db848a3f4",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.kanji": {
+      "name": "kanji",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "kanji": {
+          "name": "kanji",
+          "type": "varchar(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "level": {
+          "name": "level",
+          "type": "varchar(7)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "meanings": {
+          "name": "meanings",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kun_readings": {
+          "name": "kun_readings",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "on_readings": {
+          "name": "on_readings",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "kanji_kanji_unique": {
+          "name": "kanji_kanji_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "kanji"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.user_kanji_history": {
+      "name": "user_kanji_history",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kanji_id": {
+          "name": "kanji_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "timestamp": {
+          "name": "timestamp",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_kanji_history_user_id_user_id_fk": {
+          "name": "user_kanji_history_user_id_user_id_fk",
+          "tableFrom": "user_kanji_history",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_kanji_history_kanji_id_kanji_id_fk": {
+          "name": "user_kanji_history_kanji_id_kanji_id_fk",
+          "tableFrom": "user_kanji_history",
+          "tableTo": "kanji",
+          "columnsFrom": [
+            "kanji_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "user_kanji_history_user_id_kanji_id_unique": {
+          "name": "user_kanji_history_user_id_kanji_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_id",
+            "kanji_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.user": {
+      "name": "user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "username": {
+          "name": "username",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "user_email_unique": {
+          "name": "user_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        },
+        "user_username_unique": {
+          "name": "user_username_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "username"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

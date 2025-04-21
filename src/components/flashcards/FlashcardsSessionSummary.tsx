@@ -11,21 +11,10 @@ import { Button } from "#/components/ui/button"
 import { Label } from "#/components/ui/label"
 import { DateTime } from "luxon"
 import { useFlashcardsSessionSummary } from "#/hooks/flashcards"
-
-export enum SessionItemEvaluation {
-  FAIL = "fail",
-  HARD = "hard",
-  GOOD = "good",
-  EASY = "easy"
-}
-
-export type KanjiSessionSet = {
-  kanji: string
-  evaluation: SessionItemEvaluation | null
-}
+import { KanjiSessionSetItem } from "#/schemas/kanji"
 
 type FlashcardsSessionSummaryProps = {
-  kanjiSet: KanjiSessionSet[]
+  kanjiSet: KanjiSessionSetItem[]
   sessionStartTime: DateTime | null
   onNewSessionClick: () => void
   onEndSessionClick: () => void

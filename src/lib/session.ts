@@ -31,7 +31,8 @@ export const decrypt = async (session: string | undefined = "") => {
   }
 }
 
-export async function getSession() {
+// TODO: Validate user session
+export const getSession = async () => {
   const cookieStore = await cookies()
   const session = cookieStore.get(SESSION_COOKIE_NAME)?.value
 
