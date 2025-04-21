@@ -1,6 +1,7 @@
 import { signOut } from "#/actions/auth"
 import { trpc } from "#/app/_trpc/client"
-import { Button } from "../ui/button"
+import { Button } from "#/components/ui/button"
+import UserPreferences from "./UserPreferences"
 
 export default function UserAccount() {
   const { data: user } = trpc.user.getUser.useQuery()
@@ -9,8 +10,9 @@ export default function UserAccount() {
 
   return (
     <div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <p>{user.username}</p>
+        <UserPreferences />
         <Button onClick={signOut}>Sign out</Button>
       </div>
     </div>
