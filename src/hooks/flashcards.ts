@@ -71,30 +71,27 @@ export const useFlashcardsSession = () => {
   const { navigate } = useNavigation()
 
   const evaluateKanjiHandler = useCallback(
-    async (evaluation: SessionItemEvaluation) => {
-      if (!kanjiSet) return
+    (evaluation: SessionItemEvaluation) => {
+      if (!kanjiSet || !userId) return
 
-      setSessionSet((prev) => [
-        ...prev,
-        {
-          id: kanjiSet[kanjiIndex].id,
-          kanji: kanjiSet[kanjiIndex].kanji,
-          evaluation
-        }
-      ])
+      const evalutedKanjiItem = {
+        id: kanjiSet[kanjiIndex].id,
+        kanji: kanjiSet[kanjiIndex].kanji,
+        evaluation
+      }
+
+      setSessionSet((prev) => [...prev, evalutedKanjiItem])
+
+      updateKanjiHistory({ userId, kanji: evalutedKanjiItem })
 
       setKanjiIndex((prev) => prev + 1)
       setIsRevealed(false)
 
       if (kanjiIndex === kanjiSet.length - 1) {
         setSessionCompleted(true)
-
-        if (userId) {
-          updateKanjiHistory({ userId, kanji: sessionSet })
-        }
       }
     },
-    [kanjiIndex, kanjiSet, sessionSet, updateKanjiHistory, userId]
+    [kanjiIndex, kanjiSet, updateKanjiHistory, userId]
   )
 
   const resetSessionState = useCallback(() => {

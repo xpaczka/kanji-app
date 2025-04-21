@@ -1,5 +1,5 @@
 {
-  "id": "2e4eec67-1796-49eb-b333-16e9dd33a568",
+  "id": "2a853bf9-0b11-48fd-85bd-27e6a3297050",
   "prevId": "362ea48b-dfd7-479e-b726-d19db848a3f4",
   "version": "7",
   "dialect": "postgresql",
@@ -123,7 +123,16 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "user_kanji_history_user_id_kanji_id_unique": {
+          "name": "user_kanji_history_user_id_kanji_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_id",
+            "kanji_id"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false

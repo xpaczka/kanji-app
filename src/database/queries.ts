@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm"
+import { desc, eq } from "drizzle-orm"
 import { database } from "."
 import {
   DatabaseUserKanjiHistory,
@@ -62,19 +62,27 @@ export const getUserByEmail = async (email: string) => {
 
 export const updateUserKanjiHistory = async (
   userId: string,
-  kanji: KanjiSessionSetItem[]
+  kanji: KanjiSessionSetItem
 ) => {
-  const kanjiHistoryData: DatabaseUserKanjiHistory[] = kanji.map((item) => ({
-    kanji_id: item.id,
+  const kanjiHistoryData: DatabaseUserKanjiHistory = {
+    kanji_id: kanji.id,
     user_id: userId
-  }))
+  }
 
-  await database.insert(userKanjiHistoryTable).values(kanjiHistoryData)
+  const newTimestamp = new Date()
+
+  await database
+    .insert(userKanjiHistoryTable)
+    .values(kanjiHistoryData)
+    .onConflictDoUpdate({
+      target: [userKanjiHistoryTable.user_id, userKanjiHistoryTable.kanji_id],
+      set: { timestamp: newTimestamp }
+    })
 }
 
 export const getUserKanjiHistory = async (userId: string) =>
   await database
-    .selectDistinctOn([kanjiTable.kanji], {
+    .select({
       kanji: kanjiTable.kanji,
       level: kanjiTable.level,
       timestamp: userKanjiHistoryTable.timestamp
@@ -82,3 +90,4 @@ export const getUserKanjiHistory = async (userId: string) =>
     .from(userKanjiHistoryTable)
     .where(eq(userKanjiHistoryTable.user_id, userId))
     .leftJoin(kanjiTable, eq(userKanjiHistoryTable.kanji_id, kanjiTable.id))
+    .orderBy(desc(userKanjiHistoryTable.timestamp))

@@ -1,5 +1,12 @@
 import { InferInsertModel } from "drizzle-orm"
-import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core"
+import {
+  pgTable,
+  text,
+  timestamp,
+  unique,
+  uuid,
+  varchar
+} from "drizzle-orm/pg-core"
 import { z } from "zod"
 
 export type DatabaseKanji = InferInsertModel<typeof kanjiTable>
@@ -35,9 +42,15 @@ export const userTable = pgTable("user", {
   password: varchar().notNull()
 })
 
-export const userKanjiHistoryTable = pgTable("user_kanji_history", {
-  id: uuid().primaryKey().defaultRandom(),
-  user_id: uuid().references(() => userTable.id),
-  kanji_id: uuid().references(() => kanjiTable.id),
-  timestamp: timestamp().notNull().defaultNow()
-})
+export const userKanjiHistoryTable = pgTable(
+  "user_kanji_history",
+  {
+    id: uuid().primaryKey().defaultRandom(),
+    user_id: uuid().references(() => userTable.id),
+    kanji_id: uuid().references(() => kanjiTable.id),
+    timestamp: timestamp().notNull().defaultNow()
+  },
+  (table) => ({
+    userKanjiUnique: unique().on(table.user_id, table.kanji_id)
+  })
+)

@@ -22,9 +22,7 @@ export const flashcardsRouter = router({
       return getRandomKanjiSet(currentLevelKanji, KANJI_SESSION_COUNT)
     }),
   updateUserKanjiHistory: publicProcedure
-    .input(
-      z.object({ userId: z.string(), kanji: z.array(kanjiSessionItemSchema) })
-    )
+    .input(z.object({ userId: z.string(), kanji: kanjiSessionItemSchema }))
     .mutation(async ({ input }) => {
       if (!input) return
       await updateUserKanjiHistory(input.userId, input.kanji)

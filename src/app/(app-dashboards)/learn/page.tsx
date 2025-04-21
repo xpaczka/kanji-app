@@ -1,12 +1,9 @@
-import LearnKanjiItem from "#/components/learn/LearnKanjiItem"
-import { serverClient } from "#/app/_trpc/server-client"
 import LearnDiscoveredKanji from "#/components/learn/LearnDiscoveredKanji"
 import DashboardLearningOverview from "#/components/dashboard/DashboardLearningOverview"
 import FlashcardsButton from "#/components/flashcards/FlashcardsButton"
+import LearnRecentKanji from "#/components/learn/LearnRecentKanji"
 
-export default async function Learn() {
-  const recentKanji = await serverClient.learn.getRecentKanji("user")
-
+export default function Learn() {
   return (
     <>
       <div className="mb-8 grid grid-cols-5 gap-6">
@@ -21,16 +18,7 @@ export default async function Learn() {
         <p className="text-lg font-bold">Recent kanji</p>
         <LearnDiscoveredKanji />
       </div>
-      <div className="flex w-full gap-6">
-        {recentKanji.map(({ kanji, proficiency, level }, index) => (
-          <LearnKanjiItem
-            key={`${kanji}-${index}`}
-            kanji={kanji}
-            proficiency={proficiency}
-            level={level}
-          />
-        ))}
-      </div>
+      <LearnRecentKanji />
     </>
   )
 }

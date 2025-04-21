@@ -18,7 +18,7 @@ export const kanjiSessionItemSchema = z.object({
 })
 
 export const kanjiProficiencySchema = z.object({
-  kanji: z.string(),
-  level: kanjiItemJlptLevel,
+  kanji: z.string().nullable(),
+  level: kanjiItemJlptLevel.nullable(),
   proficiency: z.number().gte(0)
 })

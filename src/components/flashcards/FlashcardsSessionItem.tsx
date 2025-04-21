@@ -13,7 +13,7 @@ type FlashcardSessionItemProps = {
   isRevealed: boolean
   showRomaji: boolean
   onRevealClick: () => void
-  onEvaluateClick: (evalution: SessionItemEvaluation) => Promise<void>
+  onEvaluateClick: (evalution: SessionItemEvaluation) => void
 }
 
 export default function FlashcardSessionItem({

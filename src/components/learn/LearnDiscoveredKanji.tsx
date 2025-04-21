@@ -10,7 +10,6 @@ import {
 } from "#/components/ui/dialog"
 import { useUserStore } from "#/store/user"
 import LearnKanjiItem from "./LearnKanjiItem"
-import { KanjiItemJlptLevel } from "#/database/schema"
 
 export default function LearnDiscoveredKanji() {
   const userId = useUserStore((state) => state.userId)
@@ -32,10 +31,10 @@ export default function LearnDiscoveredKanji() {
             {kanji.map(({ kanji, level }, index) => (
               <LearnKanjiItem
                 key={`${kanji}-${index}`}
-                kanji={kanji as string}
+                kanji={kanji}
                 // TODO: Calculate proficiency
                 proficiency={70}
-                level={level as KanjiItemJlptLevel}
+                level={level}
               />
             ))}
           </div>
