@@ -29,6 +29,13 @@
       "when": 1745245009358,
       "tag": "0003_striped_logan",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1745263203222,
+      "tag": "0004_absurd_bug",
+      "breakpoints": true
     }
   ]
 }

@@ -1,5 +1,6 @@
 import { InferInsertModel } from "drizzle-orm"
 import {
+  json,
   pgTable,
   text,
   timestamp,
@@ -39,7 +40,8 @@ export const userTable = pgTable("user", {
   id: uuid().primaryKey().defaultRandom(),
   email: varchar().notNull().unique(),
   username: varchar().notNull().unique(),
-  password: varchar().notNull()
+  password: varchar().notNull(),
+  preferences: json().default(z.null())
 })
 
 export const userKanjiHistoryTable = pgTable(

@@ -1,0 +1,1 @@
+ALTER TABLE "user" ADD COLUMN "preferences" json DEFAULT '{"_def":{"typeName":"ZodNull"},"~standard":{"version":1,"vendor":"zod"}}'::json;
