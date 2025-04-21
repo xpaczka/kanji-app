@@ -14,14 +14,21 @@ import { Button } from "#/components/ui/button"
 import SettingsIcon from "@mui/icons-material/Settings"
 import { Switch } from "#/components/ui/switch"
 import { Label } from "#/components/ui/label"
-import { useCallback, useState } from "react"
+import { useCallback } from "react"
+import { trpc } from "#/app/_trpc/client"
+import { useUserRomajiPreferences } from "#/hooks/user"
 
 // TODO: Use react hooks form
 export default function UserPreferences() {
-  const [showRomaji, setShowRomaji] = useState(false)
+  const { showRomaji, setShowRomaji } = useUserRomajiPreferences()
 
-  // TODO: Implement saving preferences
-  const savePreferencesHandler = useCallback(() => {}, [])
+  const { mutate: updateUserPreferences } =
+    trpc.user.updateUserPreferences.useMutation()
+
+  // TODO: Implement multiple preferences update
+  const savePreferencesHandler = useCallback(() => {
+    updateUserPreferences({ showRomaji })
+  }, [updateUserPreferences, showRomaji])
 
   return (
     <Dialog>
