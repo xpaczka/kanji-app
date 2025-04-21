@@ -3,7 +3,6 @@ import LearnKanjiItem from "./LearnKanjiItem"
 
 export default async function LearnRecentKanji() {
   const serverClient = await createServerClient()
-
   const recentKanji = await serverClient.learn.getRecentKanji()
 
   if (!recentKanji || !recentKanji.length) return null

@@ -17,24 +17,19 @@ export const learnRouter = router({
   ),
   getRecentKanji: protectedProcedure.query(async ({ ctx }) => {
     const kanjiHistory = await getUserKanjiHistory(ctx.userId)
-
-    return kanjiHistory.slice(0, 5)
+    return kanjiHistory.length ? kanjiHistory.slice(0, 5) : []
   }),
   getDiscoveredKanjiCount: protectedProcedure.query(
     async ({ ctx }): Promise<UserDiscoveredKanjiCount | null> => {
       const allKanji = await getAllKanjiQuery()
       const kanjiHistory = await getUserKanjiHistory(ctx.userId)
 
-      if (
-        !allKanji ||
-        !allKanji.length ||
-        !kanjiHistory ||
-        !kanjiHistory.length
-      ) {
-        return null
-      }
+      if (!allKanji || !kanjiHistory) return null
 
-      return { discoveredKanji: kanjiHistory.length, allKanji: allKanji.length }
+      return {
+        discoveredKanji: kanjiHistory.length,
+        allKanji: Math.max(allKanji.length, 1)
+      }
     }
   )
 })

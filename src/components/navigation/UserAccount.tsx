@@ -1,5 +1,3 @@
-"use client"
-
 import { signOut } from "#/actions/auth"
 import { trpc } from "#/app/_trpc/client"
 import { Button } from "../ui/button"
