@@ -3,6 +3,7 @@ import { createStore } from "zustand/vanilla"
 import { z } from "zod"
 import { createContext, useContext } from "react"
 
+// TODO: Use TRPC context for sharing user data across app
 export type UserState = z.infer<typeof userStoreSchema>
 export type UserActions = z.infer<typeof userActionsSchema>
 export type UserStore = UserState & UserActions
