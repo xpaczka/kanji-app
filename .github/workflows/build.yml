@@ -1,0 +1,42 @@
+name: App Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - ".github/workflows/build.yml"
+
+jobs:
+  app-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --prefer-offline --frozen-lockfile
+
+      - name: Check code formatting
+        run: bun format:check
+
+  dapp-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --prefer-offline --frozen-lockfile
+
+      - name: Build
+        run: bun build
