@@ -1,10 +1,16 @@
 import { TRPC_LINKS } from "#/constants/misc"
 import { getSession } from "#/lib/session"
+import { JWTPayload } from "jose"
 
-export type Context = Awaited<ReturnType<typeof createContext>>
+export type TrpcContext = Awaited<ReturnType<typeof createTrpcContext>>
 
-export const createContext = async () => {
+const getContextUserId = (session: JWTPayload | null | undefined) =>
+  session && typeof session === "object" && "userId" in session
+    ? session.userId
+    : null
+
+export const createTrpcContext = async () => {
   const session = await getSession()
 
-  return { ...TRPC_LINKS, session }
+  return { ...TRPC_LINKS, userId: getContextUserId(session) }
 }
