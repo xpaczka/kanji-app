@@ -6,7 +6,7 @@ export type TrpcContext = Awaited<ReturnType<typeof createTrpcContext>>
 
 const getContextUserId = (session: JWTPayload | null | undefined) =>
   session && typeof session === "object" && "userId" in session
-    ? session.userId
+    ? (session.userId as string)
     : null
 
 export const createTrpcContext = async () => {

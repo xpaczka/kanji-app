@@ -1,5 +1,5 @@
 import { getUserById } from "#/database/queries"
-import { publicProcedure, router } from "../trpc"
+import { protectedProcedure, router } from "../trpc"
 import { z } from "zod"
 
 const userProgressKeySchema = z.enum([
@@ -39,11 +39,11 @@ const USER_DATA = {
 }
 
 export const userRouter = router({
-  getUser: publicProcedure
-    .input(z.string())
-    .query(async ({ input }) => await getUserById(input)),
-  getUserData: publicProcedure.input(z.string()).query(async () => USER_DATA),
-  getSelectedUserProgress: publicProcedure
-    .input(z.object({ username: z.string(), key: userProgressKeySchema }))
-    .query(async ({ input }) => USER_DATA[input.key])
+  getUser: protectedProcedure.query(
+    async ({ ctx }) => await getUserById(ctx.userId)
+  ),
+  getUserData: protectedProcedure.query(async () => USER_DATA),
+  getSelectedUserProgress: protectedProcedure
+    .input(userProgressKeySchema)
+    .query(async ({ input }) => USER_DATA[input])
 })

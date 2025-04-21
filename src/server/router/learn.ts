@@ -1,12 +1,10 @@
 import { getAllKanjiQuery, getUserKanjiHistory } from "#/database/queries"
-import { publicProcedure, router } from "../trpc"
+import { protectedProcedure, router } from "../trpc"
 import { z } from "zod"
 
 export type UserDiscoveredKanjiCount = z.infer<
   typeof userDiscoveredKanjiCountSchema
 >
-
-const userIdSchema = z.string().nullable()
 
 export const userDiscoveredKanjiCountSchema = z.object({
   discoveredKanji: z.number(),
@@ -14,28 +12,29 @@ export const userDiscoveredKanjiCountSchema = z.object({
 })
 
 export const learnRouter = router({
-  getDiscoveredKanji: publicProcedure
-    .input(userIdSchema)
-    .query(async ({ input }) =>
-      input ? await getUserKanjiHistory(input) : []
-    ),
-  getRecentKanji: publicProcedure
-    .input(userIdSchema)
-    .query(async ({ input }) => {
-      if (!input) return []
+  getDiscoveredKanji: protectedProcedure.query(
+    async ({ ctx }) => await getUserKanjiHistory(ctx.userId)
+  ),
+  getRecentKanji: protectedProcedure.query(async ({ ctx }) => {
+    const kanjiHistory = await getUserKanjiHistory(ctx.userId)
 
-      const kanjiHistory = await getUserKanjiHistory(input)
-
-      return kanjiHistory.slice(0, 5)
-    }),
-  getDiscoveredKanjiCount: publicProcedure
-    .input(userIdSchema)
-    .query(async ({ input }): Promise<UserDiscoveredKanjiCount> => {
-      if (!input) return { discoveredKanji: 0, allKanji: 1 }
-
+    return kanjiHistory.slice(0, 5)
+  }),
+  getDiscoveredKanjiCount: protectedProcedure.query(
+    async ({ ctx }): Promise<UserDiscoveredKanjiCount | null> => {
       const allKanji = await getAllKanjiQuery()
-      const kanjiHistory = await getUserKanjiHistory(input)
+      const kanjiHistory = await getUserKanjiHistory(ctx.userId)
+
+      if (
+        !allKanji ||
+        !allKanji.length ||
+        !kanjiHistory ||
+        !kanjiHistory.length
+      ) {
+        return null
+      }
 
       return { discoveredKanji: kanjiHistory.length, allKanji: allKanji.length }
-    })
+    }
+  )
 })

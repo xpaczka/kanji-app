@@ -11,7 +11,7 @@ export default async function Dashboard() {
   const serverClient = await createServerClient()
 
   const { dailyChallenges, milestones, gamesOverview, weeklyProgress } =
-    await serverClient.user.getUserData("user")
+    await serverClient.user.getUserData()
 
   return (
     <div className="grid grid-cols-3 grid-rows-3 gap-8">

@@ -1,4 +1,4 @@
-import { initTRPC } from "@trpc/server"
+import { initTRPC, TRPCError } from "@trpc/server"
 import { TrpcContext } from "./context"
 
 const t = initTRPC.context<TrpcContext>().create()
@@ -8,4 +8,17 @@ export const createCallerFactory = t.createCallerFactory
 
 export const publicProcedure = t.procedure
 
-// TODO: Add protected procedure for user
+export const isAuthorized = (ctx: TrpcContext) => {
+  if (!ctx.userId) {
+    throw new TRPCError({ code: "UNAUTHORIZED" })
+  }
+
+  return { ...ctx, userId: ctx.userId }
+}
+
+export const protectedProcedure = t.procedure.use(async (options) => {
+  const { ctx } = options
+  const authorizedContext = isAuthorized(ctx)
+
+  return options.next({ ctx: authorizedContext })
+})

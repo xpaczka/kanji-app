@@ -81,8 +81,7 @@ export const useFlashcardsSession = () => {
       }
 
       setSessionSet((prev) => [...prev, evalutedKanjiItem])
-
-      updateKanjiHistory({ userId, kanji: evalutedKanjiItem })
+      updateKanjiHistory(evalutedKanjiItem)
 
       setKanjiIndex((prev) => prev + 1)
       setIsRevealed(false)

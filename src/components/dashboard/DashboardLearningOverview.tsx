@@ -8,10 +8,8 @@ export default async function DashboardLearningOverview({
 }: HTMLAttributes<HTMLDivElement>) {
   const serverClient = await createServerClient()
 
-  const learningOverview = await serverClient.user.getSelectedUserProgress({
-    username: "user",
-    key: "learningOverview"
-  })
+  const learningOverview =
+    await serverClient.user.getSelectedUserProgress("learningOverview")
 
   return (
     <DashboardCard title="Learning overview" {...props}>
