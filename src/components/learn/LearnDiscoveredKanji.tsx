@@ -1,6 +1,4 @@
-"use client"
-
-import { trpc } from "#/app/_trpc/client"
+import { createServerClient } from "#/app/_trpc/server-client"
 import {
   Dialog,
   DialogContent,
@@ -8,17 +6,16 @@ import {
   DialogTitle,
   DialogTrigger
 } from "#/components/ui/dialog"
-import { useUserStore } from "#/store/user"
 import { Progress } from "../ui/progress"
 import LearnKanjiItem from "./LearnKanjiItem"
 
-export default function LearnDiscoveredKanji() {
-  const userId = useUserStore((state) => state.userId)
+export default async function LearnDiscoveredKanji() {
+  const serverClient = await createServerClient()
 
-  const { data: kanji } = trpc.learn.getDiscoveredKanji.useQuery(userId)
+  const kanji = await serverClient.learn.getDiscoveredKanji()
 
-  const { data: discoveredKanjiCount } =
-    trpc.learn.getDiscoveredKanjiCount.useQuery(userId)
+  const discoveredKanjiCount =
+    await serverClient.learn.getDiscoveredKanjiCount()
 
   if (!kanji || !kanji.length || !discoveredKanjiCount) return null
 

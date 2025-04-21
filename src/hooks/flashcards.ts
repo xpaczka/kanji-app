@@ -9,7 +9,6 @@ import { v4 as uuid } from "uuid"
 import { ROUTES } from "#/constants/router"
 import { calculateTimeDifferenceToFormat } from "#/lib/utils"
 import { KanjiSessionSetItem, SessionItemEvaluation } from "#/schemas/kanji"
-import { useUserStore } from "#/store/user"
 
 export const useInitiateFlashcardsSession = () => {
   const setSession = useAppSessionStore((state) => state.setSession)
@@ -39,18 +38,17 @@ export const useFlashcardsSession = () => {
   const level = params.get("level") as KanjiItemJlptLevel | undefined
 
   const resetSession = useAppSessionStore((state) => state.resetSession)
-  const userId = useUserStore((state) => state.userId)
-
-  const { initiateFlashcardsSession } = useInitiateFlashcardsSession()
 
   const {
     data: kanjiSet,
-    isLoading,
-    refetch
+    isLoading: isLoadingKanjiSet,
+    refetch: refetchKanjiSet
   } = trpc.flashcards.getFlashcardsSessionKanji.useQuery(level ?? undefined)
 
   const { mutate: updateKanjiHistory } =
     trpc.flashcards.updateUserKanjiHistory.useMutation()
+
+  const { initiateFlashcardsSession } = useInitiateFlashcardsSession()
 
   const [kanjiIndex, setKanjiIndex] = useState(0)
   const [isRevealed, setIsRevealed] = useState(false)
@@ -72,7 +70,7 @@ export const useFlashcardsSession = () => {
 
   const evaluateKanjiHandler = useCallback(
     (evaluation: SessionItemEvaluation) => {
-      if (!kanjiSet || !userId) return
+      if (!kanjiSet) return
 
       const evalutedKanjiItem = {
         id: kanjiSet[kanjiIndex].id,
@@ -81,8 +79,7 @@ export const useFlashcardsSession = () => {
       }
 
       setSessionSet((prev) => [...prev, evalutedKanjiItem])
-
-      updateKanjiHistory({ userId, kanji: evalutedKanjiItem })
+      updateKanjiHistory(evalutedKanjiItem)
 
       setKanjiIndex((prev) => prev + 1)
       setIsRevealed(false)
@@ -91,7 +88,7 @@ export const useFlashcardsSession = () => {
         setSessionCompleted(true)
       }
     },
-    [kanjiIndex, kanjiSet, updateKanjiHistory, userId]
+    [kanjiIndex, kanjiSet, updateKanjiHistory]
   )
 
   const resetSessionState = useCallback(() => {
@@ -105,19 +102,18 @@ export const useFlashcardsSession = () => {
   const newSessionHandler = useCallback(() => {
     resetSessionState()
     initiateFlashcardsSession(level)
-    refetch()
-  }, [resetSessionState, refetch, initiateFlashcardsSession, level])
+    refetchKanjiSet()
+  }, [resetSessionState, refetchKanjiSet, initiateFlashcardsSession, level])
 
   const endSessionHandler = useCallback(() => {
     navigate(ROUTES.flashcards)
-
     resetSessionState()
     resetSession()
   }, [navigate, resetSessionState, resetSession])
 
   return {
     kanjiSet,
-    isLoading,
+    isLoading: isLoadingKanjiSet,
     kanjiIndex,
     isRevealed,
     setIsRevealed,

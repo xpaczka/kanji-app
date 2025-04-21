@@ -1,20 +1,18 @@
 import { signOut } from "#/actions/auth"
-import { DatabaseUser } from "#/database/schema"
+import { trpc } from "#/app/_trpc/client"
 import { Button } from "../ui/button"
 
-type UserAccountProps = {
-  user: Omit<DatabaseUser, "password"> | null
-}
+export default function UserAccount() {
+  const { data: user } = trpc.user.getUser.useQuery()
 
-export default function UserAccount({ user }: UserAccountProps) {
+  if (!user) return null
+
   return (
     <div>
-      {user && (
-        <div className="flex items-center gap-2">
-          <p>{user.username}</p>
-          <Button onClick={signOut}>Sign out</Button>
-        </div>
-      )}
+      <div className="flex items-center gap-2">
+        <p>{user.username}</p>
+        <Button onClick={signOut}>Sign out</Button>
+      </div>
     </div>
   )
 }

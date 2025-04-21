@@ -1,6 +1,9 @@
 import { appRouter } from "#/server"
-import { TRPC_LINKS } from "#/constants/misc"
+import { createCallerFactory } from "#/server/trpc"
+import { createTrpcContext } from "#/server/context"
 
-export const serverClient = appRouter.createCaller({
-  links: TRPC_LINKS
-})
+export const createServerClient = async () => {
+  const context = await createTrpcContext()
+
+  return createCallerFactory(appRouter)(context)
+}

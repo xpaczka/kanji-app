@@ -1,24 +1,11 @@
 import BreadcrumbsNavigation from "#/components/navigation/BreadcrumbsNavigation"
 import TopNavigation from "#/components/navigation/TopNavigation"
-import { getSession } from "#/lib/session"
 import { ReactNode } from "react"
-import { serverClient } from "../_trpc/server-client"
 
-export default async function AppRoutesLayout({
-  children
-}: {
-  children: ReactNode
-}) {
-  const session = await getSession()
-
-  const user =
-    session && "userId" in session
-      ? await serverClient.user.getUser(session.userId as string)
-      : null
-
+export default function AppRoutesLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <TopNavigation user={user} />
+      <TopNavigation />
       <div className="p-10">
         <BreadcrumbsNavigation />
         {children}

@@ -6,13 +6,13 @@ import {
 import { DatabaseKanji, kanjiItemJlptLevel } from "#/database/schema"
 import { getRandomKanjiSet } from "#/lib/kanji"
 import { kanjiSessionItemSchema } from "#/schemas/kanji"
-import { publicProcedure, router } from "#/server/trpc"
-import { z } from "zod"
+import { protectedProcedure, router } from "#/server/trpc"
+import { TRPCError } from "@trpc/server"
 
 const KANJI_SESSION_COUNT = 10
 
 export const flashcardsRouter = router({
-  getFlashcardsSessionKanji: publicProcedure
+  getFlashcardsSessionKanji: protectedProcedure
     .input(kanjiItemJlptLevel.optional())
     .query(async ({ input }): Promise<DatabaseKanji[]> => {
       const currentLevelKanji = input
@@ -21,10 +21,13 @@ export const flashcardsRouter = router({
 
       return getRandomKanjiSet(currentLevelKanji, KANJI_SESSION_COUNT)
     }),
-  updateUserKanjiHistory: publicProcedure
-    .input(z.object({ userId: z.string(), kanji: kanjiSessionItemSchema }))
-    .mutation(async ({ input }) => {
-      if (!input) return
-      await updateUserKanjiHistory(input.userId, input.kanji)
+  updateUserKanjiHistory: protectedProcedure
+    .input(kanjiSessionItemSchema)
+    .mutation(async ({ input, ctx }) => {
+      if (!input) {
+        throw new TRPCError({ code: "BAD_REQUEST" })
+      }
+
+      await updateUserKanjiHistory(ctx.userId, input)
     })
 })

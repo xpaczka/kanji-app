@@ -1,12 +1,9 @@
-"use client"
-
-import { trpc } from "#/app/_trpc/client"
-import { useUserStore } from "#/store/user"
+import { createServerClient } from "#/app/_trpc/server-client"
 import LearnKanjiItem from "./LearnKanjiItem"
 
-export default function LearnRecentKanji() {
-  const userId = useUserStore((state) => state.userId)
-  const { data: recentKanji } = trpc.learn.getRecentKanji.useQuery(userId)
+export default async function LearnRecentKanji() {
+  const serverClient = await createServerClient()
+  const recentKanji = await serverClient.learn.getRecentKanji()
 
   if (!recentKanji || !recentKanji.length) return null
 
