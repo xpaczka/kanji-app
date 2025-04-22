@@ -1,5 +1,6 @@
 import { InferInsertModel } from "drizzle-orm"
 import {
+  json,
   pgTable,
   text,
   timestamp,
@@ -16,15 +17,22 @@ export type DatabaseUserKanjiHistory = InferInsertModel<
   typeof userKanjiHistoryTable
 >
 
-export type KanjiItemJlptLevel = z.infer<typeof kanjiItemJlptLevel>
+export type KanjiItemJlptLevel = z.infer<typeof kanjiItemJlptLevelSchema>
+export type UserPreferences = z.infer<typeof userPreferencesSchema>
 
-export const kanjiItemJlptLevel = z.enum([
+export const kanjiItemJlptLevelSchema = z.enum([
   "jlpt-n1",
   "jlpt-n2",
   "jlpt-n3",
   "jlpt-n4",
   "jlpt-n5"
 ])
+
+export const userPreferencesSchema = z
+  .object({
+    showRomaji: z.boolean()
+  })
+  .nullable()
 
 export const kanjiTable = pgTable("kanji", {
   id: uuid().primaryKey().defaultRandom(),
@@ -39,7 +47,8 @@ export const userTable = pgTable("user", {
   id: uuid().primaryKey().defaultRandom(),
   email: varchar().notNull().unique(),
   username: varchar().notNull().unique(),
-  password: varchar().notNull()
+  password: varchar().notNull(),
+  preferences: json().default(null).$type<UserPreferences>()
 })
 
 export const userKanjiHistoryTable = pgTable(

@@ -9,6 +9,7 @@ import { v4 as uuid } from "uuid"
 import { ROUTES } from "#/constants/router"
 import { calculateTimeDifferenceToFormat } from "#/lib/utils"
 import { KanjiSessionSetItem, SessionItemEvaluation } from "#/schemas/kanji"
+import { useUserRomajiPreferences } from "./user"
 
 export const useInitiateFlashcardsSession = () => {
   const setSession = useAppSessionStore((state) => state.setSession)
@@ -49,6 +50,7 @@ export const useFlashcardsSession = () => {
     trpc.flashcards.updateUserKanjiHistory.useMutation()
 
   const { initiateFlashcardsSession } = useInitiateFlashcardsSession()
+  const { showRomaji, setShowRomaji } = useUserRomajiPreferences()
 
   const [kanjiIndex, setKanjiIndex] = useState(0)
   const [isRevealed, setIsRevealed] = useState(false)
@@ -58,9 +60,6 @@ export const useFlashcardsSession = () => {
   const [sessionStartTime, setSessionStartTime] = useState<DateTime | null>(
     null
   )
-
-  // TODO: Read initial data from user preference
-  const [showRomaji, setShowRomaji] = useState(false)
 
   useEffect(() => {
     setSessionStartTime(DateTime.now())

@@ -1,4 +1,10 @@
-import { getUserById } from "#/database/queries"
+import {
+  getUserById,
+  getUserPreferences,
+  updateUserPreferences
+} from "#/database/queries"
+import { userPreferencesSchema } from "#/database/schema"
+import { TRPCError } from "@trpc/server"
 import { protectedProcedure, router } from "../trpc"
 import { z } from "zod"
 
@@ -39,11 +45,25 @@ const USER_DATA = {
 }
 
 export const userRouter = router({
+  // GET endpoints
   getUser: protectedProcedure.query(
     async ({ ctx }) => await getUserById(ctx.userId)
+  ),
+  getUserPreferences: protectedProcedure.query(
+    async ({ ctx }) => await getUserPreferences(ctx.userId)
   ),
   getUserData: protectedProcedure.query(async () => USER_DATA),
   getSelectedUserProgress: protectedProcedure
     .input(userProgressKeySchema)
-    .query(async ({ input }) => USER_DATA[input])
+    .query(async ({ input }) => USER_DATA[input]),
+  // POST endpoints
+  updateUserPreferences: protectedProcedure
+    .input(userPreferencesSchema)
+    .mutation(async ({ input, ctx }) => {
+      if (!input) {
+        throw new TRPCError({ code: "BAD_REQUEST" })
+      }
+
+      await updateUserPreferences(ctx.userId, input)
+    })
 })

@@ -1,4 +1,4 @@
-import { kanjiItemJlptLevel } from "#/database/schema"
+import { kanjiItemJlptLevelSchema } from "#/database/schema"
 import { z } from "zod"
 
 export type KanjiProficiency = z.infer<typeof kanjiProficiencySchema>
@@ -19,6 +19,6 @@ export const kanjiSessionItemSchema = z.object({
 
 export const kanjiProficiencySchema = z.object({
   kanji: z.string().nullable(),
-  level: kanjiItemJlptLevel.nullable(),
+  level: kanjiItemJlptLevelSchema.nullable(),
   proficiency: z.number().gte(0)
 })

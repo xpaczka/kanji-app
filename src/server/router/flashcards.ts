@@ -3,7 +3,7 @@ import {
   getKanjiByLevelQuery,
   updateUserKanjiHistory
 } from "#/database/queries"
-import { DatabaseKanji, kanjiItemJlptLevel } from "#/database/schema"
+import { DatabaseKanji, kanjiItemJlptLevelSchema } from "#/database/schema"
 import { getRandomKanjiSet } from "#/lib/kanji"
 import { kanjiSessionItemSchema } from "#/schemas/kanji"
 import { protectedProcedure, router } from "#/server/trpc"
@@ -13,7 +13,7 @@ const KANJI_SESSION_COUNT = 10
 
 export const flashcardsRouter = router({
   getFlashcardsSessionKanji: protectedProcedure
-    .input(kanjiItemJlptLevel.optional())
+    .input(kanjiItemJlptLevelSchema.optional())
     .query(async ({ input }): Promise<DatabaseKanji[]> => {
       const currentLevelKanji = input
         ? await getKanjiByLevelQuery(input)
