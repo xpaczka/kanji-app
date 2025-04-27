@@ -2,7 +2,7 @@
 
 import FlashcardsSession from "#/components/flashcards/FlashcardsSession"
 import { ROUTES } from "#/constants/router"
-import { useAppSession } from "#/hooks/app-session"
+import { useAppSession } from "#/hooks"
 
 export default function FlashcardsSessionPage() {
   const { sessionId } = useAppSession(ROUTES.flashcards)

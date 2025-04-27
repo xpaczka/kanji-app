@@ -16,7 +16,7 @@ import { Switch } from "#/components/ui/switch"
 import { Label } from "#/components/ui/label"
 import { useCallback } from "react"
 import { trpc } from "#/app/_trpc/client"
-import { useUserRomajiPreferences } from "#/hooks/user"
+import { useUserRomajiPreferences } from "#/hooks"
 
 // TODO: Use react hooks form
 export default function UserPreferences() {
