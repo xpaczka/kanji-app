@@ -2,10 +2,21 @@
 
 import KnowledgeTestPrompt from "#/components/knowledge-test/KnowledgeTestPrompt"
 import { KnowledgeTestSteps } from "#/schemas"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 export default function KnowledgeTest() {
-  const [, setStep] = useState<KnowledgeTestSteps>(KnowledgeTestSteps.PROMPT)
+  const [step, setStep] = useState<KnowledgeTestSteps>(
+    KnowledgeTestSteps.PROMPT
+  )
 
-  return <KnowledgeTestPrompt setStep={setStep} />
+  const knowledgeTestComponents = useMemo(
+    () => ({
+      [KnowledgeTestSteps.PROMPT]: <KnowledgeTestPrompt setStep={setStep} />,
+      [KnowledgeTestSteps.TEST]: "Test",
+      [KnowledgeTestSteps.SCORE]: "Score"
+    }),
+    []
+  )
+
+  return knowledgeTestComponents[step] || null
 }

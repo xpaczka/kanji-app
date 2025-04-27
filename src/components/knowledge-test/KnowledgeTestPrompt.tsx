@@ -1,16 +1,10 @@
 "use client"
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from "#/components/ui/card"
 import { Button } from "#/components/ui/button"
 import { useKnowledgeEvaluationPrompt } from "#/hooks"
 import { Dispatch, SetStateAction } from "react"
 import { KnowledgeTestSteps } from "#/schemas"
+import KnowledgeTestContainer from "./KnowledgeTestContainer"
 
 type KnowledgeTestPromptProps = {
   setStep: Dispatch<SetStateAction<KnowledgeTestSteps>>
@@ -22,22 +16,21 @@ export default function KnowledgeTestPrompt({
   const { skip } = useKnowledgeEvaluationPrompt()
 
   return (
-    <Card className="min-w-[420px] text-center">
-      <CardHeader>
-        <CardTitle className="text-xl">Check your knowledge</CardTitle>
-      </CardHeader>
-      <CardContent>
-        Do you want to test your knowledge <br />
-        or skip and start from the beginning?
-      </CardContent>
-      <CardFooter className="flex justify-center gap-4">
-        <Button onClick={() => setStep(KnowledgeTestSteps.TEST)}>
-          Let&apos;s go
-        </Button>
-        <Button onClick={skip} variant="secondary">
-          Skip
-        </Button>
-      </CardFooter>
-    </Card>
+    <KnowledgeTestContainer
+      header="Check your knowledge"
+      footer={
+        <>
+          <Button onClick={() => setStep(KnowledgeTestSteps.TEST)}>
+            Let&apos;s go
+          </Button>
+          <Button onClick={skip} variant="secondary">
+            Skip
+          </Button>
+        </>
+      }
+    >
+      Do you want to test your knowledge <br />
+      or skip and start from the beginning?
+    </KnowledgeTestContainer>
   )
 }
