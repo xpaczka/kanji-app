@@ -9,9 +9,17 @@ import {
 } from "#/components/ui/card"
 import { Button } from "#/components/ui/button"
 import { useKnowledgeEvaluationPrompt } from "#/hooks"
+import { Dispatch, SetStateAction } from "react"
+import { KnowledgeTestSteps } from "#/schemas"
 
-export default function KnowledgeTestPrompt() {
-  const { checkKnowledge, skip } = useKnowledgeEvaluationPrompt()
+type KnowledgeTestPromptProps = {
+  setStep: Dispatch<SetStateAction<KnowledgeTestSteps>>
+}
+
+export default function KnowledgeTestPrompt({
+  setStep
+}: KnowledgeTestPromptProps) {
+  const { skip } = useKnowledgeEvaluationPrompt()
 
   return (
     <Card className="min-w-[420px] text-center">
@@ -23,7 +31,9 @@ export default function KnowledgeTestPrompt() {
         or skip and start from the beginning?
       </CardContent>
       <CardFooter className="flex justify-center gap-4">
-        <Button onClick={checkKnowledge}>Let&apos;s go</Button>
+        <Button onClick={() => setStep(KnowledgeTestSteps.TEST)}>
+          Let&apos;s go
+        </Button>
         <Button onClick={skip} variant="secondary">
           Skip
         </Button>
