@@ -31,7 +31,7 @@ const main = async () => {
 
   const kanjiData = JSON.parse(
     fs.readFileSync(kanjiDataPath, { encoding: "utf-8" })
-  ) as (typeof kanjiTable.$inferInsert)[]
+  ).data as (typeof kanjiTable.$inferInsert)[]
 
   if (!kanjiData || kanjiData.length === 0) {
     throw Error("No data to be seeded")
@@ -48,7 +48,7 @@ const main = async () => {
     kun_readings: item.kun_readings ?? []
   }))
 
-  console.log("Seeding database..")
+  console.log("Seeding database...")
 
   // Reset tables before inserting new data
   await reset(database, { kanjiTable, userTable, userKanjiHistoryTable })
