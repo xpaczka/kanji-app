@@ -8,12 +8,10 @@ import {
   CardTitle
 } from "#/components/ui/card"
 import { Button } from "#/components/ui/button"
-import { useCallback } from "react"
+import { useKnowledgeEvaluationPrompt } from "#/hooks"
 
 export default function KnowledgeTest() {
-  const checkKnowledgeHandler = useCallback(() => {}, [])
-
-  const skipHandler = useCallback(() => {}, [])
+  const { checkKnowledge, skip } = useKnowledgeEvaluationPrompt()
 
   return (
     <div className="grid h-[100vh] place-items-center p-12">
@@ -26,8 +24,8 @@ export default function KnowledgeTest() {
           or skip and start from the beginning?
         </CardContent>
         <CardFooter className="flex justify-center gap-4">
-          <Button onClick={checkKnowledgeHandler}>Let&apos;s go</Button>
-          <Button onClick={skipHandler} variant="secondary">
+          <Button onClick={checkKnowledge}>Let&apos;s go</Button>
+          <Button onClick={skip} variant="secondary">
             Skip
           </Button>
         </CardFooter>

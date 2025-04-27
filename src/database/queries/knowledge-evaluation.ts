@@ -9,6 +9,16 @@ export const getUserKnowledgeEvaluationLevel = async (
     .select({ level: knowledgeEvaluationTable.level })
     .from(knowledgeEvaluationTable)
     .where(eq(knowledgeEvaluationTable.user_id, userId))
+    .limit(1)
 
   return knowledgeLevel.length ? knowledgeLevel[0].level : null
+}
+
+export const createUserKnowledgeEvaluation = async (
+  userId: string,
+  level: KanjiItemJlptLevel
+): Promise<void> => {
+  await database
+    .insert(knowledgeEvaluationTable)
+    .values({ user_id: userId, level })
 }
