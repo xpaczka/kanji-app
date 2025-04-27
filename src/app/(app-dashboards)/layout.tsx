@@ -2,6 +2,7 @@ import BreadcrumbsNavigation from "#/components/navigation/BreadcrumbsNavigation
 import TopNavigation from "#/components/navigation/TopNavigation"
 import { ReactNode } from "react"
 import { createServerClient } from "../_trpc/server-client"
+import KnowledgeTest from "#/components/knowledge-test/KnowledgeTest"
 
 export default async function AppRoutesLayout({
   children
@@ -13,10 +14,7 @@ export default async function AppRoutesLayout({
   const knowledgeEvaluationLevel =
     await serverClient.user.getUserKnowledgeEvaluationLevel()
 
-  if (!knowledgeEvaluationLevel) {
-    // TODO: Render knowledge test component
-    return "Knowledge test"
-  }
+  if (!knowledgeEvaluationLevel) return <KnowledgeTest />
 
   return (
     <>
