@@ -1,7 +1,8 @@
 import {
   getUserById,
   getUserPreferences,
-  updateUserPreferences
+  updateUserPreferences,
+  getUserKnowledgeEvaluationLevel
 } from "#/database/queries"
 import { userPreferencesSchema } from "#/database/schema"
 import { TRPCError } from "@trpc/server"
@@ -56,6 +57,9 @@ export const userRouter = router({
   getSelectedUserProgress: protectedProcedure
     .input(userProgressKeySchema)
     .query(async ({ input }) => USER_DATA[input]),
+  getUserKnowledgeEvaluationLevel: protectedProcedure.query(
+    async ({ ctx }) => await getUserKnowledgeEvaluationLevel(ctx.userId)
+  ),
   // POST endpoints
   updateUserPreferences: protectedProcedure
     .input(userPreferencesSchema)
