@@ -1,0 +1,33 @@
+"use client"
+
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "#/components/ui/card"
+import { Button } from "#/components/ui/button"
+import { useKnowledgeEvaluationPrompt } from "#/hooks"
+
+export default function KnowledgeTestPrompt() {
+  const { checkKnowledge, skip } = useKnowledgeEvaluationPrompt()
+
+  return (
+    <Card className="min-w-[420px] text-center">
+      <CardHeader>
+        <CardTitle className="text-xl">Check your knowledge</CardTitle>
+      </CardHeader>
+      <CardContent>
+        Do you want to test your knowledge <br />
+        or skip and start from the beginning?
+      </CardContent>
+      <CardFooter className="flex justify-center gap-4">
+        <Button onClick={checkKnowledge}>Let&apos;s go</Button>
+        <Button onClick={skip} variant="secondary">
+          Skip
+        </Button>
+      </CardFooter>
+    </Card>
+  )
+}

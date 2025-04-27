@@ -1,20 +1,28 @@
+"use client"
+
 import BreadcrumbsNavigation from "#/components/navigation/BreadcrumbsNavigation"
 import TopNavigation from "#/components/navigation/TopNavigation"
-import { ReactNode } from "react"
-import { createServerClient } from "../_trpc/server-client"
-import KnowledgeTest from "#/components/knowledge-test/KnowledgeTest"
+import { ReactNode, useEffect } from "react"
+import { trpc } from "../_trpc/client"
+import { useNavigation } from "#/hooks"
+import { ROUTES } from "#/constants/router"
 
-export default async function AppRoutesLayout({
+// TODO: Add loading state
+export default function KnowledgeTestLayout({
   children
 }: {
   children: ReactNode
 }) {
-  const serverClient = await createServerClient()
+  const { navigate } = useNavigation()
 
-  const knowledgeEvaluationLevel =
-    await serverClient.user.getUserKnowledgeEvaluationLevel()
+  const { data: knowledgeEvaluationLevel, isFetched } =
+    trpc.user.getUserKnowledgeEvaluationLevel.useQuery()
 
-  if (!knowledgeEvaluationLevel) return <KnowledgeTest />
+  useEffect(() => {
+    if (isFetched && !knowledgeEvaluationLevel) {
+      navigate(ROUTES.knowledgeTest)
+    }
+  }, [knowledgeEvaluationLevel, isFetched, navigate])
 
   return (
     <>

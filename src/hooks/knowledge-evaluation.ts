@@ -1,7 +1,11 @@
 import { trpc } from "#/app/_trpc/client"
 import { useCallback } from "react"
+import { useNavigation } from "./router"
+import { ROUTES } from "#/constants/router"
 
 export const useKnowledgeEvaluationPrompt = () => {
+  const { navigate } = useNavigation()
+
   const { mutate: updateUserKnowledgeEvaluation } =
     trpc.user.createUserKnowledgeEvaluation.useMutation()
 
@@ -10,7 +14,8 @@ export const useKnowledgeEvaluationPrompt = () => {
   const skipHandler = useCallback(() => {
     // Set lowest level possible for user who skips
     updateUserKnowledgeEvaluation("jlpt-n5")
-  }, [updateUserKnowledgeEvaluation])
+    navigate(ROUTES.mainDashboard)
+  }, [updateUserKnowledgeEvaluation, navigate])
 
   return { checkKnowledge: checkKnowledgeHandler, skip: skipHandler }
 }
