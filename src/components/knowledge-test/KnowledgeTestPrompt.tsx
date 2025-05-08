@@ -2,7 +2,7 @@
 
 import { Button } from "#/components/ui/button"
 import { useKnowledgeEvaluationPrompt } from "#/hooks"
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useCallback } from "react"
 import { KnowledgeTestSteps } from "#/schemas"
 import KnowledgeTestContainer from "./KnowledgeTestContainer"
 
@@ -13,6 +13,10 @@ type KnowledgeTestPromptProps = {
 export default function KnowledgeTestPrompt({
   setStep
 }: KnowledgeTestPromptProps) {
+  const startKnowledgeEvaluation = useCallback(() => {
+    setStep(KnowledgeTestSteps.TEST)
+  }, [setStep])
+
   const { skip } = useKnowledgeEvaluationPrompt()
 
   return (
@@ -20,9 +24,7 @@ export default function KnowledgeTestPrompt({
       header="Check your knowledge"
       footer={
         <>
-          <Button onClick={() => setStep(KnowledgeTestSteps.TEST)}>
-            Let&apos;s go
-          </Button>
+          <Button onClick={startKnowledgeEvaluation}>Check knowledge</Button>
           <Button onClick={skip} variant="secondary">
             Skip
           </Button>
