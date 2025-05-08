@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from "#/components/ui/dialog"
-import { useNavigation } from "#/hooks/router"
+import { useNavigation } from "#/hooks"
 import { useAppSessionStore } from "#/store/app-session"
 import { useCallback } from "react"
 

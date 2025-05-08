@@ -1,13 +1,12 @@
 export const ROUTES = {
   index: "/",
-  signIn: "/sign-in",
-  signUp: "/sign-up",
   mainDashboard: "/dashboard",
   learnDashboard: "/learn",
   gamesDashboard: "/games",
   flashcards: "/learn/flashcards",
   memoGame: "/games/memo",
-  apiTrpc: "/api/trpc"
+  apiTrpc: "/api/trpc",
+  knowledgeTest: "/knowledge-test"
 }
 
 export const NAVIGATION_ITEMS = [

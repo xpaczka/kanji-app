@@ -6,7 +6,7 @@ import DashboardCard from "#/components/dashboard/DashboardCard"
 import DashboardImage from "#/components/dashboard/DashboardImage"
 import { Label } from "#/components/ui/label"
 import { Table, TableBody, TableCell, TableRow } from "#/components/ui/table"
-import { useInitiateMemoGameSession } from "#/hooks/memo-game"
+import { useInitiateMemoGameSession } from "#/hooks"
 
 export default function Games() {
   const { data: leaderboard } = trpc.leaderboard.getLeaderboard.useQuery({

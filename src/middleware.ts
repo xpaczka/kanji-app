@@ -3,7 +3,15 @@ import { NextRequest, NextResponse } from "next/server"
 import { decrypt, SESSION_COOKIE_NAME, updateSession } from "./lib/session"
 import { ROUTES } from "./constants/router"
 
-const protectedRoutes = [ROUTES.mainDashboard]
+const protectedRoutes = [
+  ROUTES.mainDashboard,
+  ROUTES.gamesDashboard,
+  ROUTES.learnDashboard,
+  ROUTES.knowledgeTest,
+  ROUTES.flashcards,
+  ROUTES.memoGame
+]
+
 const publicRoutes = [ROUTES.index]
 
 const middleware = async (req: NextRequest) => {

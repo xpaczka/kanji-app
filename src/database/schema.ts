@@ -1,4 +1,4 @@
-import { InferInsertModel } from "drizzle-orm"
+import { InferInsertModel, sql } from "drizzle-orm"
 import {
   json,
   pgTable,
@@ -17,6 +17,10 @@ export type DatabaseUserKanjiHistory = InferInsertModel<
   typeof userKanjiHistoryTable
 >
 
+export type DatabaseKnowledgeEvaluation = InferInsertModel<
+  typeof knowledgeEvaluationTable
+>
+
 export type KanjiItemJlptLevel = z.infer<typeof kanjiItemJlptLevelSchema>
 export type UserPreferences = z.infer<typeof userPreferencesSchema>
 
@@ -29,9 +33,7 @@ export const kanjiItemJlptLevelSchema = z.enum([
 ])
 
 export const userPreferencesSchema = z
-  .object({
-    showRomaji: z.boolean()
-  })
+  .object({ showRomaji: z.boolean() })
   .nullable()
 
 export const kanjiTable = pgTable("kanji", {
@@ -63,3 +65,11 @@ export const userKanjiHistoryTable = pgTable(
     userKanjiUnique: unique().on(table.user_id, table.kanji_id)
   })
 )
+
+export const knowledgeEvaluationTable = pgTable("knowledge_evaluation", {
+  id: uuid().primaryKey().defaultRandom(),
+  user_id: uuid().references(() => userTable.id),
+  level: varchar({ length: 7 })
+    .default(sql`NULL`)
+    .$type<KanjiItemJlptLevel | null>()
+})

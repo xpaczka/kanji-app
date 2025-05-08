@@ -1,9 +1,14 @@
 import {
   getUserById,
   getUserPreferences,
-  updateUserPreferences
+  updateUserPreferences,
+  getUserKnowledgeEvaluationLevel,
+  createUserKnowledgeEvaluation
 } from "#/database/queries"
-import { userPreferencesSchema } from "#/database/schema"
+import {
+  kanjiItemJlptLevelSchema,
+  userPreferencesSchema
+} from "#/database/schema"
 import { TRPCError } from "@trpc/server"
 import { protectedProcedure, router } from "../trpc"
 import { z } from "zod"
@@ -56,6 +61,9 @@ export const userRouter = router({
   getSelectedUserProgress: protectedProcedure
     .input(userProgressKeySchema)
     .query(async ({ input }) => USER_DATA[input]),
+  getUserKnowledgeEvaluationLevel: protectedProcedure.query(
+    async ({ ctx }) => await getUserKnowledgeEvaluationLevel(ctx.userId)
+  ),
   // POST endpoints
   updateUserPreferences: protectedProcedure
     .input(userPreferencesSchema)
@@ -65,5 +73,14 @@ export const userRouter = router({
       }
 
       await updateUserPreferences(ctx.userId, input)
+    }),
+  createUserKnowledgeEvaluation: protectedProcedure
+    .input(kanjiItemJlptLevelSchema)
+    .mutation(async ({ input, ctx }) => {
+      if (!input) {
+        throw new TRPCError({ code: "BAD_REQUEST" })
+      }
+
+      await createUserKnowledgeEvaluation(ctx.userId, input)
     })
 })

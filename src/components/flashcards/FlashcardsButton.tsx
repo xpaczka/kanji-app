@@ -1,7 +1,7 @@
 "use client"
 
 import { ROUTES } from "#/constants/router"
-import { useNavigation } from "#/hooks/router"
+import { useNavigation } from "#/hooks"
 import DashboardActionItem from "../dashboard/DashboardActionItem"
 
 export default function FlashcardsButton() {

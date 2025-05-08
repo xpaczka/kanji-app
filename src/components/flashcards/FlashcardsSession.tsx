@@ -2,7 +2,7 @@
 
 import FlashcardSessionItem from "./FlashcardsSessionItem"
 import FlashcardsSessionSummary from "./FlashcardsSessionSummary"
-import { useFlashcardsSession } from "#/hooks/flashcards"
+import { useFlashcardsSession } from "#/hooks"
 import { Spinner } from "#/components/ui/spinner"
 import { Switch } from "#/components/ui/switch"
 

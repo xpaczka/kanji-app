@@ -10,7 +10,7 @@ import {
 import { Button } from "#/components/ui/button"
 import { Label } from "#/components/ui/label"
 import { DateTime } from "luxon"
-import { useFlashcardsSessionSummary } from "#/hooks/flashcards"
+import { useFlashcardsSessionSummary } from "#/hooks"
 import { KanjiSessionSetItem } from "#/schemas/kanji"
 
 type FlashcardsSessionSummaryProps = {

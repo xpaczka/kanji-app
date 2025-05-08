@@ -20,7 +20,7 @@ const validateCredentials = <T>(schema: ZodSchema<T>, formData: T) => {
 
 const authorizeAndRedirect = async (userId: string) => {
   await createSession(userId)
-  redirect(ROUTES.mainDashboard)
+  redirect(ROUTES.knowledgeTest)
 }
 
 const hashPassword = async (password: string) => {

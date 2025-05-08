@@ -4,8 +4,7 @@ import MemoGameItem from "#/components/memo-game/MemoGameItem"
 import MemoGameSummary from "#/components/memo-game/MemoGameSummary"
 import { Spinner } from "#/components/ui/spinner"
 import { ROUTES } from "#/constants/router"
-import { useAppSession } from "#/hooks/app-session"
-import { useMemoGameCards } from "#/hooks/memo-game"
+import { useAppSession, useMemoGameCards } from "#/hooks"
 import { calculateTimeDifferenceToFormat } from "#/lib/utils"
 
 export default function MemoGameSessionPage() {
