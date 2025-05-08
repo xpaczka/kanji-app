@@ -34,6 +34,7 @@ export const useKnowledgeEvaluationTest = () => {
         userAnswer,
         level
       )
+
       setScore((prev) => prev + evaluation)
     },
     []
@@ -42,7 +43,10 @@ export const useKnowledgeEvaluationTest = () => {
   const nextItemHandler = useCallback(() => {
     if (!testItems) return
 
-    if (currentIndex === testItems.length) return
+    // Test is finished and show final score
+    if (currentIndex === testItems.length) {
+      return
+    }
 
     setCurrentIndex((prev) => prev + 1)
   }, [testItems, currentIndex])
@@ -50,7 +54,7 @@ export const useKnowledgeEvaluationTest = () => {
   return {
     testItems,
     currentIndex,
-    testScore: score,
+    score,
     nextItem: nextItemHandler,
     evaluateTestAnswer: evaluateTestAnswerHandler
   }

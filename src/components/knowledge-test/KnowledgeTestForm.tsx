@@ -15,16 +15,25 @@ const getAllIncorrectAnwsers = (readings: string[], correctAnswer: string) => {
 
 // TODO: Add loading state
 export default function KnowledgeTestForm() {
-  const { testItems, currentIndex, nextItem } = useKnowledgeEvaluationTest()
+  const { testItems, currentIndex, nextItem, evaluateTestAnswer } =
+    useKnowledgeEvaluationTest()
 
   if (!testItems) return null
 
   return (
     <KnowledgeTestContainer
-      header={testItems[currentIndex].level.toUpperCase()}
+      header={
+        <div className="flex w-full justify-center">
+          <div className="rounded-sm bg-[#EEE] px-2 py-1 text-sm font-bold">
+            {testItems[currentIndex].level.toUpperCase()}
+          </div>
+        </div>
+      }
       footer={
         <KnowledgeTestFormOptions
+          evaluateTestAnswer={evaluateTestAnswer}
           nextItem={nextItem}
+          level={testItems[currentIndex].level}
           correctAnswer={testItems[currentIndex].reading}
           incorrectAnswers={getAllIncorrectAnwsers(
             testItems.map((item) => item.reading),
