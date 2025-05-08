@@ -13,6 +13,7 @@ type KnowledgeTestPromptProps = {
 export default function KnowledgeTestPrompt({
   setStep
 }: KnowledgeTestPromptProps) {
+  // TODO: Create app session for test evaluation
   const startKnowledgeEvaluation = useCallback(() => {
     setStep(KnowledgeTestSteps.TEST)
   }, [setStep])

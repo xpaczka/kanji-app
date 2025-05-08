@@ -1,7 +1,9 @@
 import { trpc } from "#/app/_trpc/client"
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 import { useNavigation } from "./router"
 import { ROUTES } from "#/constants/router"
+import { KanjiItemJlptLevel } from "#/database/schema"
+import { evaluateKnowledgeTestItemScore } from "#/lib/knowledge-evaluation"
 
 export const useKnowledgeEvaluationPrompt = () => {
   const { navigate } = useNavigation()
@@ -16,4 +18,40 @@ export const useKnowledgeEvaluationPrompt = () => {
   }, [updateUserKnowledgeEvaluation, navigate])
 
   return { skip: skipHandler }
+}
+
+export const useKnowledgeEvaluationTest = () => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [score, setScore] = useState(0)
+
+  const { data: testItems } =
+    trpc.knowldegeEvaluation.getKnowledgeEvaluationTestItems.useQuery()
+
+  const evaluateTestAnswerHandler = useCallback(
+    (correctAnswer: string, userAnswer: string, level: KanjiItemJlptLevel) => {
+      const evaluation = evaluateKnowledgeTestItemScore(
+        correctAnswer,
+        userAnswer,
+        level
+      )
+      setScore((prev) => prev + evaluation)
+    },
+    []
+  )
+
+  const nextItemHandler = useCallback(() => {
+    if (!testItems) return
+
+    if (currentIndex === testItems.length) return
+
+    setCurrentIndex((prev) => prev + 1)
+  }, [testItems, currentIndex])
+
+  return {
+    testItems,
+    currentIndex,
+    testScore: score,
+    nextItem: nextItemHandler,
+    evaluateTestAnswer: evaluateTestAnswerHandler
+  }
 }

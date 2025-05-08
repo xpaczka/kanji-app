@@ -1,14 +1,41 @@
+"use client"
+
 import KnowledgeTestContainer from "./KnowledgeTestContainer"
 import KnowledgeTestFormOptions from "./KnowledgeTestFormOptions"
+import { useKnowledgeEvaluationTest } from "#/hooks"
+import { shuffle } from "#/lib/utils"
 
+const getAllIncorrectAnwsers = (readings: string[], correctAnswer: string) => {
+  const incorrectAnswers = readings.filter(
+    (reading) => reading !== correctAnswer
+  )
+
+  return shuffle(incorrectAnswers).slice(0, 3)
+}
+
+// TODO: Add loading state
 export default function KnowledgeTestForm() {
+  const { testItems, currentIndex, nextItem } = useKnowledgeEvaluationTest()
+
+  if (!testItems) return null
+
   return (
     <KnowledgeTestContainer
-      header="jlpt-n5"
-      footer={<KnowledgeTestFormOptions />}
+      header={testItems[currentIndex].level.toUpperCase()}
+      footer={
+        <KnowledgeTestFormOptions
+          nextItem={nextItem}
+          correctAnswer={testItems[currentIndex].reading}
+          incorrectAnswers={getAllIncorrectAnwsers(
+            testItems.map((item) => item.reading),
+            testItems[currentIndex].reading
+          )}
+        />
+      }
     >
-      {/* TODO: Display currently revieved kanji */}
-      <div className="py-12 text-6xl font-bold">私</div>
+      <div className="py-12 text-6xl font-bold">
+        {testItems[currentIndex].kanji}
+      </div>
     </KnowledgeTestContainer>
   )
 }
