@@ -3,7 +3,10 @@ import { useCallback, useState } from "react"
 import { useNavigation } from "./router"
 import { ROUTES } from "#/constants/router"
 import { KanjiItemJlptLevel } from "#/database/schema"
-import { evaluateKnowledgeTestItemScore } from "#/lib/knowledge-evaluation"
+import {
+  evaluateKnowledgeTestItemScore,
+  getKnowledgeEvaluationResult
+} from "#/lib/knowledge-evaluation"
 
 export const useKnowledgeEvaluationPrompt = () => {
   const { navigate } = useNavigation()
@@ -23,9 +26,13 @@ export const useKnowledgeEvaluationPrompt = () => {
 export const useKnowledgeEvaluationTest = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [score, setScore] = useState(0)
+  const [testFinished, setTestFinished] = useState(false)
 
   const { data: testItems } =
     trpc.knowldegeEvaluation.getKnowledgeEvaluationTestItems.useQuery()
+
+  const { mutate: setUserKnowledgeEvaluation } =
+    trpc.user.createUserKnowledgeEvaluation.useMutation()
 
   const evaluateTestAnswerHandler = useCallback(
     (correctAnswer: string, userAnswer: string, level: KanjiItemJlptLevel) => {
@@ -44,17 +51,21 @@ export const useKnowledgeEvaluationTest = () => {
     if (!testItems) return
 
     // Test is finished and show final score
-    if (currentIndex === testItems.length) {
+    if (currentIndex === testItems.length - 1) {
+      setTestFinished(true)
+      // Dividing the score by 1000 to get it in percentage format
+      setUserKnowledgeEvaluation(getKnowledgeEvaluationResult(score / 1000))
       return
     }
 
     setCurrentIndex((prev) => prev + 1)
-  }, [testItems, currentIndex])
+  }, [testItems, currentIndex, setUserKnowledgeEvaluation, score])
 
   return {
     testItems,
     currentIndex,
     score,
+    testFinished,
     nextItem: nextItemHandler,
     evaluateTestAnswer: evaluateTestAnswerHandler
   }

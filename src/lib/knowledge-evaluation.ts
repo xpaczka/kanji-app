@@ -2,7 +2,7 @@ import { KanjiItemJlptLevel } from "#/database/schema"
 
 // Using integers instead of decimals to prevent precision issues when
 // adding them together. These values should be later divided by 10
-// to get maximum of 100
+// to get maximum of 1000
 const KNOWLEDGE_TEST_LEVEL_SCALE: Record<KanjiItemJlptLevel, number> = {
   "jlpt-n5": 10,
   "jlpt-n4": 15,
@@ -12,11 +12,11 @@ const KNOWLEDGE_TEST_LEVEL_SCALE: Record<KanjiItemJlptLevel, number> = {
 }
 
 const KNOWLEDGE_TEST_LEVEL_THRESHOLDS: Record<KanjiItemJlptLevel, number> = {
-  "jlpt-n5": 0.3,
-  "jlpt-n4": 0.55,
-  "jlpt-n3": 0.75,
-  "jlpt-n2": 0.9,
-  "jlpt-n1": 1
+  "jlpt-n5": 30,
+  "jlpt-n4": 55,
+  "jlpt-n3": 75,
+  "jlpt-n2": 90,
+  "jlpt-n1": 100
 }
 
 export const evaluateKnowledgeTestItemScore = (

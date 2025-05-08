@@ -4,6 +4,13 @@ import KnowledgeTestContainer from "./KnowledgeTestContainer"
 import KnowledgeTestFormOptions from "./KnowledgeTestFormOptions"
 import { useKnowledgeEvaluationTest } from "#/hooks"
 import { shuffle } from "#/lib/utils"
+import { KnowledgeTestSteps } from "#/schemas"
+import { Dispatch, SetStateAction, useEffect } from "react"
+
+type KnowledgeTestFormProps = {
+  setStep: Dispatch<SetStateAction<KnowledgeTestSteps>>
+  setScore: Dispatch<SetStateAction<number>>
+}
 
 const getAllIncorrectAnwsers = (readings: string[], correctAnswer: string) => {
   const incorrectAnswers = readings.filter(
@@ -14,9 +21,26 @@ const getAllIncorrectAnwsers = (readings: string[], correctAnswer: string) => {
 }
 
 // TODO: Add loading state
-export default function KnowledgeTestForm() {
-  const { testItems, currentIndex, nextItem, evaluateTestAnswer } =
-    useKnowledgeEvaluationTest()
+export default function KnowledgeTestForm({
+  setStep,
+  setScore
+}: KnowledgeTestFormProps) {
+  const {
+    testItems,
+    currentIndex,
+    score,
+    testFinished,
+    nextItem,
+    evaluateTestAnswer
+  } = useKnowledgeEvaluationTest()
+
+  useEffect(() => {
+    if (!testFinished) return
+
+    // When test is finished redirect user to score view
+    setScore(score)
+    setStep(KnowledgeTestSteps.SCORE)
+  }, [testFinished, setStep, setScore, score])
 
   if (!testItems) return null
 
