@@ -17,7 +17,6 @@ type KnowledgeTestFormOptionsProps = {
   ) => void
 }
 
-// TODO: Pass possible options for kanji
 export default function KnowledgeTestFormOptions({
   correctAnswer,
   incorrectAnswers,
