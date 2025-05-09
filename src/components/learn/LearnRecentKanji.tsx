@@ -1,11 +1,14 @@
-import { createServerClient } from "#/app/_trpc/server-client"
+import { UserKanjiHistory } from "#/schemas"
 import LearnKanjiItem from "./LearnKanjiItem"
 
-export default async function LearnRecentKanji() {
-  const serverClient = await createServerClient()
-  const recentKanji = await serverClient.learn.getRecentKanji()
+type LearnRecentKanjiProps = {
+  recentKanji: UserKanjiHistory[]
+}
 
-  if (!recentKanji || !recentKanji.length) return null
+export default function LearnRecentKanji({
+  recentKanji
+}: LearnRecentKanjiProps) {
+  if (!recentKanji.length) return null
 
   return (
     <div className="flex w-full gap-6">
