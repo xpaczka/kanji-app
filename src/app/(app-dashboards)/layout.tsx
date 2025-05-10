@@ -4,7 +4,7 @@ import BreadcrumbsNavigation from "#/components/navigation/BreadcrumbsNavigation
 import TopNavigation from "#/components/navigation/TopNavigation"
 import { ReactNode } from "react"
 import { trpc } from "../_trpc/client"
-import { Spinner } from "#/components/ui/spinner"
+import FullPageLoader from "#/components/layout/FullPageLoader"
 
 export default function AppDashboardLayout({
   children
@@ -14,7 +14,7 @@ export default function AppDashboardLayout({
   const { data: user, isFetching } = trpc.user.getUser.useQuery()
 
   if (isFetching) {
-    return <Spinner size="large" />
+    return <FullPageLoader />
   }
 
   return (

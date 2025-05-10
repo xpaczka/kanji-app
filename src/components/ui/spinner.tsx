@@ -28,7 +28,7 @@ const loaderVariants = cva("animate-spin text-primary", {
   }
 })
 
-interface SpinnerContentProps
+export interface SpinnerContentProps
   extends VariantProps<typeof spinnerVariants>,
     VariantProps<typeof loaderVariants> {
   className?: string
