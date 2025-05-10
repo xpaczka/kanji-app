@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm"
 import { database } from ".."
 import { UserPreferences, userTable } from "../schema"
+import { User } from "#/schemas/user"
 
 export const createNewUser = async (
   username: string,
@@ -19,7 +20,7 @@ export const createNewUser = async (
   return data[0]
 }
 
-export const getUserById = async (userId: string) => {
+export const getUserById = async (userId: string): Promise<User> => {
   const data = await database
     .select({
       id: userTable.id,

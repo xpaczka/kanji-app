@@ -1,11 +1,13 @@
 import { signOut } from "#/actions/auth"
-import { trpc } from "#/app/_trpc/client"
 import { Button } from "#/components/ui/button"
+import { User } from "#/schemas/user"
 import UserPreferences from "./UserPreferences"
 
-export default function UserAccount() {
-  const { data: user } = trpc.user.getUser.useQuery()
+type UserAccountProps = {
+  user: User | undefined
+}
 
+export default function UserAccount({ user }: UserAccountProps) {
   if (!user) return null
 
   return (
