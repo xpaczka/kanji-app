@@ -3,6 +3,7 @@ import { z } from "zod"
 export type SignInForm = z.infer<typeof signInFormSchema>
 export type SignUpForm = z.infer<typeof signUpFormSchema>
 export type SessionPayload = z.infer<typeof sessionPayloadSchema>
+export type AuthPayload = z.infer<typeof authPayloadSchema>
 
 export const signInFormSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email." }).trim(),
@@ -37,4 +38,9 @@ export const signUpFormSchema = z.object({
 export const sessionPayloadSchema = z.object({
   userId: z.string().uuid(),
   expiresAt: z.date()
+})
+
+export const authPayloadSchema = z.object({
+  success: z.boolean(),
+  errorMessage: z.string().optional()
 })

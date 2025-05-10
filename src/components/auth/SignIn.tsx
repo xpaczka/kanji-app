@@ -23,7 +23,8 @@ export default function SignIn() {
   })
 
   const onSubmit: SubmitHandler<SignInForm> = useCallback(async (data) => {
-    await signIn(data)
+    const { success, errorMessage } = await signIn(data)
+    console.log(success, errorMessage)
   }, [])
 
   return (
