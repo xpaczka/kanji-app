@@ -10,8 +10,13 @@ import {
 import Link from "next/link"
 import { NAVIGATION_ITEMS, ROUTES } from "#/constants/router"
 import UserAccount from "./UserAccount"
+import { User } from "#/schemas/user"
 
-export default function TopNavigation() {
+type TopNavigationProps = {
+  user: User | undefined
+}
+
+export default function TopNavigation({ user }: TopNavigationProps) {
   return (
     <NavigationMenu className="max-w-full justify-between px-10 py-4">
       <Link href={ROUTES.index}>KANJI APP</Link>
@@ -26,7 +31,7 @@ export default function TopNavigation() {
           </NavigationMenuItem>
         ))}
       </NavigationMenuList>
-      <UserAccount />
+      <UserAccount user={user} />
     </NavigationMenu>
   )
 }

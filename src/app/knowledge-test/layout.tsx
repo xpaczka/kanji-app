@@ -6,7 +6,11 @@ import { ROUTES } from "#/constants/router"
 import { trpc } from "#/app/_trpc/client"
 
 // TODO: Add loading state
-export default function AppRoutesLayout({ children }: { children: ReactNode }) {
+export default function KnowledgeTestLAyout({
+  children
+}: {
+  children: ReactNode
+}) {
   // Prevents immediate redirect after knowledge evaluation is completed
   const [checkedEvaluationExistence, setCheckedEvaluationExistence] =
     useState(false)

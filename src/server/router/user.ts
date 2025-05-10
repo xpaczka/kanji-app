@@ -12,6 +12,7 @@ import {
 import { TRPCError } from "@trpc/server"
 import { protectedProcedure, router } from "../trpc"
 import { z } from "zod"
+import { User } from "#/schemas/user"
 
 const userProgressKeySchema = z.enum([
   "learningOverview",
@@ -52,7 +53,7 @@ const USER_DATA = {
 export const userRouter = router({
   // GET endpoints
   getUser: protectedProcedure.query(
-    async ({ ctx }) => await getUserById(ctx.userId)
+    async ({ ctx }): Promise<User> => await getUserById(ctx.userId)
   ),
   getUserPreferences: protectedProcedure.query(
     async ({ ctx }) => await getUserPreferences(ctx.userId)
