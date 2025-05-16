@@ -22,9 +22,19 @@ export default function SignUp() {
     defaultValues: { email: "", username: "", password: "" }
   })
 
-  const onSubmit: SubmitHandler<SignUpForm> = useCallback(async (data) => {
-    await signUp(data)
-  }, [])
+  const onSubmit: SubmitHandler<SignUpForm> = useCallback(
+    async (data) => {
+      const { success, errorMessage } = await signUp(data)
+
+      if (!success) {
+        form.setError("root", {
+          type: "manual",
+          message: errorMessage ?? "Something went wrong"
+        })
+      }
+    },
+    [form]
+  )
 
   return (
     <Form {...form}>
@@ -90,6 +100,13 @@ export default function SignUp() {
             </FormItem>
           )}
         />
+        <div className="h-[20px]">
+          {form.formState.errors.root && (
+            <p className="text-sm text-red-500">
+              {form.formState.errors.root.message}
+            </p>
+          )}
+        </div>
         <Button type="submit">Sign up</Button>
       </form>
     </Form>
