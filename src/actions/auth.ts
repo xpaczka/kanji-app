@@ -2,6 +2,7 @@
 
 import bcrypt from "bcryptjs"
 import {
+  AuthPayload,
   SignInForm,
   signInFormSchema,
   SignUpForm,
@@ -32,34 +33,34 @@ const comparePassword = async (password: string, hashedPassword: string) => {
   return await bcrypt.compare(password, hashedPassword)
 }
 
-export const signIn = async (formData: SignInForm) => {
+export const signIn = async (formData: SignInForm): Promise<AuthPayload> => {
   const validCredentials = validateCredentials(signInFormSchema, formData)
-
-  if (!validCredentials) {
-    // TODO: Add better error handling
-    return null
-  }
+  if (!validCredentials) return { success: false }
 
   // Find user in database by email
   const { email, password } = formData
   const user = await getUserByEmail(email)
 
-  if (!user || !(await comparePassword(password, user.password))) {
-    // TODO: Add better error handling
-    return null
+  if (!user) {
+    return {
+      success: false,
+      errorMessage: "User with this email does not exist"
+    }
+  }
+
+  if (!(await comparePassword(password, user.password))) {
+    return { success: false, errorMessage: "Invalid email or password" }
   }
 
   // Authorize user
   await authorizeAndRedirect(user.id)
+
+  return { success: true }
 }
 
-export const signUp = async (formData: SignUpForm) => {
+export const signUp = async (formData: SignUpForm): Promise<AuthPayload> => {
   const validCredentials = validateCredentials(signUpFormSchema, formData)
-
-  if (!validCredentials) {
-    // TODO: Add better error handling
-    return null
-  }
+  if (!validCredentials) return { success: false }
 
   // Prepare data for insertion into database
   const { email, username, password } = formData
@@ -69,12 +70,13 @@ export const signUp = async (formData: SignUpForm) => {
   const user = await createNewUser(username, email, hashedPassword)
 
   if (!user) {
-    // TODO: Add better error handling
-    return null
+    return { success: false, errorMessage: "Failed to create account" }
   }
 
   // Authorize user
   await authorizeAndRedirect(user.id)
+
+  return { success: true }
 }
 
 export const signOut = async () => {
