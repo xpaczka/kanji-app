@@ -1,5 +1,5 @@
 import FlashcardsLevelChoice from "#/components/flashcards/FlashcardsLevelChoice"
-import { KanjiItemJlptLevel } from "#/database/schema"
+import { KanjiItemJlptLevel } from "#/types"
 
 type FlashcardsLevelChoiceItem = {
   level: KanjiItemJlptLevel

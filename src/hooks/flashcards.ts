@@ -3,13 +3,13 @@ import { trpc } from "#/app/_trpc/client"
 import { useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useNavigation } from "./router"
-import { KanjiItemJlptLevel } from "#/database/schema"
 import { useAppSessionStore } from "#/store/app-session"
 import { v4 as uuid } from "uuid"
 import { ROUTES } from "#/constants/router"
 import { calculateTimeDifferenceToFormat } from "#/lib/utils"
 import { KanjiSessionSetItem, SessionItemEvaluation } from "#/schemas/kanji"
 import { useUserRomajiPreferences } from "./user"
+import { KanjiItemJlptLevel } from "#/types"
 
 export const useInitiateFlashcardsSession = () => {
   const setSession = useAppSessionStore((state) => state.setSession)

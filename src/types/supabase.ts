@@ -17,10 +17,10 @@ export type Database = {
     Functions: {
       graphql: {
         Args: {
-          operationName?: string
-          extensions?: Json
           variables?: Json
+          operationName?: string
           query?: string
+          extensions?: Json
         }
         Returns: Json
       }
@@ -120,7 +120,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "kanji"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
     }
@@ -131,13 +131,13 @@ export type Database = {
       get_user_kanji_history: {
         Args: { user_id: string }
         Returns: {
-          level: string
           updated_at: string
+          level: string
           kanji: string
         }[]
       }
       update_user_kanji_history: {
-        Args: { updated_at: string; user_id: string; kanji_id: string }
+        Args: { kanji_id: string; updated_at: string; user_id: string }
         Returns: undefined
       }
     }
@@ -163,7 +163,7 @@ export type Tables<
   }
     ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never
+    : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -191,7 +191,7 @@ export type TablesInsert<
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never
+    : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -216,7 +216,7 @@ export type TablesUpdate<
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never
+    : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -241,7 +241,7 @@ export type Enums<
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never
+    : never = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -258,7 +258,7 @@ export type CompositeTypes<
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never
+    : never = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -269,9 +269,10 @@ export type CompositeTypes<
 
 export const Constants = {
   graphql_public: {
-    Enums: {}
+    Enums: {},
   },
   public: {
-    Enums: {}
-  }
+    Enums: {},
+  },
 } as const
+

@@ -1,7 +1,8 @@
-import { KanjiItemJlptLevel } from "#/database/schema"
-
 // Using integers instead of decimals to prevent precision issues when
 // adding them together. These values should be later divided by 10
+
+import { KanjiItemJlptLevel } from "#/types"
+
 // to get maximum of 1000
 const KNOWLEDGE_TEST_LEVEL_SCALE: Record<KanjiItemJlptLevel, number> = {
   "jlpt-n5": 10,
