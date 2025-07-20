@@ -9,6 +9,7 @@ import { TRPCError } from "@trpc/server"
 import { protectedProcedure, router } from "../trpc"
 import { z } from "zod"
 import { User } from "@supabase/supabase-js"
+import { kanjiItemJlptLevelSchema, userPreferencesSchema } from "#/types"
 
 const userProgressKeySchema = z.enum([
   "learningOverview",

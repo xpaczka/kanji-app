@@ -8,12 +8,12 @@ export const updateUserKanjiHistory = async (
 ) => {
   const user = await getUser(supabaseClient)
 
-  if (!user) return
+  if (!user || !kanji.id) return
 
   await supabaseClient.rpc("update_user_kanji_history", {
     user_id: user.id,
     kanji_id: kanji.id,
-    timestamp: new Date()
+    updated_at: new Date().toString()
   })
 }
 

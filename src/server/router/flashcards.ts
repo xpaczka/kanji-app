@@ -6,6 +6,7 @@ import {
 import { getRandomKanjiSet } from "#/lib/kanji"
 import { kanjiSessionItemSchema } from "#/schemas/kanji"
 import { protectedProcedure, router } from "#/server/trpc"
+import { DatabaseKanji, kanjiItemJlptLevelSchema } from "#/types"
 import { TRPCError } from "@trpc/server"
 
 const KANJI_SESSION_COUNT = 10
@@ -17,6 +18,10 @@ export const flashcardsRouter = router({
       const currentLevelKanji = input
         ? await getKanjiByLevelQuery(ctx.database, input)
         : await getAllKanjiQuery(ctx.database)
+
+      if (!currentLevelKanji) {
+        throw new TRPCError({ code: "NOT_FOUND" })
+      }
 
       return getRandomKanjiSet(currentLevelKanji, KANJI_SESSION_COUNT)
     }),

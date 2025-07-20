@@ -11,5 +11,5 @@ export const userPreferencesSchema = z
 export const userKanjiHistorySchema = z.object({
   level: kanjiItemJlptLevelSchema.nullable(),
   kanji: z.string().nullable(),
-  timestamp: z.date()
+  updated_at: z.string()
 })
