@@ -15,4 +15,3 @@ junit.xml
 docs
 scripts
 supabase
-./src/types/supabase.ts
