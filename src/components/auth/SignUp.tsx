@@ -12,9 +12,9 @@ import {
   FormMessage
 } from "../ui/form"
 import { Button } from "../ui/button"
-import { signUp } from "../../actions/auth"
 import { useCallback } from "react"
 import { SignUpForm, signUpFormSchema } from "#/schemas/auth"
+import { signUp } from "#/actions"
 
 export default function SignUp() {
   const form = useForm<SignUpForm>({

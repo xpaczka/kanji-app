@@ -12,9 +12,9 @@ import {
   FormMessage
 } from "../ui/form"
 import { Button } from "../ui/button"
-import { signIn } from "../../actions/auth"
 import { useCallback } from "react"
 import { SignInForm, signInFormSchema } from "#/schemas/auth"
+import { signIn } from "#/actions"
 
 export default function SignIn() {
   const form = useForm<SignInForm>({

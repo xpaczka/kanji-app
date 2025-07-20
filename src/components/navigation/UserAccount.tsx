@@ -1,4 +1,4 @@
-import { signOut } from "#/actions/auth"
+import { signOut } from "#/actions"
 import { Button } from "#/components/ui/button"
 import { User } from "#/schemas/user"
 import UserPreferences from "./UserPreferences"

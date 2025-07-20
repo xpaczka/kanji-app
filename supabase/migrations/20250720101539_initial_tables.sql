@@ -8,29 +8,30 @@ CREATE TABLE IF NOT EXISTS "kanji" (
     on_readings TEXT[] NOT NULL
 );
 
--- User table
-CREATE TABLE IF NOT EXISTS "accounts" (
-    id UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
-    email VARCHAR NOT NULL,
-    username VARCHAR NOT NULL,
-    password VARCHAR NOT NULL,
-    preferences JSON DEFAULT NULL
+-- Preferences table
+CREATE TABLE IF NOT EXISTS "preferences" (
+    user_id UUID,
+    values JSON DEFAULT NULL,
+
+    FOREIGN KEY (user_id) REFERENCES auth.users (id) ON UPDATE CASCADE
 );
 
 -- Knowledge Evaluation table
 CREATE TABLE IF NOT EXISTS "knowledge_evaluation" (
     id UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
-    account_id UUID,
+    user_id UUID,
     level VARCHAR(7) DEFAULT NULL,
-    FOREIGN KEY (account_id) REFERENCES accounts (id) ON UPDATE CASCADE
+
+    FOREIGN KEY (user_id) REFERENCES auth.users (id) ON UPDATE CASCADE
 );
 
 -- User Kanji History table
 CREATE TABLE IF NOT EXISTS "user_kanji_history" (
     id UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
-    account_id UUID,
+    user_id UUID,
     kanji_id UUID,
     timestamp TIMESTAMP NOT NULL DEFAULT now(),
-    FOREIGN KEY (account_id) REFERENCES accounts (id) ON UPDATE CASCADE,
+
+    FOREIGN KEY (user_id) REFERENCES auth.users (id) ON UPDATE CASCADE,
     FOREIGN KEY (kanji_id) REFERENCES kanji (id) ON UPDATE CASCADE
 );
