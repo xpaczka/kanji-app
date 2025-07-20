@@ -1,4 +1,4 @@
-import { UserKanjiHistory } from "#/schemas"
+import { UserKanjiHistory } from "#/types"
 import LearnKanjiItem from "./LearnKanjiItem"
 
 type LearnRecentKanjiProps = {
