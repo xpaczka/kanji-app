@@ -1,16 +1,11 @@
 import { TRPC_LINKS } from "#/constants/misc"
-import { getSession } from "#/lib/session"
-import { JWTPayload } from "jose"
+import createSupabaseServer from "#/database/server"
 
 export type TrpcContext = Awaited<ReturnType<typeof createTrpcContext>>
 
-const getContextUserId = (session: JWTPayload | null | undefined) =>
-  session && typeof session === "object" && "userId" in session
-    ? (session.userId as string)
-    : null
-
 export const createTrpcContext = async () => {
-  const session = await getSession()
+  const supabase = await createSupabaseServer()
+  const { data } = await supabase.auth.getUser()
 
-  return { ...TRPC_LINKS, userId: getContextUserId(session) }
+  return { ...TRPC_LINKS, userId: data.user?.id || null }
 }
