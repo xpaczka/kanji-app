@@ -1,69 +1,39 @@
-import { eq } from "drizzle-orm"
-import { database } from ".."
-import { UserPreferences, userTable } from "../schema"
-import { User } from "#/schemas/user"
+import { User } from "@supabase/supabase-js"
+import { SupabaseDbClient, UserPreferences } from "#/types"
 
-export const createNewUser = async (
-  username: string,
-  email: string,
-  password: string
-) => {
-  const data = await database
-    .insert(userTable)
-    .values({ username, email, password })
-    .returning({
-      id: userTable.id,
-      username: userTable.username,
-      email: userTable.email
-    })
+export const getUser = async (
+  supabaseClient: SupabaseDbClient
+): Promise<User | null> => {
+  const { data } = await supabaseClient.auth.getUser()
 
-  return data[0]
+  return data.user
 }
 
-export const getUserById = async (userId: string): Promise<User> => {
-  const data = await database
-    .select({
-      id: userTable.id,
-      email: userTable.email,
-      username: userTable.username
-    })
-    .from(userTable)
-    .where(eq(userTable.id, userId))
+export const getUserPreferences = async (supabaseClient: SupabaseDbClient) => {
+  const user = await getUser(supabaseClient)
+
+  if (!user) return null
+
+  const { data } = await supabaseClient
+    .from("preferences")
+    .select("values")
+    .eq("user_id", user.id)
     .limit(1)
+    .maybeSingle()
 
-  return data[0]
-}
-
-export const getUserByEmail = async (email: string) => {
-  const data = await database
-    .select({
-      id: userTable.id,
-      email: userTable.email,
-      password: userTable.password
-    })
-    .from(userTable)
-    .where(eq(userTable.email, email))
-    .limit(1)
-
-  return data[0]
-}
-
-export const getUserPreferences = async (userId: string) => {
-  const data = await database
-    .select({ preferences: userTable.preferences })
-    .from(userTable)
-    .where(eq(userTable.id, userId))
-    .limit(1)
-
-  return data[0].preferences
+  return data?.values ?? null
 }
 
 export const updateUserPreferences = async (
-  userId: string,
+  supabaseClient: SupabaseDbClient,
   preferences: UserPreferences
 ) => {
-  await database
-    .update(userTable)
-    .set({ preferences })
-    .where(eq(userTable.id, userId))
+  const user = await getUser(supabaseClient)
+
+  if (!user) return null
+
+  await supabaseClient
+    .from("preferences")
+    .update({ values: preferences })
+    .eq("user_id", user.id)
 }

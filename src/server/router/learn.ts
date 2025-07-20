@@ -15,18 +15,18 @@ export const userDiscoveredKanjiCountSchema = z.object({
 export const learnRouter = router({
   getDiscoveredKanji: protectedProcedure.query(
     async ({ ctx }): Promise<UserKanjiHistory[]> =>
-      await getUserKanjiHistory(ctx.userId)
+      await getUserKanjiHistory(ctx.database)
   ),
   getRecentKanji: protectedProcedure.query(
     async ({ ctx }): Promise<UserKanjiHistory[]> => {
-      const kanjiHistory = await getUserKanjiHistory(ctx.userId)
+      const kanjiHistory = await getUserKanjiHistory(ctx.database)
       return kanjiHistory.length ? kanjiHistory.slice(0, 5) : []
     }
   ),
   getDiscoveredKanjiCount: protectedProcedure.query(
     async ({ ctx }): Promise<UserDiscoveredKanjiCount | null> => {
-      const allKanji = await getAllKanjiQuery()
-      const kanjiHistory = await getUserKanjiHistory(ctx.userId)
+      const allKanji = await getAllKanjiQuery(ctx.database)
+      const kanjiHistory = await getUserKanjiHistory(ctx.database)
 
       if (!allKanji || !kanjiHistory) return null
 

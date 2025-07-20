@@ -6,9 +6,9 @@ import { protectedProcedure, router } from "#/server/trpc"
 
 export const memoGameRouter = router({
   getMemoGameKanji: protectedProcedure.query(
-    async (): Promise<MemoGameItem[]> => {
+    async ({ ctx }): Promise<MemoGameItem[]> => {
       // TODO: Fetch only already discovered kanji
-      const kanji = await getKanjiByLevelQuery("jlpt-n5")
+      const kanji = await getKanjiByLevelQuery(ctx.database, "jlpt-n5")
       const kanjiSet = getRandomKanjiSet(kanji, MEMO_GAME_KANJI_COUNT)
 
       return kanjiSet.map(({ kanji, meanings }) => ({

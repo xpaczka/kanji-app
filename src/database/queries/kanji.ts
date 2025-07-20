@@ -1,9 +1,19 @@
-import { eq } from "drizzle-orm"
-import { database } from ".."
-import { kanjiTable, KanjiItemJlptLevel } from "../schema"
+import { KanjiItemJlptLevel, SupabaseDbClient } from "#/types"
 
-export const getAllKanjiQuery = async () =>
-  await database.select().from(kanjiTable)
+export const getAllKanjiQuery = async (supabaseClient: SupabaseDbClient) => {
+  const { data } = await supabaseClient.from("kanji").select("*")
 
-export const getKanjiByLevelQuery = async (level: KanjiItemJlptLevel) =>
-  await database.select().from(kanjiTable).where(eq(kanjiTable.level, level))
+  return data
+}
+
+export const getKanjiByLevelQuery = async (
+  supabaseclient: SupabaseDbClient,
+  level: KanjiItemJlptLevel
+) => {
+  const { data } = await supabaseclient
+    .from("kanji")
+    .select("*")
+    .eq("level", level)
+
+  return data
+}

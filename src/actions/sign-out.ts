@@ -1,12 +1,12 @@
 "use server"
 
 import { ROUTES } from "#/constants/router"
-import createSupabaseServer from "#/database/server"
+import createSupabaseClient from "#/database/client"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
 const signOut = async () => {
-  const supabase = await createSupabaseServer()
+  const supabase = await createSupabaseClient()
 
   // Check if user is logged in
   const {

@@ -1,18 +1,14 @@
 import {
-  getUserById,
   getUserPreferences,
   updateUserPreferences,
   getUserKnowledgeEvaluationLevel,
-  createUserKnowledgeEvaluation
+  createUserKnowledgeEvaluation,
+  getUser
 } from "#/database/queries"
-import {
-  kanjiItemJlptLevelSchema,
-  userPreferencesSchema
-} from "#/database/schema"
 import { TRPCError } from "@trpc/server"
 import { protectedProcedure, router } from "../trpc"
 import { z } from "zod"
-import { User } from "#/schemas/user"
+import { User } from "@supabase/supabase-js"
 
 const userProgressKeySchema = z.enum([
   "learningOverview",
@@ -53,17 +49,17 @@ const USER_DATA = {
 export const userRouter = router({
   // GET endpoints
   getUser: protectedProcedure.query(
-    async ({ ctx }): Promise<User> => await getUserById(ctx.userId)
+    async ({ ctx }): Promise<User | null> => await getUser(ctx.database)
   ),
   getUserPreferences: protectedProcedure.query(
-    async ({ ctx }) => await getUserPreferences(ctx.userId)
+    async ({ ctx }) => await getUserPreferences(ctx.database)
   ),
   getUserData: protectedProcedure.query(async () => USER_DATA),
   getSelectedUserProgress: protectedProcedure
     .input(userProgressKeySchema)
     .query(async ({ input }) => USER_DATA[input]),
   getUserKnowledgeEvaluationLevel: protectedProcedure.query(
-    async ({ ctx }) => await getUserKnowledgeEvaluationLevel(ctx.userId)
+    async ({ ctx }) => await getUserKnowledgeEvaluationLevel(ctx.database)
   ),
   // POST endpoints
   updateUserPreferences: protectedProcedure
@@ -73,7 +69,7 @@ export const userRouter = router({
         throw new TRPCError({ code: "BAD_REQUEST" })
       }
 
-      await updateUserPreferences(ctx.userId, input)
+      await updateUserPreferences(ctx.database, input)
     }),
   createUserKnowledgeEvaluation: protectedProcedure
     .input(kanjiItemJlptLevelSchema)
@@ -82,6 +78,6 @@ export const userRouter = router({
         throw new TRPCError({ code: "BAD_REQUEST" })
       }
 
-      await createUserKnowledgeEvaluation(ctx.userId, input)
+      await createUserKnowledgeEvaluation(ctx.database, input)
     })
 })

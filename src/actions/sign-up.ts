@@ -1,7 +1,7 @@
 "use server"
 
 import { ROUTES } from "#/constants/router"
-import createSupabaseServer from "#/database/server"
+import createSupabaseClient from "#/database/client"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
@@ -12,7 +12,7 @@ type SignUpProps = {
 }
 
 const signUp = async (data: SignUpProps) => {
-  const supabase = await createSupabaseServer()
+  const supabase = await createSupabaseClient()
 
   // TODO: Validate the inputs
   const { error } = await supabase.auth.signUp({

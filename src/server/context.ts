@@ -1,11 +1,10 @@
 import { TRPC_LINKS } from "#/constants/misc"
-import createSupabaseServer from "#/database/server"
+import createSupabaseClient from "#/database/client"
 
 export type TrpcContext = Awaited<ReturnType<typeof createTrpcContext>>
 
 export const createTrpcContext = async () => {
-  const supabase = await createSupabaseServer()
-  const { data } = await supabase.auth.getUser()
+  const database = await createSupabaseClient()
 
-  return { ...TRPC_LINKS, userId: data.user?.id || null }
+  return { ...TRPC_LINKS, database }
 }

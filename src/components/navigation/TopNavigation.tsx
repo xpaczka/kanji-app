@@ -10,10 +10,10 @@ import {
 import Link from "next/link"
 import { NAVIGATION_ITEMS, ROUTES } from "#/constants/router"
 import UserAccount from "./UserAccount"
-import { User } from "#/schemas/user"
+import { User } from "@supabase/supabase-js"
 
 type TopNavigationProps = {
-  user: User | undefined
+  user: User | null | undefined
 }
 
 export default function TopNavigation({ user }: TopNavigationProps) {
