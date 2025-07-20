@@ -8,7 +8,6 @@ type UserAccountProps = {
 }
 
 export default function UserAccount({ user }: UserAccountProps) {
-  console.log(user)
   if (!user) return null
 
   return (
