@@ -2,9 +2,9 @@
 
 import { AspectRatio } from "#/components/ui/aspect-ratio"
 import { Card, CardContent } from "#/components/ui/card"
-import { KanjiItemJlptLevel } from "#/database/schema"
 import { useFlashcardsLevelChoice } from "#/hooks"
 import { cn } from "#/lib/utils"
+import { KanjiItemJlptLevel } from "#/types"
 
 type FlashcardsLevelChoiceProps = {
   title: string

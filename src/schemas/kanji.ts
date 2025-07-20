@@ -1,4 +1,4 @@
-import { kanjiItemJlptLevelSchema } from "#/database/schema"
+import { kanjiItemJlptLevelSchema } from "#/types"
 import { z } from "zod"
 
 export type KanjiProficiency = z.infer<typeof kanjiProficiencySchema>

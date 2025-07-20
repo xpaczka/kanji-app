@@ -13,5 +13,5 @@ playwright-report
 test-results
 junit.xml
 docs
-drizzle
 scripts
+supabase

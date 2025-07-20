@@ -5,8 +5,8 @@ import { Card, CardContent, CardFooter } from "#/components/ui/card"
 import { Button } from "#/components/ui/button"
 import FlashcardsSessionReading from "./FlashcardsSessionReading"
 import { useMemo } from "react"
-import { DatabaseKanji } from "#/database/schema"
 import { SessionItemEvaluation } from "#/schemas/kanji"
+import { DatabaseKanji } from "#/types"
 
 type FlashcardSessionItemProps = {
   kanji: DatabaseKanji

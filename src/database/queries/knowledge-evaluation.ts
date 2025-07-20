@@ -1,28 +1,30 @@
-import { eq, sql } from "drizzle-orm"
-import { database } from ".."
-import {
-  KanjiItemJlptLevel,
-  kanjiTable,
-  knowledgeEvaluationTable
-} from "../schema"
 import { toHiragana } from "wanakana"
 import { KnowledgeEvaluationTestItem } from "#/schemas"
+import { getUser } from "./user"
+import { KanjiItemJlptLevel, SupabaseDbClient } from "#/types"
 
 export const getUserKnowledgeEvaluationLevel = async (
-  userId: string
+  supabaseClient: SupabaseDbClient
 ): Promise<KanjiItemJlptLevel | null> => {
-  const knowledgeLevel = await database
-    .select({ level: knowledgeEvaluationTable.level })
-    .from(knowledgeEvaluationTable)
-    .where(eq(knowledgeEvaluationTable.user_id, userId))
-    .limit(1)
+  const user = await getUser(supabaseClient)
 
-  return knowledgeLevel.length ? knowledgeLevel[0].level : null
+  if (!user) return null
+
+  const { data: knowledgeLevel } = await supabaseClient
+    .from("knowledge_evaluation")
+    .select("level")
+    .eq("user_id", user.id)
+    .limit(1)
+    .maybeSingle()
+
+  return knowledgeLevel
+    ? (knowledgeLevel.level as KanjiItemJlptLevel | null)
+    : null
 }
 
-export const getKnowledgeEvaluationTestItems = async (): Promise<
-  KnowledgeEvaluationTestItem[]
-> => {
+export const getKnowledgeEvaluationTestItems = async (
+  supabaseClient: SupabaseDbClient
+): Promise<KnowledgeEvaluationTestItem[]> => {
   const levels: KanjiItemJlptLevel[] = [
     "jlpt-n5",
     "jlpt-n4",
@@ -34,12 +36,16 @@ export const getKnowledgeEvaluationTestItems = async (): Promise<
   const testItems: KnowledgeEvaluationTestItem[] = []
 
   for (const level of levels) {
-    const items = await database
-      .select()
-      .from(kanjiTable)
-      .where(eq(kanjiTable.level, level))
-      .orderBy(sql`RANDOM()`)
+    const { data: items } = await supabaseClient
+      .from("kanji")
+      .select("kanji, kun_readings, on_readings")
+      .eq("level", level)
+      .order("random()")
       .limit(10)
+
+    if (!items || !items.length) {
+      throw new Error("Failed to fetch kanji items for evaluation test")
+    }
 
     const kanjiSet = items.map(({ kanji, kun_readings, on_readings }) => ({
       kanji,
@@ -56,10 +62,14 @@ export const getKnowledgeEvaluationTestItems = async (): Promise<
 }
 
 export const createUserKnowledgeEvaluation = async (
-  userId: string,
+  supabaseClient: SupabaseDbClient,
   level: KanjiItemJlptLevel
 ): Promise<void> => {
-  await database
-    .insert(knowledgeEvaluationTable)
-    .values({ user_id: userId, level })
+  const user = await getUser(supabaseClient)
+
+  if (!user) return
+
+  await supabaseClient
+    .from("knowledge_evaluation")
+    .insert({ user_id: user.id, level })
 }

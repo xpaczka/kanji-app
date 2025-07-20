@@ -2,11 +2,11 @@ import { trpc } from "#/app/_trpc/client"
 import { useCallback, useState } from "react"
 import { useNavigation } from "./router"
 import { ROUTES } from "#/constants/router"
-import { KanjiItemJlptLevel } from "#/database/schema"
 import {
   evaluateKnowledgeTestItemScore,
   getKnowledgeEvaluationResult
 } from "#/lib/knowledge-evaluation"
+import { KanjiItemJlptLevel } from "#/types"
 
 export const useKnowledgeEvaluationPrompt = () => {
   const { navigate } = useNavigation()

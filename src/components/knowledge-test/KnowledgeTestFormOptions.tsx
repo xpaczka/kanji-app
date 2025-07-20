@@ -1,8 +1,8 @@
 "use client"
 
 import { Button } from "#/components/ui/button"
-import { KanjiItemJlptLevel } from "#/database/schema"
 import { shuffle } from "#/lib/utils"
+import { KanjiItemJlptLevel } from "#/types"
 import { useCallback, useMemo } from "react"
 
 type KnowledgeTestFormOptionsProps = {
