@@ -23,7 +23,7 @@ export default function KnowledgeTestLAyout({
   useEffect(() => {
     if (isFetched) {
       if (!checkedEvaluationExistence && knowledgeEvaluationLevel) {
-        navigate(ROUTES.mainDashboard)
+        navigate(ROUTES.index)
       } else {
         setCheckedEvaluationExistence(true)
       }

@@ -16,26 +16,32 @@ export default function Auth() {
   const isSignInFlow = useMemo(() => authFlow === AuthFlow.SIGN_IN, [authFlow])
 
   return (
-    <Card className="min-w-[420px] p-12">
-      <CardHeader>
-        <CardTitle className="text-center">
-          {isSignInFlow ? "Sign in" : "Sign up"}
-        </CardTitle>
-      </CardHeader>
-      {isSignInFlow ? <SignIn /> : <SignUp />}
-      <CardFooter className="flex justify-center">
-        <div>
-          {isSignInFlow ? "No account yet?" : "Already have an account?"}{" "}
-          <span
-            className="cursor-pointer font-bold"
-            onClick={() =>
-              setAuthFlow(isSignInFlow ? AuthFlow.SIGN_UP : AuthFlow.SIGN_IN)
-            }
-          >
-            {isSignInFlow ? "Sign up" : "Sign up"}
-          </span>
-        </div>
-      </CardFooter>
-    </Card>
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
+      <main className="row-start-2 flex items-center gap-8 sm:items-start">
+        <Card className="min-w-[420px] p-12">
+          <CardHeader>
+            <CardTitle className="text-center">
+              {isSignInFlow ? "Sign in" : "Sign up"}
+            </CardTitle>
+          </CardHeader>
+          {isSignInFlow ? <SignIn /> : <SignUp />}
+          <CardFooter className="flex justify-center">
+            <div>
+              {isSignInFlow ? "No account yet?" : "Already have an account?"}{" "}
+              <span
+                className="cursor-pointer font-bold"
+                onClick={() =>
+                  setAuthFlow(
+                    isSignInFlow ? AuthFlow.SIGN_UP : AuthFlow.SIGN_IN
+                  )
+                }
+              >
+                {isSignInFlow ? "Sign up" : "Sign up"}
+              </span>
+            </div>
+          </CardFooter>
+        </Card>
+      </main>
+    </div>
   )
 }
