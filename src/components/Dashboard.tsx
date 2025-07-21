@@ -14,7 +14,7 @@ export default async function Dashboard() {
     await serverClient.user.getUserData()
 
   return (
-    <div className="grid grid-cols-3 grid-rows-3 gap-8">
+    <div className="grid grid-cols-3 grid-rows-3 gap-8 p-10">
       <DashboardLearningOverview className="col-start-1 col-end-2 row-start-1 row-end-2" />
       <DashboardCard
         title="Daily challenges"

@@ -17,7 +17,7 @@ export const useKnowledgeEvaluationPrompt = () => {
   const skipHandler = useCallback(() => {
     // Set lowest level possible for user who skips
     updateUserKnowledgeEvaluation("jlpt-n5")
-    navigate(ROUTES.mainDashboard)
+    navigate(ROUTES.index)
   }, [updateUserKnowledgeEvaluation, navigate])
 
   return { skip: skipHandler }

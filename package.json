@@ -11,7 +11,7 @@
     "prettier:check": "prettier -c '**/*.@(js|ts|jsx|tsx)'",
     "format:check": "bun lint && bun prettier:check",
     "supabase:migrations:create": "supabase migration new",
-    "supabase:reload": "bun run src/database/seed.ts --data-path ./scripts/data.json && supabase db reset && supabase gen types typescript --local > ./src/types/supabase.ts"
+    "supabase:reload": "bun run ./src/database/seed.ts --data-path ./scripts/data.json && supabase db reset && supabase gen types typescript --local > ./src/types/supabase.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

@@ -1,6 +1,5 @@
 "use server"
 
-import { ROUTES } from "#/constants/router"
 import createSupabaseClient from "#/database/client"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
@@ -22,7 +21,6 @@ const signIn = async (data: SignInProps) => {
   }
 
   revalidatePath("/", "layout")
-  redirect(ROUTES.mainDashboard)
 }
 
 export default signIn

@@ -19,7 +19,7 @@ export default function KnowledgeTestScore({ score }: KnowledgeTestScoreProps) {
       header="Your current level"
       footer={
         <Button asChild>
-          <Link href={ROUTES.mainDashboard}>Go to dashboard</Link>
+          <Link href={ROUTES.index}>Go to dashboard</Link>
         </Button>
       }
     >
