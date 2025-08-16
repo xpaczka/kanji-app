@@ -4,6 +4,8 @@ import { ROUTES } from "#/constants/router"
 import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded"
 import DriveFileRenameOutlineRoundedIcon from "@mui/icons-material/DriveFileRenameOutlineRounded"
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded"
+import AutoAwesomeMosaicRoundedIcon from "@mui/icons-material/AutoAwesomeMosaicRounded"
+import AutoAwesomeMotionRoundedIcon from "@mui/icons-material/AutoAwesomeMotionRounded"
 import { DashboardCard, LearnStageCard } from "./Card"
 import { LearnStage } from "#/types"
 
@@ -43,6 +45,24 @@ export default function Dashboard() {
           <LearnStageCard stage={LearnStage.Stage3} color="bg-yellow-400" />
           <LearnStageCard stage={LearnStage.Stage4} color="bg-green-400" />
           <LearnStageCard stage={LearnStage.Stage5} color="bg-purple-400" />
+        </div>
+      </LayoutSection>
+      <LayoutSection header="Games">
+        <div className="grid grid-cols-1 grid-rows-2 gap-6 lg:grid-cols-2 lg:grid-rows-1 lg:gap-10">
+          <DashboardCard
+            header="Memo"
+            description="Lorem ipsum dolor sit amet consectetur adipiscing elit"
+            href={ROUTES.playMemo}
+            Icon={AutoAwesomeMosaicRoundedIcon}
+            className="shadow-lg"
+          />
+          <DashboardCard
+            header="Flashcards"
+            description="Lorem ipsum dolor sit amet consectetur adipiscing elit"
+            href={ROUTES.playFlashcards}
+            Icon={AutoAwesomeMotionRoundedIcon}
+            className="shadow-lg"
+          />
         </div>
       </LayoutSection>
     </>
