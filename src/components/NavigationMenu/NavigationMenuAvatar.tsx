@@ -12,7 +12,7 @@ export default function NavigationMenuAvatar({ user }: { user: User | null }) {
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
-      <Popover.Trigger>
+      <Popover.Trigger className="w-14">
         <Avatar.Root className="cursor-pointer">
           <Avatar.Image
             src="avatar.jpeg"
