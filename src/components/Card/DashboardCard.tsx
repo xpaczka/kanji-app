@@ -35,12 +35,12 @@ export default function DashboardCard({
         }}
         transition={{ duration: 0.15, ease: "easeInOut" }}
         className={cn(
-          "flex flex-col items-center justify-center rounded-md border-2 border-gray-200 px-4 py-8 text-center shadow-2xl lg:aspect-square",
+          "flex flex-col items-center justify-center rounded-md border-2 border-gray-200 p-8 text-center shadow-2xl lg:py-20",
           className
         )}
       >
-        <Icon fontSize="large" />
-        <p className="my-4 text-4xl font-semibold">{header}</p>
+        <Icon />
+        <p className="mt-2 mb-4 text-3xl font-semibold">{header}</p>
         <p className="text-lg">{description}</p>
       </motion.div>
     </Link>

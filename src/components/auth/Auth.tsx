@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from "react"
 import { Card, CardTitle, CardHeader, CardFooter } from "../ui/card"
-import SignUp from "./SignUp"
 import SignIn from "./SignIn"
+import SignUp from "./SignUp"
 
 enum AuthFlow {
   SIGN_IN = "sign-in",

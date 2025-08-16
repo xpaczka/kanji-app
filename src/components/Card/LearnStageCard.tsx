@@ -1,0 +1,25 @@
+import { LearnStage } from "#/types"
+
+type LearnStageCardProps = {
+  stage: LearnStage
+  color: string
+}
+
+export default function LearnStageCard({ stage, color }: LearnStageCardProps) {
+  return (
+    <div className="flex items-center rounded-md border-2 border-gray-200 p-8 text-center lg:block">
+      <p className="text-lg font-medium">{stage}</p>
+      <div
+        className={`mt:0 mx-8 h-full w-2 rounded-full lg:mx-0 lg:mt-4 lg:h-2 lg:w-full ${color}`}
+      />
+      <div className="flex-1 lg:mt-4">
+        <p className="text-gray-400">Kanji</p>
+        <p className="text-lg font-bold">23</p>
+      </div>
+      <div className="flex-1 lg:mt-4">
+        <p className="text-gray-400">Words</p>
+        <p className="text-lg font-bold">31</p>
+      </div>
+    </div>
+  )
+}

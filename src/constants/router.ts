@@ -4,12 +4,12 @@ export const ROUTES = {
   review: "/review",
   write: "/write",
   play: "/play",
+  playMemo: "/play/memo",
+  playFlashcards: "/play/flashcards",
   apiTrpc: "/api/trpc",
-  learnDashboard: "/learn",
   gamesDashboard: "/games",
   flashcards: "/learn/flashcards",
-  memoGame: "/games/memo",
-  knowledgeTest: "/knowledge-test"
+  memoGame: "/games/memo"
 }
 
 export const NAVIGATION_ITEMS = [
