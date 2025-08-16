@@ -2,10 +2,17 @@ import { ROUTES } from "#/constants/router"
 import { NavigationMenu as BaseNavigationMenu } from "@base-ui-components/react/navigation-menu"
 import NavigationMenuAvatar from "./NavigationMenuAvatar"
 import NavigationMenuLink from "./NavigationMenuLink"
+import createSupabaseClient from "#/database/client"
 
-export default function NavigationMenu() {
+export default async function NavigationMenu() {
+  const serverClient = await createSupabaseClient()
+
+  const {
+    data: { user }
+  } = await serverClient.auth.getUser()
+
   return (
-    <BaseNavigationMenu.Root className="fixed top-0 right-0 left-0 flex w-full items-center justify-between gap-16 bg-white px-10 py-3 shadow-md">
+    <BaseNavigationMenu.Root className="fixed top-0 right-0 left-0 flex h-20 w-full items-center justify-between gap-16 bg-white px-10 py-3 shadow-md">
       <BaseNavigationMenu.Item className="text-2xl font-bold">
         KANJI APP
       </BaseNavigationMenu.Item>
@@ -13,7 +20,7 @@ export default function NavigationMenu() {
         <NavigationMenuLink href={ROUTES.learn} title="Learn" />
         <NavigationMenuLink href={ROUTES.play} title="Play" />
       </BaseNavigationMenu.List>
-      <NavigationMenuAvatar />
+      <NavigationMenuAvatar user={user} />
     </BaseNavigationMenu.Root>
   )
 }
