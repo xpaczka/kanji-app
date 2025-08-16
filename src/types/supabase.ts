@@ -17,10 +17,10 @@ export type Database = {
     Functions: {
       graphql: {
         Args: {
-          operationName?: string
           extensions?: Json
-          variables?: Json
+          operationName?: string
           query?: string
+          variables?: Json
         }
         Returns: Json
       }
@@ -131,13 +131,13 @@ export type Database = {
       get_user_kanji_history: {
         Args: { user_id: string }
         Returns: {
-          updated_at: string
-          level: string
           kanji: string
+          level: string
+          updated_at: string
         }[]
       }
       update_user_kanji_history: {
-        Args: { user_id: string; updated_at: string; kanji_id: string }
+        Args: { kanji_id: string; updated_at: string; user_id: string }
         Returns: undefined
       }
     }

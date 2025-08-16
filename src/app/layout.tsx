@@ -1,17 +1,12 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Ubuntu } from "next/font/google"
 import "./globals.css"
 import TrpcProvider from "../providers/TrpcProvider"
 import StoreProvider from "#/providers/StoreProvider"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"]
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"]
+const fontFamily = Ubuntu({
+  subsets: ["latin-ext"],
+  weight: ["300", "400", "500", "700"]
 })
 
 export const metadata: Metadata = {
@@ -28,10 +23,10 @@ export default function RootLayout({
     <TrpcProvider>
       <StoreProvider>
         <html lang="en">
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
-          >
-            {children}
+          <body className={`${fontFamily.className} min-h-screen antialiased`}>
+            <div className="root bg-gray-100 px-6 pt-20 lg:px-10 lg:pt-24">
+              {children}
+            </div>
           </body>
         </html>
       </StoreProvider>

@@ -1000,8 +1000,8 @@ INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('�
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('詔', 'jlpt-n1', '{"imperial edict"}', '{"ショウ"}', '{"みことのり"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('胡', 'jlpt-n1', '{"barbarian","foreign"}', '{"ウ","コ","ゴ"}', '{"なんぞ"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('峻', 'jlpt-n1', '{"high","steep"}', '{"シュン"}', '{"けわ.しい","たか.い"}');
-INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('憧', 'jlpt-n1', '{"yearn after","long for","aspire to","admire","adore"}', '{"ショウ","トウ","ドウ"}', '{"あこが.れる"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('槻', 'jlpt-n1', '{"Zelkova tree"}', '{"キ"}', '{"つき"}');
+INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('憧', 'jlpt-n1', '{"yearn after","long for","aspire to","admire","adore"}', '{"ショウ","トウ","ドウ"}', '{"あこが.れる"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('宵', 'jlpt-n1', '{"wee hours","evening","early night"}', '{"ショウ"}', '{"よい"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('蝶', 'jlpt-n1', '{"butterfly"}', '{"チョウ"}', '{}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('妄', 'jlpt-n1', '{"delusion","unnecessarily","without authority","reckless"}', '{"モウ","ボウ"}', '{"みだ.りに"}');
@@ -1070,7 +1070,6 @@ INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('�
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('蔦', 'jlpt-n1', '{"vine","ivy"}', '{"チョウ"}', '{"つた"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('繭', 'jlpt-n1', '{"cocoon"}', '{"ケン"}', '{"まゆ","きぬ"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('汰', 'jlpt-n1', '{"washing","sieving","filtering","weeding out","luxury"}', '{"タ","タイ"}', '{"おご.る","にご.る","よな.げる"}');
-INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('遵', 'jlpt-n1', '{"abide by","follow","obey","learn"}', '{"ジュン"}', '{}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('伎', 'jlpt-n1', '{"deed","skill"}', '{"ギ","キ"}', '{"わざ","わざおぎ"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('旦', 'jlpt-n1', '{"daybreak","dawn","morning"}', '{"タン","ダン"}', '{"あき.らか","あきら","ただし","あさ","あした"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('璃', 'jlpt-n1', '{"glassy","lapis lazuli"}', '{"リ"}', '{}');
@@ -1078,8 +1077,7 @@ INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('�
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('瞭', 'jlpt-n1', '{"clear"}', '{"リョウ"}', '{"あきらか"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('冶', 'jlpt-n1', '{"melting","smelting"}', '{"ヤ"}', '{"い.る"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('虞', 'jlpt-n1', '{"fear","uneasiness","anxiety","concern","expectation","consideration"}', '{"グ"}', '{"おそれ","おもんぱか.る","はか.る","うれ.える","あざむ.く","あやま.る","のぞ.む","たの.しむ"}');
-INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('耗', 'jlpt-n1', '{"decrease"}', '{"モウ","コウ"}', '{}');
-INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('且', 'jlpt-n1', '{"moreover","also","furthermore"}', '{"ショ","ソ","ショウ"}', '{"か.つ"}');
+INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('遵', 'jlpt-n1', '{"abide by","follow","obey","learn"}', '{"ジュン"}', '{}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('爵', 'jlpt-n1', '{"baron","peerage","court rank"}', '{"シャク"}', '{}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('吏', 'jlpt-n1', '{"officer","an official"}', '{"リ"}', '{}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('弐', 'jlpt-n1', '{"II","two","second"}', '{"ニ","ジ"}', '{"ふた.つ","そえ"}');
@@ -1091,8 +1089,10 @@ INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('�
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('塑', 'jlpt-n1', '{"model","molding"}', '{"ソ"}', '{"でく"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('痘', 'jlpt-n1', '{"pox","smallpox"}', '{"トウ"}', '{}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('謁', 'jlpt-n1', '{"audience","audience (with king)"}', '{"エツ"}', '{}');
+INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('耗', 'jlpt-n1', '{"decrease"}', '{"モウ","コウ"}', '{}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('斤', 'jlpt-n1', '{"axe","1.32 lb","catty","counter for loaves of bread","axe radical (no. 69)"}', '{"キン"}', '{}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('濫', 'jlpt-n1', '{"excessive","overflow","spread out"}', '{"ラン"}', '{"みだ.りに","みだ.りがましい"}');
+INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('且', 'jlpt-n1', '{"moreover","also","furthermore"}', '{"ショ","ソ","ショウ"}', '{"か.つ"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('隼', 'jlpt-n1', '{"falcon"}', '{"シュン","ジュン"}', '{"はやぶさ"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('渚', 'jlpt-n1', '{"strand","beach","shore"}', '{"ショ"}', '{"なぎさ"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('稀', 'jlpt-n1', '{"rare","phenomenal","dilute (acid)"}', '{"キ","ケ"}', '{"まれ","まばら"}');
@@ -1153,7 +1153,7 @@ INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('�
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('勁', 'jlpt-n1', '{"strong"}', '{"ケイ"}', '{"つよ.い"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('晟', 'jlpt-n1', '{"clear"}', '{"セイ","ジョウ"}', '{"あきらか"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('捺', 'jlpt-n1', '{"press","print","affix a seal","stamp"}', '{"ナツ","ダツ"}', '{"さ.す","お.す"}');
-INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('澪', 'jlpt-n1', '{"water route","shipping channel"}', '{"レイ"}', '{"みお"}');
+INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('椋', 'jlpt-n1', '{"type of deciduous tree","grey starling"}', '{"リョウ"}', '{"むく"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('碩', 'jlpt-n1', '{"large","great","eminent"}', '{"セキ"}', '{"おお.きい"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('柊', 'jlpt-n1', '{"holly"}', '{"シュ","シュウ"}', '{"ひいらぎ"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('玖', 'jlpt-n1', '{"beautiful black jewel","nine"}', '{"キュウ","ク"}', '{}');
@@ -1165,7 +1165,6 @@ INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('�
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('瑳', 'jlpt-n1', '{"polish","brilliant white luster of a gem","artful smile"}', '{"サ"}', '{"みが.く"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('栞', 'jlpt-n1', '{"bookmark","guidebook"}', '{"カン"}', '{"しおり"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('蓉', 'jlpt-n1', '{"lotus"}', '{"ヨウ"}', '{}');
-INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('耶', 'jlpt-n1', '{"question mark"}', '{"ヤ","ジャ"}', '{"か"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('伶', 'jlpt-n1', '{"actor"}', '{"レイ","リョウ"}', '{"わざおぎ"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('恕', 'jlpt-n1', '{"excuse","tolerate","forgive"}', '{"ジョ","ショ"}', '{"ゆる.す"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('紬', 'jlpt-n1', '{"pongee (a knotted silk cloth)"}', '{"チュウ"}', '{"つむぎ","つむ.ぐ"}');
@@ -1175,7 +1174,6 @@ INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('�
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('裟', 'jlpt-n1', '{"Buddhist surplice"}', '{"サ","シャ"}', '{}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('昂', 'jlpt-n1', '{"rise"}', '{"コウ","ゴウ"}', '{"あ.がる","たか.い","たか.ぶる"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('洵', 'jlpt-n1', '{"alike","truth"}', '{"ジュン","シュン"}', '{"の.ぶ","まこと.に"}');
-INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('椋', 'jlpt-n1', '{"type of deciduous tree","grey starling"}', '{"リョウ"}', '{"むく"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('紗', 'jlpt-n1', '{"gauze","gossamer"}', '{"サ","シャ"}', '{"うすぎぬ"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('鞠', 'jlpt-n1', '{"ball"}', '{"キク","キュウ"}', '{"まり"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('莉', 'jlpt-n1', '{"jasmine"}', '{"リ","ライ","レイ"}', '{}');
@@ -1211,11 +1209,12 @@ INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('�
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('侑', 'jlpt-n1', '{"urge to eat"}', '{"ユウ","ウ"}', '{"すす.める","たす.ける"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('誼', 'jlpt-n1', '{"friendship","intimacy"}', '{"ギ"}', '{"よしみ","よい"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('頌', 'jlpt-n1', '{"eulogy"}', '{"ショウ","ジュ","ヨウ"}', '{"かたち","たた.える","ほめ.る"}');
+INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('耶', 'jlpt-n1', '{"question mark"}', '{"ヤ","ジャ"}', '{"か"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('爾', 'jlpt-n1', '{"you","thou","second person"}', '{"ジ","ニ"}', '{"なんじ","しかり","その","のみ","おれ","しか"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('錘', 'jlpt-n1', '{"weight","plumb bob","sinker","spindle"}', '{"スイ"}', '{"つむ","おもり"}');
+INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('澪', 'jlpt-n1', '{"water route","shipping channel"}', '{"レイ"}', '{"みお"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('燎', 'jlpt-n1', '{"burn","bonfire"}', '{"リョウ"}', '{"かがりび"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('梧', 'jlpt-n1', '{"Chinese parasol tree","phoenix tree"}', '{"ゴ"}', '{"あおぎり"}');
-INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('滉', 'jlpt-n1', '{"deep and broad (water)"}', '{"コウ"}', '{"ひろ.い"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('茉', 'jlpt-n1', '{"jasmine"}', '{"マツ","バツ","マ"}', '{}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('凪', 'jlpt-n1', '{"lull","calm","(kokuji)"}', '{}', '{"なぎ","な.ぐ"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('銑', 'jlpt-n1', '{"pig iron"}', '{"セン"}', '{}');
@@ -1230,6 +1229,7 @@ INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('�
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('瑶', 'jlpt-n1', '{"beautiful as a jewel"}', '{"ヨウ"}', '{"たま"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('哉', 'jlpt-n1', '{"how","what","alas","question mark","exclamation mark"}', '{"サイ"}', '{"かな","や"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('勺', 'jlpt-n1', '{"ladle","one tenth of a go","dip"}', '{"シャク"}', '{}');
+INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('滉', 'jlpt-n1', '{"deep and broad (water)"}', '{"コウ"}', '{"ひろ.い"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('脹', 'jlpt-n1', '{"dilate","distend","bulge","fill out","swell"}', '{"チョウ"}', '{"は.れる","ふく.らむ","ふく.れる"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('党', 'jlpt-n2', '{"party","faction","clique"}', '{"トウ"}', '{"なかま","むら"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('村', 'jlpt-n2', '{"village","town"}', '{"ソン"}', '{"むら"}');
@@ -1873,8 +1873,8 @@ INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('�
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('礼', 'jlpt-n3', '{"salute","bow","ceremony","thanks","remuneration"}', '{"レイ","ライ"}', '{}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('除', 'jlpt-n3', '{"exclude","division (x/3)","remove","abolish","cancel","except"}', '{"ジョ","ジ"}', '{"のぞ.く","-よ.け"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('渡', 'jlpt-n3', '{"transit","ford","ferry","cross","import","deliver","diameter","migrate"}', '{"ト"}', '{"わた.る","-わた.る","わた.す"}');
-INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('降', 'jlpt-n3', '{"descend","precipitate","fall","surrender"}', '{"コウ","ゴ"}', '{"お.りる","お.ろす","ふ.る","ふ.り","くだ.る","くだ.す"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('願', 'jlpt-n3', '{"petition","request","vow","wish","hope"}', '{"ガン"}', '{"ねが.う","-ねがい"}');
+INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('降', 'jlpt-n3', '{"descend","precipitate","fall","surrender"}', '{"コウ","ゴ"}', '{"お.りる","お.ろす","ふ.る","ふ.り","くだ.る","くだ.す"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('昔', 'jlpt-n3', '{"once upon a time","antiquity","old times"}', '{"セキ","シャク"}', '{"むかし"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('許', 'jlpt-n3', '{"permit","approve"}', '{"キョ"}', '{"ゆる.す","もと"}');
 INSERT INTO kanji (kanji, level, meanings, on_readings, kun_readings) VALUES ('危', 'jlpt-n3', '{"dangerous","fear","uneasy"}', '{"キ"}', '{"あぶ.ない","あや.うい","あや.ぶむ"}');
