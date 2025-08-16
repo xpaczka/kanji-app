@@ -1,7 +1,10 @@
 import { User } from "@supabase/supabase-js"
 import Image from "next/image"
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded"
+import PaymentRoundedIcon from "@mui/icons-material/PaymentRounded"
+import SettingsSuggestRoundedIcon from "@mui/icons-material/SettingsSuggestRounded"
 import { signOut } from "#/actions"
+import NavigationMenuPopupItem from "./NavigationMenuPopupItem"
 
 export default function NavigationMenuPopup({ user }: { user: User | null }) {
   if (!user) return null
@@ -25,14 +28,26 @@ export default function NavigationMenuPopup({ user }: { user: User | null }) {
             <div className="text-sm text-gray-400">{user.email}</div>
           </div>
         </div>
-        <div className="my-4 h-[1px] w-full bg-gray-200" />
-        <div className="my-4 h-[1px] w-full bg-gray-200" />
+        <div className="mt-4 h-[1px] w-full bg-gray-200" />
+        <div className="-mx-2 flex flex-col gap-0.5 py-3">
+          <NavigationMenuPopupItem
+            Icon={PaymentRoundedIcon}
+            content="Subscription"
+          />
+          <NavigationMenuPopupItem
+            Icon={SettingsSuggestRoundedIcon}
+            content="Settings"
+          />
+        </div>
+        <div className="mb-4 h-[1px] w-full bg-gray-200" />
         <button
-          className="flex cursor-pointer items-center gap-1"
+          className="flex cursor-pointer items-center gap-2"
           onClick={async () => await signOut()}
         >
-          <LogoutRoundedIcon color="error" />
-          <p className="font-semibold text-red-700">Sign out</p>
+          <div className="flex w-5 items-center">
+            <LogoutRoundedIcon color="error" fontSize="small" />
+          </div>
+          <p className="font-medium text-red-700">Sign out</p>
         </button>
       </div>
     </>

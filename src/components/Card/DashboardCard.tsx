@@ -35,7 +35,7 @@ export default function DashboardCard({
         }}
         transition={{ duration: 0.15, ease: "easeInOut" }}
         className={cn(
-          "flex flex-col items-center justify-center rounded-md border-2 border-gray-200 p-8 text-center shadow-2xl lg:py-20",
+          "flex flex-col items-center justify-center rounded-md border-2 border-gray-200 bg-white p-8 text-center shadow-2xl lg:py-20",
           className
         )}
       >

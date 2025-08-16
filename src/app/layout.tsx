@@ -24,7 +24,9 @@ export default function RootLayout({
       <StoreProvider>
         <html lang="en">
           <body className={`${fontFamily.className} min-h-screen antialiased`}>
-            <div className="root px-6 pt-20 lg:px-10 lg:pt-24">{children}</div>
+            <div className="root bg-gray-100 px-6 pt-20 lg:px-10 lg:pt-24">
+              {children}
+            </div>
           </body>
         </html>
       </StoreProvider>

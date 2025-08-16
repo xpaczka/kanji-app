@@ -5,6 +5,7 @@ import { Popover } from "@base-ui-components/react/popover"
 import { motion } from "motion/react"
 import NavigationMenuPopup from "./NavigationMenuPopup"
 import { User } from "@supabase/supabase-js"
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded"
 import { useState } from "react"
 
 export default function NavigationMenuAvatar({ user }: { user: User | null }) {
@@ -13,12 +14,13 @@ export default function NavigationMenuAvatar({ user }: { user: User | null }) {
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger className="min-w-14">
-        <Avatar.Root className="cursor-pointer">
+        <Avatar.Root className="flex cursor-pointer items-center gap-0.5">
           <Avatar.Image
             src="avatar.jpeg"
             className="h-14 w-14 rounded-full border-2 border-orange-400 p-0.5"
             alt="Avatar"
           />
+          <KeyboardArrowDownRoundedIcon fontSize="large" color="disabled" />
         </Avatar.Root>
       </Popover.Trigger>
       {open && (
