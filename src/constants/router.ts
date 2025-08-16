@@ -4,6 +4,7 @@ export const ROUTES = {
   review: "/review",
   write: "/write",
   play: "/play",
+  kanji: "/kanji",
   playMemo: "/play/memo",
   playFlashcards: "/play/flashcards",
   apiTrpc: "/api/trpc",
@@ -14,5 +15,6 @@ export const ROUTES = {
 
 export const NAVIGATION_ITEMS = [
   { href: ROUTES.index, title: "Learn" },
+  { href: ROUTES.kanji, title: "Kanji" },
   { href: ROUTES.play, title: "Play" }
 ]
