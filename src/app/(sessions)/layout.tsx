@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 import EndAppSessionButton from "#/components/buttons/EndAppSessionButton"
-import SessionPageHeader from "#/components/layout/SessionPageHeader"
+import SessionPageHeader from "#/components/Layout/SessionPageHeader"
 
 export default function SessionLayout({ children }: { children: ReactNode }) {
   return (

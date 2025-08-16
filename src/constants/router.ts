@@ -1,6 +1,6 @@
 export const ROUTES = {
   index: "/",
-  learn: "learn",
+  learn: "/learn",
   review: "/review",
   write: "/write",
   play: "/play",
@@ -13,6 +13,6 @@ export const ROUTES = {
 }
 
 export const NAVIGATION_ITEMS = [
-  { href: ROUTES.learnDashboard, title: "Learn" },
-  { href: ROUTES.gamesDashboard, title: "Games" }
+  { href: ROUTES.index, title: "Learn" },
+  { href: ROUTES.play, title: "Play" }
 ]

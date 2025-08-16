@@ -1,74 +1,37 @@
-import DashboardCard from "#/components/dashboard/DashboardCard"
-import DashboardCardItem from "#/components/dashboard/DashboardCardItem"
-import DashboardWeeklyProgressChart from "#/components/dashboard/DashboardWeekyProgressChart"
-import DashboardLeaderboard from "#/components/dashboard/DashboardLeaderboard"
-import DashboardProgressItem from "#/components/dashboard/DashboardProgressItem"
-import { Button } from "#/components/ui/button"
-import { createServerClient } from "#/app/_trpc/server-client"
-import DashboardLearningOverview from "#/components/dashboard/DashboardLearningOverview"
 import { NavigationMenu } from "./NavigationMenu"
+import { LayoutSection } from "./Layout"
+import { ROUTES } from "#/constants/router"
+import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded"
+import DriveFileRenameOutlineRoundedIcon from "@mui/icons-material/DriveFileRenameOutlineRounded"
+import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded"
+import { DashboardCard } from "./Card"
 
-export default async function Dashboard() {
-  const serverClient = await createServerClient()
-
-  const { dailyChallenges, milestones, gamesOverview, weeklyProgress } =
-    await serverClient.user.getUserData()
-
+export default function Dashboard() {
   return (
-    <div className="pt-24">
+    <>
       <NavigationMenu />
-      <div className="grid grid-cols-3 grid-rows-3 gap-8 p-10">
-        <DashboardLearningOverview className="col-start-1 col-end-2 row-start-1 row-end-2" />
-        <DashboardCard
-          title="Daily challenges"
-          className="col-start-2 col-end-3 row-start-1 row-end-2"
-        >
-          <div className="flex flex-col gap-3">
-            {dailyChallenges.map(({ name, value }) => (
-              <DashboardProgressItem key={name} title={name} progress={value} />
-            ))}
-          </div>
-        </DashboardCard>
-        <DashboardCard
-          title="Games overview"
-          className="col-start-1 col-end-2 row-start-2 row-end-3"
-        >
-          <DashboardCardItem title="Points earned" className="mb-2">
-            <p className="text-xl font-bold">{gamesOverview.points}</p>
-          </DashboardCardItem>
-          <DashboardCardItem title="Favorite game" className="mb-2">
-            <div className="flex items-center gap-2">
-              <div className="aspect-square h-[40px] min-w-[40px] border-2" />
-              <p>{gamesOverview.favoriteGame}</p>
-              <Button>Play</Button>
-            </div>
-          </DashboardCardItem>
-        </DashboardCard>
-        <DashboardCard
-          title="Milestones"
-          className="col-start-2 col-end-3 row-start-2 row-end-3"
-        >
-          <div className="flex flex-col gap-3">
-            {milestones.map(({ name, value }) => (
-              <DashboardProgressItem key={name} title={name} progress={value} />
-            ))}
-          </div>
-        </DashboardCard>
-        <DashboardCard
-          title="Leaderboard"
-          className="col-start-3 col-end-4 row-start-1 row-end-4"
-        >
-          <DashboardLeaderboard />
-        </DashboardCard>
-        <DashboardCard
-          title="Weekly progress"
-          className="col-start-1 col-end-3 row-start-3 row-end-4"
-        >
-          <div className="w-1/2">
-            <DashboardWeeklyProgressChart data={weeklyProgress} />
-          </div>
-        </DashboardCard>
-      </div>
-    </div>
+      <LayoutSection header="Knowledge">
+        <div className="grid grid-cols-1 grid-rows-3 gap-12 lg:grid-cols-3 lg:grid-rows-1">
+          <DashboardCard
+            header="Learn"
+            description="Lorem ipsum dolor sit amet consectetur adipiscing elit"
+            href={ROUTES.learn}
+            Icon={SchoolRoundedIcon}
+          />
+          <DashboardCard
+            header="Review"
+            description="Lorem ipsum dolor sit amet consectetur adipiscing elit"
+            href={ROUTES.review}
+            Icon={VisibilityRoundedIcon}
+          />
+          <DashboardCard
+            header="Write"
+            description="Lorem ipsum dolor sit amet consectetur adipiscing elit"
+            href={ROUTES.write}
+            Icon={DriveFileRenameOutlineRoundedIcon}
+          />
+        </div>
+      </LayoutSection>
+    </>
   )
 }

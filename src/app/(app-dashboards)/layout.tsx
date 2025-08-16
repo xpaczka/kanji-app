@@ -4,7 +4,7 @@ import BreadcrumbsNavigation from "#/components/navigation/BreadcrumbsNavigation
 import TopNavigation from "#/components/navigation/TopNavigation"
 import { ReactNode } from "react"
 import { trpc } from "../_trpc/client"
-import FullPageLoader from "#/components/layout/FullPageLoader"
+import FullPageLoader from "#/components/Layout/FullPageLoader"
 
 export default function AppDashboardLayout({
   children

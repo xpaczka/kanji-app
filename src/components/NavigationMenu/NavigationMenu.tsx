@@ -1,4 +1,4 @@
-import { ROUTES } from "#/constants/router"
+import { NAVIGATION_ITEMS } from "#/constants/router"
 import { NavigationMenu as BaseNavigationMenu } from "@base-ui-components/react/navigation-menu"
 import NavigationMenuAvatar from "./NavigationMenuAvatar"
 import NavigationMenuLink from "./NavigationMenuLink"
@@ -17,8 +17,9 @@ export default async function NavigationMenu() {
         KANJI APP
       </BaseNavigationMenu.Item>
       <BaseNavigationMenu.List className="flex flex-1 justify-end gap-8">
-        <NavigationMenuLink href={ROUTES.learn} title="Learn" />
-        <NavigationMenuLink href={ROUTES.play} title="Play" />
+        {NAVIGATION_ITEMS.map(({ title, href }) => (
+          <NavigationMenuLink key={title} href={href} title={title} />
+        ))}
       </BaseNavigationMenu.List>
       <NavigationMenuAvatar user={user} />
     </BaseNavigationMenu.Root>
