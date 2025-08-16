@@ -11,24 +11,27 @@ export default function Dashboard() {
     <>
       <NavigationMenu />
       <LayoutSection header="Knowledge">
-        <div className="grid grid-cols-1 grid-rows-3 gap-12 lg:grid-cols-3 lg:grid-rows-1">
+        <div className="grid grid-cols-1 grid-rows-3 gap-6 lg:grid-cols-3 lg:grid-rows-1 lg:gap-10">
           <DashboardCard
             header="Learn"
             description="Lorem ipsum dolor sit amet consectetur adipiscing elit"
             href={ROUTES.learn}
             Icon={SchoolRoundedIcon}
+            className="border-red-600 bg-red-500 text-white"
           />
           <DashboardCard
             header="Review"
             description="Lorem ipsum dolor sit amet consectetur adipiscing elit"
             href={ROUTES.review}
             Icon={VisibilityRoundedIcon}
+            className="border-blue-600 bg-blue-500 text-white"
           />
           <DashboardCard
             header="Write"
             description="Lorem ipsum dolor sit amet consectetur adipiscing elit"
             href={ROUTES.write}
             Icon={DriveFileRenameOutlineRoundedIcon}
+            className="border-green-600 bg-green-500 text-white"
           />
         </div>
       </LayoutSection>
