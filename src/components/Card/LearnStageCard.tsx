@@ -7,7 +7,7 @@ type LearnStageCardProps = {
 
 export default function LearnStageCard({ stage, color }: LearnStageCardProps) {
   return (
-    <div className="flex items-center rounded-md border-2 border-gray-200 p-8 text-center lg:block">
+    <div className="flex items-center rounded-md border-2 border-gray-200 p-8 text-center shadow-md lg:block">
       <p className="text-lg font-medium">{stage}</p>
       <div
         className={`mt:0 mx-8 h-full w-2 rounded-full lg:mx-0 lg:mt-4 lg:h-2 lg:w-full ${color}`}

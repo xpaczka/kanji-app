@@ -8,6 +8,7 @@ import AutoAwesomeMosaicRoundedIcon from "@mui/icons-material/AutoAwesomeMosaicR
 import AutoAwesomeMotionRoundedIcon from "@mui/icons-material/AutoAwesomeMotionRounded"
 import { DashboardCard, LearnStageCard } from "./Card"
 import { LearnStage } from "#/types"
+import Footer from "./Footer"
 
 export default function Dashboard() {
   return (
@@ -65,6 +66,7 @@ export default function Dashboard() {
           />
         </div>
       </LayoutSection>
+      <Footer />
     </>
   )
 }

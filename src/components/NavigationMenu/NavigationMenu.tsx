@@ -12,7 +12,7 @@ export default async function NavigationMenu() {
   } = await serverClient.auth.getUser()
 
   return (
-    <BaseNavigationMenu.Root className="fixed top-0 right-0 left-0 flex h-20 w-full items-center justify-between gap-16 bg-white px-10 py-3 shadow-md">
+    <BaseNavigationMenu.Root className="fixed top-0 right-0 left-0 z-20 flex h-20 w-full items-center justify-between gap-16 bg-white px-10 py-3 shadow-md">
       <BaseNavigationMenu.Item className="text-2xl font-bold">
         KANJI APP
       </BaseNavigationMenu.Item>
