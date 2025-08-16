@@ -12,6 +12,8 @@ export default async function NavigationMenu() {
     data: { user }
   } = await serverClient.auth.getUser()
 
+  if (!user) return null
+
   return (
     <BaseNavigationMenu.Root className="fixed top-0 right-0 left-0 z-20 flex h-20 w-full items-center justify-between gap-12 bg-white px-10 py-3 shadow-md">
       <BaseNavigationMenu.Item>
