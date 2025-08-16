@@ -10,10 +10,11 @@
     "prettier:write": "prettier -w '**/*.@(js|ts|jsx|tsx)'",
     "prettier:check": "prettier -c '**/*.@(js|ts|jsx|tsx)'",
     "format:check": "bun lint && bun prettier:check",
-    "supabase:migrations:create": "supabase migration new",
-    "supabase:reload": "bun run ./src/database/seed.ts --data-path ./scripts/data.json && supabase db reset && supabase gen types typescript --local > ./src/types/supabase.ts"
+    "supabase:migrations:create": "bunx supabase migration new",
+    "supabase:reload": "bun run ./src/database/seed.ts --data-path ./scripts/data.json && bunx supabase db reset && bunx supabase gen types typescript --local > ./src/types/supabase.ts"
   },
   "dependencies": {
+    "@base-ui-components/react": "^1.0.0-beta.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^4.1.2",

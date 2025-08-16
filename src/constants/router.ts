@@ -1,10 +1,14 @@
 export const ROUTES = {
   index: "/",
+  learn: "learn",
+  review: "/review",
+  write: "/write",
+  play: "/play",
+  apiTrpc: "/api/trpc",
   learnDashboard: "/learn",
   gamesDashboard: "/games",
   flashcards: "/learn/flashcards",
   memoGame: "/games/memo",
-  apiTrpc: "/api/trpc",
   knowledgeTest: "/knowledge-test"
 }
 
