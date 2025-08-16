@@ -10,13 +10,13 @@ export default function NavigationMenuPopup({ user }: { user: User | null }) {
     <>
       <div className="h-3 w-full bg-orange-400" />
       <div className="p-4">
-        <div className="flex w-full items-center gap-5">
+        <div className="flex w-full items-center gap-3">
           <Image
             src="/avatar.jpeg"
             alt="Avatar"
             width={40}
             height={40}
-            className="h-10 w-10 rounded-full border-2 border-orange-400"
+            className="h-12 w-12 rounded-full border-2 border-orange-400 p-[1px]"
           />
           <div>
             <div className="text-xl font-semibold">

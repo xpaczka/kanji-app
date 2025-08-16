@@ -16,7 +16,7 @@ export default function NavigationMenuAvatar({ user }: { user: User | null }) {
         <Avatar.Root className="cursor-pointer">
           <Avatar.Image
             src="avatar.jpeg"
-            className="h-14 w-14 rounded-full border-2 border-orange-400"
+            className="h-14 w-14 rounded-full border-2 border-orange-400 p-0.5"
             alt="Avatar"
           />
         </Avatar.Root>
