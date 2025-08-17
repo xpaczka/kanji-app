@@ -40,14 +40,14 @@ export const formatReadings = (items: string[]) => [
 export const getItemsForLearnOrReview = (
   items: Pick<
     Database["public"]["Tables"]["kanji"]["Row"],
-    "kanji" | "on_readings" | "meanings"
+    "id" | "kanji" | "on_readings" | "meanings"
   >[]
 ) =>
   shuffle(
-    items.flatMap(({ kanji, on_readings, meanings }) => [
-      ...(meanings.length > 0 ? [{ kanji, meanings }] : []),
+    items.flatMap(({ id, kanji, on_readings, meanings }) => [
+      ...(meanings.length > 0 ? [{ kanjiId: id, kanji, meanings }] : []),
       ...(on_readings.length > 0
-        ? [{ kanji, readings: formatReadings(on_readings) }]
+        ? [{ kanjiId: id, kanji, readings: formatReadings(on_readings) }]
         : [])
     ])
   )

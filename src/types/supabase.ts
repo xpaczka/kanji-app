@@ -94,6 +94,38 @@ export type Database = {
         }
         Relationships: []
       }
+      user_kanji: {
+        Row: {
+          id: string
+          kanji_id: string
+          next_review_at: string
+          stage: number
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          kanji_id: string
+          next_review_at: string
+          stage: number
+          user_id: string
+        }
+        Update: {
+          id?: string
+          kanji_id?: string
+          next_review_at?: string
+          stage?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_kanji_kanji_id_fkey"
+            columns: ["kanji_id"]
+            isOneToOne: false
+            referencedRelation: "kanji"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_kanji_history: {
         Row: {
           id: string

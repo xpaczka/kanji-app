@@ -31,6 +31,7 @@ export default function LearnModule({ items }: LearnModuleProps) {
 
   return (
     <LearnItem
+      kanjiId={learnItems[0].kanjiId}
       kanji={learnItems[0].kanji}
       meanings={learnItems[0].meanings}
       readings={learnItems[0].readings}

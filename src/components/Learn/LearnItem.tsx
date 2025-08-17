@@ -7,8 +7,10 @@ import { motion } from "motion/react"
 import similarity from "similarity"
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded"
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded"
+import { trpc } from "#/app/_trpc/client"
 
 export type LearnItemProps = {
+  kanjiId: string
   kanji: string
   meanings?: string[]
   readings?: string[]
@@ -16,6 +18,7 @@ export type LearnItemProps = {
 }
 
 export default function LearnItem({
+  kanjiId,
   kanji,
   readings,
   meanings,
@@ -26,6 +29,9 @@ export default function LearnItem({
   const [validationState, setValidationState] = useState<
     "valid" | "invalid" | null
   >(null)
+
+  const { mutateAsync: updateUserKanji } =
+    trpc.kanji.updateUserKanji.useMutation()
 
   const isInputValid = (): boolean => {
     if (!!meanings) {
@@ -45,19 +51,25 @@ export default function LearnItem({
     return false
   }
 
-  const onInputSubmit = (key: KeyboardEvent["key"]) => {
+  const onInputSubmit = async (key: KeyboardEvent["key"]) => {
     if (key !== "Enter") return
 
     const isValid = isInputValid()
     setValidationState(isValid ? "valid" : "invalid")
 
-    if (isValid) {
-      setTimeout(() => {
-        setValidationState(null)
-        getNextItem(true)
-        setValue("")
-      }, 1000)
-    }
+    if (!isValid) return
+
+    await updateUserKanji({
+      kanjiId,
+      stage: 2,
+      nextReviewAt: new Date().toISOString()
+    })
+
+    setTimeout(() => {
+      setValidationState(null)
+      getNextItem(true)
+      setValue("")
+    }, 1000)
   }
 
   const nextItemHandler = () => {
