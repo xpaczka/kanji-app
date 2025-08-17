@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { DateTime } from "luxon"
 import { twMerge } from "tailwind-merge"
+import { toHiragana } from "wanakana"
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
 
@@ -28,3 +29,9 @@ export const calculateTimeDifferenceToFormat = (
 
   return `${minutes}:${seconds}`
 }
+
+export const formatReadings = (items: string[]) => [
+  ...new Set(
+    items.map((item) => toHiragana(item.split(".")[0].replaceAll("-", "")))
+  )
+]

@@ -1,17 +1,11 @@
 import { Database, LearnStage, LearnStageColor } from "#/types"
-import { toHiragana } from "wanakana"
 import MotionCard from "./MotionCard"
 import Modal from "../Modal"
+import { formatReadings } from "#/lib/utils"
 
 type KanjiCardProps = {
   item: Database["public"]["Tables"]["kanji"]["Row"]
 }
-
-const formatReadings = (items: string[]) => [
-  ...new Set(
-    items.map((item) => toHiragana(item.split(".")[0].replaceAll("-", "")))
-  )
-]
 
 export default async function KanjiCard({ item }: KanjiCardProps) {
   const { kanji, level, kun_readings, on_readings, meanings } = item
