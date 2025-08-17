@@ -2,25 +2,40 @@
 
 import { useState } from "react"
 import LearnItem, { LearnItemProps } from "./LearnItem"
+import { useNavigation } from "#/hooks"
+import { ROUTES } from "#/constants/router"
 
 type LearnModuleProps = {
   items: Omit<LearnItemProps, "getNextItem">[]
 }
 
 export default function LearnModule({ items }: LearnModuleProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [learnItems, setLearnItems] = useState(items)
 
-  const getNextItem = () => {
-    if (currentIndex === items.length) return
+  const { navigate } = useNavigation()
 
-    setCurrentIndex((prev) => prev + 1)
+  const getNextItem = (value: boolean) => {
+    if (learnItems.length === 1) {
+      navigate(ROUTES.index)
+      return
+    }
+
+    const item = learnItems[0]
+
+    if (value) {
+      setLearnItems(learnItems.slice(1))
+    } else {
+      setLearnItems([...learnItems.slice(1), item])
+    }
   }
+
+  console.log(learnItems.length)
 
   return (
     <LearnItem
-      kanji={items[currentIndex].kanji}
-      meanings={items[currentIndex].meanings}
-      readings={items[currentIndex].readings}
+      kanji={learnItems[0].kanji}
+      meanings={learnItems[0].meanings}
+      readings={learnItems[0].readings}
       getNextItem={getNextItem}
     />
   )
