@@ -2,12 +2,13 @@ import { createServerClient } from "#/app/_trpc/server-client"
 import { LayoutSection } from "#/components/Layout"
 import { LearnModule } from "#/components/Learn"
 
-export default async function LearnPage() {
+// TODO: The module itself should be adjusted for a review flow
+export default async function ReviewPage() {
   const serverClient = await createServerClient()
-  const learnItems = await serverClient.learn.getLearnItems()
+  const learnItems = await serverClient.review.getReviewItems()
 
   return (
-    <LayoutSection header="Learn">
+    <LayoutSection header="Review">
       <LearnModule items={learnItems} />
     </LayoutSection>
   )

@@ -3,6 +3,7 @@ import { UserKanjiHistory } from "#/types"
 import { TRPCError } from "@trpc/server"
 import { protectedProcedure, router } from "../trpc"
 import { z } from "zod"
+import { getItemsForLearnOrReview } from "#/lib/utils"
 
 export type UserDiscoveredKanjiCount = z.infer<
   typeof userDiscoveredKanjiCountSchema
@@ -14,6 +15,8 @@ export const userDiscoveredKanjiCountSchema = z.object({
 })
 
 export const learnRouter = router({
+  // TODO: Get only items user hasn't learned yet starting
+  // from the lowest level
   getLearnItems: protectedProcedure.query(async ({ ctx }) => {
     const { data: items, error } = await ctx.database
       .from("kanji")
@@ -25,7 +28,7 @@ export const learnRouter = router({
       throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" })
     }
 
-    return items
+    return getItemsForLearnOrReview(items)
   }),
   // DEPRECATED ROUTES
   getDiscoveredKanji: protectedProcedure.query(

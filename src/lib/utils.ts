@@ -1,3 +1,4 @@
+import { Database } from "#/types"
 import { clsx, type ClassValue } from "clsx"
 import { DateTime } from "luxon"
 import { twMerge } from "tailwind-merge"
@@ -35,3 +36,18 @@ export const formatReadings = (items: string[]) => [
     items.map((item) => toHiragana(item.split(".")[0].replaceAll("-", "")))
   )
 ]
+
+export const getItemsForLearnOrReview = (
+  items: Pick<
+    Database["public"]["Tables"]["kanji"]["Row"],
+    "kanji" | "on_readings" | "meanings"
+  >[]
+) =>
+  shuffle(
+    items.flatMap(({ kanji, on_readings, meanings }) => [
+      ...(meanings.length > 0 ? [{ kanji, meanings }] : []),
+      ...(on_readings.length > 0
+        ? [{ kanji, readings: formatReadings(on_readings) }]
+        : [])
+    ])
+  )

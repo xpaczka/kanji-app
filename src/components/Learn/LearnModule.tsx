@@ -29,8 +29,6 @@ export default function LearnModule({ items }: LearnModuleProps) {
     }
   }
 
-  console.log(learnItems.length)
-
   return (
     <LearnItem
       kanji={learnItems[0].kanji}
