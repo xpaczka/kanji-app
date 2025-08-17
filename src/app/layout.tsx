@@ -26,9 +26,9 @@ export default function RootLayout({
       <StoreProvider>
         <html lang="en">
           <body className={`${fontFamily.className} antialiased`}>
-            <div className="root min-h-screen bg-gray-100 px-6 pt-20 lg:px-10 lg:pt-24">
+            <div className="root flex min-h-screen flex-col bg-gray-100 px-6 pt-20 lg:px-10 lg:pt-24">
               <NavigationMenu />
-              {children}
+              <div className="flex-1">{children}</div>
               <Footer />
             </div>
           </body>
