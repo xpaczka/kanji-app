@@ -94,7 +94,7 @@ export default function LearnItem({
 
   return (
     <div className="flex justify-center">
-      <div className="relative inline-flex aspect-square flex-col items-center justify-center rounded-md border-2 border-gray-200 bg-white p-12 shadow-md">
+      <div className="inline-flex aspect-square flex-col items-center justify-center rounded-md border-2 border-gray-200 bg-white p-12 shadow-md">
         <div className="mb-16 text-9xl font-bold">{kanji}</div>
         <div className="mb-2 text-xl text-gray-400">
           {!!readings ? "Reading" : "Meaning"}
@@ -107,10 +107,10 @@ export default function LearnItem({
           disabled={!!validationState}
         />
         <motion.div
-          initial={{ opacity: 0, translateY: "-20px" }}
+          initial={{ opacity: 0, translateY: "20px" }}
           animate={validationState ? { opacity: 100, translateY: 0 } : {}}
           transition={{ duration: 0.1, ease: "easeInOut" }}
-          className={`absolute top-full left-1/2 mt-4 w-full -translate-x-1/2 rounded-md border-2 ${validationState === "valid" ? "border-green-600 bg-green-500" : "border-red-600 bg-red-500"} px-4 py-2 font-medium text-white`}
+          className={`fixed bottom-4 left-1/2 ${validationState === "valid" ? "w-[min-content]" : "min-w-lg"} -translate-x-1/2 rounded-md ${!!validationState && "border-2 px-4 py-2"} ${validationState === "valid" ? "border-green-600 bg-green-500" : "border-red-600 bg-red-500"} font-medium text-white`}
         >
           {!!validationState && (
             <div className="flex flex-col gap-2">
