@@ -1,4 +1,5 @@
 import { flashcardsRouter } from "#/server/router/flashcards"
+import { kanjiRouter } from "./router/kanji"
 import { knowledgeEvaluationRouter } from "./router/knowledge-evaluation"
 import { leaderboardRouter } from "./router/leaderboard"
 import { learnRouter } from "./router/learn"
@@ -12,7 +13,8 @@ export const appRouter = router({
   leaderboard: leaderboardRouter,
   flashcards: flashcardsRouter,
   memoGame: memoGameRouter,
-  knowldegeEvaluation: knowledgeEvaluationRouter
+  knowldegeEvaluation: knowledgeEvaluationRouter,
+  kanji: kanjiRouter
 })
 
 export type AppRouter = typeof appRouter

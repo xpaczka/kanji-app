@@ -3,6 +3,8 @@ import { Ubuntu } from "next/font/google"
 import "./globals.css"
 import TrpcProvider from "../providers/TrpcProvider"
 import StoreProvider from "#/providers/StoreProvider"
+import { NavigationMenu } from "#/components/NavigationMenu"
+import Footer from "#/components/Footer"
 
 const fontFamily = Ubuntu({
   subsets: ["latin-ext"],
@@ -23,9 +25,11 @@ export default function RootLayout({
     <TrpcProvider>
       <StoreProvider>
         <html lang="en">
-          <body className={`${fontFamily.className} min-h-screen antialiased`}>
-            <div className="root bg-gray-100 px-6 pt-20 lg:px-10 lg:pt-24">
+          <body className={`${fontFamily.className} antialiased`}>
+            <div className="root min-h-screen bg-gray-100 px-6 pt-20 lg:px-10 lg:pt-24">
+              <NavigationMenu />
               {children}
+              <Footer />
             </div>
           </body>
         </html>

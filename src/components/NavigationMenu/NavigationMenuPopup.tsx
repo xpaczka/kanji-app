@@ -6,9 +6,7 @@ import SettingsSuggestRoundedIcon from "@mui/icons-material/SettingsSuggestRound
 import { signOut } from "#/actions"
 import NavigationMenuPopupItem from "./NavigationMenuPopupItem"
 
-export default function NavigationMenuPopup({ user }: { user: User | null }) {
-  if (!user) return null
-
+export default function NavigationMenuPopup({ user }: { user: User }) {
   return (
     <>
       <div className="h-3 w-full bg-orange-400" />

@@ -8,7 +8,7 @@ import { User } from "@supabase/supabase-js"
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded"
 import { useState } from "react"
 
-export default function NavigationMenuAvatar({ user }: { user: User | null }) {
+export default function NavigationMenuAvatar({ user }: { user: User }) {
   const [open, setOpen] = useState(false)
 
   return (
