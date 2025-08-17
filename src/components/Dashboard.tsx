@@ -33,6 +33,7 @@ export default function Dashboard() {
             href={ROUTES.write}
             Icon={DriveFileRenameOutlineRoundedIcon}
             className="border-green-600 bg-green-500 text-white"
+            disabled
           />
         </div>
       </LayoutSection>
