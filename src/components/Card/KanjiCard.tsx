@@ -11,7 +11,7 @@ type KanjiCardProps = Pick<
 export default function KanjiCard({ kanji, level }: KanjiCardProps) {
   return (
     <Link key={kanji} href={`${ROUTES.kanji}/${kanji}`}>
-      <MotionCard className="flex aspect-square flex-col items-center justify-center p-8">
+      <MotionCard className="flex flex-col items-center justify-center p-8 sm:aspect-square">
         <div className="mb-4 text-5xl font-bold">{kanji}</div>
         <p className="text-sm text-gray-400">{level.toUpperCase()}</p>
       </MotionCard>
