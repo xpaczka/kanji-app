@@ -7,24 +7,21 @@ type KanjiCardProps = {
   item: Database["public"]["Tables"]["kanji"]["Row"]
 }
 
-export default function KanjiCard({ item }: KanjiCardProps) {
+const formatReadings = (items: string[]) => [
+  ...new Set(
+    items.map((item) => toHiragana(item.split(".")[0].replaceAll("-", "")))
+  )
+]
+
+export default async function KanjiCard({ item }: KanjiCardProps) {
   const { kanji, level, kun_readings, on_readings, meanings } = item
 
-  const kunReadings = [
-    ...new Set(
-      kun_readings.map((item) =>
-        toHiragana(item.split(".")[0].replaceAll("-", ""))
-      )
-    )
-  ]
+  const kunReadings = formatReadings(kun_readings)
+  const onReadings = formatReadings(on_readings)
 
-  const onReadings = [
-    ...new Set(
-      on_readings.map((item) =>
-        toHiragana(item.split(".")[0].replaceAll("-", ""))
-      )
-    )
-  ]
+  const kanjiMeaning = meanings
+    .map((value) => (isNaN(Number(value)) ? value : null))
+    .filter((value) => value !== null)
 
   return (
     <Modal
@@ -39,26 +36,32 @@ export default function KanjiCard({ item }: KanjiCardProps) {
         <div className="mb-6 text-center text-xl font-medium">
           Kanji Details
         </div>
-        <div className="mb-6 flex items-center gap-4">
+        <div className="mb-6 flex gap-4">
           <div
             className={`${LearnStageColor.Stage1} inline-flex aspect-square h-28 w-28 items-center justify-center rounded-md border-2 border-gray-200 p-4 text-5xl font-bold`}
           >
             {kanji}
           </div>
           <div className="flex flex-col gap-2">
-            <div>
-              <div className="text-sm text-gray-400">Kun’yomi</div>
-              <div className="font-bold">{kunReadings.join(", ")}</div>
-            </div>
-            <div>
-              <div className="text-sm text-gray-400">On’yomi</div>
-              <div className="font-bold">{onReadings.join(", ")}</div>
-            </div>
+            {kunReadings.length > 0 && (
+              <div>
+                <div className="text-sm text-gray-400">Kun’yomi</div>
+                <div className="font-bold">{kunReadings.join(", ")}</div>
+              </div>
+            )}
+            {onReadings.length > 0 && (
+              <div>
+                <div className="text-sm text-gray-400">On’yomi</div>
+                <div className="font-bold">{onReadings.join(", ")}</div>
+              </div>
+            )}
           </div>
         </div>
         <div className="mb-6">
-          <div className="text-sm text-gray-400">Meaning</div>
-          <div className="font-medium">{meanings.join(", ")}</div>
+          <div className="text-sm text-gray-400">
+            {meanings.length > 1 ? "Meanings" : "Meaning"}
+          </div>
+          <div className="font-medium">{kanjiMeaning.join(", ")}</div>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
