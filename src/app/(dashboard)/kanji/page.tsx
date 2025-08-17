@@ -12,7 +12,7 @@ export default async function KanjiPage({
 }: {
   searchParams: { page?: string }
 }) {
-  const page = Number(searchParams.page ?? 1)
+  const page = Number((await searchParams).page ?? 1)
 
   const serverClient = await createServerClient()
 
@@ -49,8 +49,8 @@ export default async function KanjiPage({
         />
       </div>
       <div className="mb-10 grid grid-cols-1 gap-10 sm:grid-cols-3 lg:grid-cols-5">
-        {kanji.map(({ kanji, level }) => (
-          <KanjiCard key={kanji} kanji={kanji} level={level} />
+        {kanji.map((item) => (
+          <KanjiCard key={item.kanji} item={item} />
         ))}
       </div>
       <div className="flex w-full items-center justify-end gap-3">
