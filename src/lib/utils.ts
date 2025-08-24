@@ -38,10 +38,7 @@ export const formatReadings = (items: string[]) => [
 ]
 
 export const getItemsForLearnOrReview = (
-  items: Pick<
-    Database["public"]["Tables"]["kanji"]["Row"],
-    "id" | "kanji" | "on_readings" | "meanings"
-  >[]
+  items: Database["public"]["Tables"]["kanji"]["Row"][]
 ) =>
   shuffle(
     items.flatMap(({ id, kanji, on_readings, meanings }) => [

@@ -1,16 +1,20 @@
 "use client"
 
 import { useState } from "react"
-import LearnItem, { LearnItemProps } from "./LearnItem"
+import LearnItem from "./LearnItem"
 import { useNavigation } from "#/hooks"
 import { ROUTES } from "#/constants/router"
+import LearnIntroduction from "./LearnIntroduction"
+import { getItemsForLearnOrReview } from "#/lib/utils"
+import { Database } from "#/types"
 
 type LearnModuleProps = {
-  items: Omit<LearnItemProps, "getNextItem">[]
+  items: Database["public"]["Tables"]["kanji"]["Row"][]
 }
 
 export default function LearnModule({ items }: LearnModuleProps) {
-  const [learnItems, setLearnItems] = useState(items)
+  const [introductionIndex, setIntroductionIndex] = useState(0)
+  const [learnItems, setLearnItems] = useState(getItemsForLearnOrReview(items))
 
   const { navigate } = useNavigation()
 
@@ -27,6 +31,17 @@ export default function LearnModule({ items }: LearnModuleProps) {
     } else {
       setLearnItems([...learnItems.slice(1), item])
     }
+  }
+
+  if (introductionIndex < items.length) {
+    return (
+      <LearnIntroduction
+        item={items[introductionIndex]}
+        currentIndex={introductionIndex}
+        getNextItem={() => setIntroductionIndex((prev) => prev + 1)}
+        getPreviousItem={() => setIntroductionIndex((prev) => prev - 1)}
+      />
+    )
   }
 
   return (

@@ -7,7 +7,7 @@ export const reviewRouter = router({
   getReviewItems: protectedProcedure.query(async ({ ctx }) => {
     const { data: items, error } = await ctx.database
       .from("kanji")
-      .select("kanji, meanings, on_readings")
+      .select("id, kanji, meanings, on_readings")
       .match({ level: "jlpt-n5" })
       .limit(5)
 

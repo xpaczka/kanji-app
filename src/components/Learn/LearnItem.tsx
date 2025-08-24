@@ -9,7 +9,7 @@ import CheckRoundedIcon from "@mui/icons-material/CheckRounded"
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded"
 import { trpc } from "#/app/_trpc/client"
 
-export type LearnItemProps = {
+type LearnItemProps = {
   kanjiId: string
   kanji: string
   meanings?: string[]
