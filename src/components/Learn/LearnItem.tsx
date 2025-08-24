@@ -2,7 +2,7 @@
 
 import { Input } from "@base-ui-components/react/input"
 import { ChangeEvent, useState } from "react"
-import { toHiragana, toRomaji } from "wanakana"
+import { toHiragana } from "wanakana"
 import { motion } from "motion/react"
 import similarity from "similarity"
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded"
@@ -82,19 +82,15 @@ export default function LearnItem({
     const { value } = event.target
 
     if (!!readings) {
-      const parsedValue = toRomaji(value)
-      setValue(toHiragana(parsedValue))
-      return
-    }
-
-    if (!!meanings) {
+      setValue(toHiragana(value, { IMEMode: true }))
+    } else {
       setValue(value)
     }
   }
 
   return (
     <div className="flex justify-center">
-      <div className="inline-flex aspect-square flex-col items-center justify-center rounded-md border-2 border-gray-200 bg-white p-12 shadow-md">
+      <div className="inline-flex flex-col items-center justify-center rounded-md border-2 border-gray-200 bg-white p-12 shadow-md">
         <div className="mb-16 text-9xl font-bold">{kanji}</div>
         <div className="mb-2 text-xl text-gray-400">
           {!!readings ? "Reading" : "Meaning"}
