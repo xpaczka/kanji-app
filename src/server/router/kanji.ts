@@ -11,7 +11,7 @@ export const kanjiRouter = router({
       z.object({
         kanjiId: z.string(),
         stage: z.number(),
-        nextReviewAt: z.string()
+        nextReviewAt: z.string().nullable()
       })
     )
     .mutation(async ({ input, ctx }) => {

@@ -8,6 +8,7 @@ import similarity from "similarity"
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded"
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded"
 import { trpc } from "#/app/_trpc/client"
+import { calculateNextReviewTime } from "#/utils"
 
 type LearnItemProps = {
   kanjiId: string
@@ -69,7 +70,7 @@ export default function LearnItem({
       await updateUserKanji({
         kanjiId,
         stage: 1,
-        nextReviewAt: new Date().toISOString() // TODO: Calculate new review time
+        nextReviewAt: calculateNextReviewTime(1)
       })
     } else {
       setKanjiMap(kanjiMap.set(kanji, true))
