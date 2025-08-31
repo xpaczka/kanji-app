@@ -1,7 +1,8 @@
-import { Database, LearnStage, LearnStageColor } from "#/types"
+import { Database, LearnStage } from "#/types"
 import MotionCard from "./MotionCard"
 import Modal from "../Modal"
 import { formatReadings } from "#/lib/utils"
+import { LEARN_STAGE_COLORS } from "#/constants"
 
 type KanjiCardProps = {
   item: Database["public"]["Tables"]["kanji"]["Row"]
@@ -32,7 +33,7 @@ export default function KanjiCard({
         className={`mb-6 flex ${isLearnCard ? "flex-col items-center" : "flex-row"} gap-4`}
       >
         <div
-          className={`${isLearnCard ? "bg-white" : LearnStageColor.Stage1} inline-flex aspect-square h-28 w-28 items-center justify-center rounded-md border-2 border-gray-200 p-4 text-5xl font-bold`}
+          className={`${isLearnCard ? "bg-white" : LEARN_STAGE_COLORS[LearnStage.Stage1]} inline-flex aspect-square h-28 w-28 items-center justify-center rounded-md border-2 border-gray-200 p-4 text-5xl font-bold`}
         >
           {kanji}
         </div>

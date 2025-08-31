@@ -37,6 +37,30 @@ export const kanjiRouter = router({
       }
     }),
   /**
+   * QUERY: Endpoint to get user kanji progress
+   */
+  getUserKanjiProgress: protectedProcedure.query(async ({ ctx }) => {
+    const { user } = ctx
+
+    if (!user) {
+      throw new TRPCError({ code: "UNAUTHORIZED" })
+    }
+
+    const { data: items, error } = await ctx.database
+      .from("user_kanji")
+      .select("*")
+      .match({ user_id: user.id })
+
+    if (error) {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: error.message
+      })
+    }
+
+    return items
+  }),
+  /**
    * QUERY: Endpoint used to get list of all kanji with pagination
    */
   getKanjiWithPagination: publicProcedure
