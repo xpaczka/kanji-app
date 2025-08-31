@@ -14,16 +14,13 @@ export const userDiscoveredKanjiCountSchema = z.object({
 })
 
 export const learnRouter = router({
-  // TODO: Get only items user hasn't learned yet starting
-  // from the lowest level
   getLearnItems: protectedProcedure.query(async ({ ctx }) => {
     const { data: items, error } = await ctx.database
-      .from("kanji")
+      .rpc("get_learn_items", { user_auth_id: ctx.user!.id })
       .select("*")
-      .match({ level: "jlpt-n5" })
-      .limit(5)
 
     if (error) {
+      console.log(error)
       throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" })
     }
 

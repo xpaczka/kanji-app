@@ -9,7 +9,7 @@ import { getItemsForLearnOrReview } from "#/lib/utils"
 import { Database } from "#/types"
 
 type LearnModuleProps = {
-  items: Database["public"]["Tables"]["kanji"]["Row"][]
+  items: Database["public"]["Functions"]["get_learn_items"]["Returns"]
 }
 
 export default function LearnModule({ items }: LearnModuleProps) {
