@@ -98,21 +98,21 @@ export type Database = {
         Row: {
           id: string
           kanji_id: string
-          next_review_at: string
+          next_review_at: string | null
           stage: number
           user_id: string
         }
         Insert: {
           id?: string
           kanji_id: string
-          next_review_at: string
+          next_review_at?: string | null
           stage: number
           user_id: string
         }
         Update: {
           id?: string
           kanji_id?: string
-          next_review_at?: string
+          next_review_at?: string | null
           stage?: number
           user_id?: string
         }

@@ -15,6 +15,7 @@ type LearnModuleProps = {
 export default function LearnModule({ items }: LearnModuleProps) {
   const [introductionIndex, setIntroductionIndex] = useState(0)
   const [learnItems, setLearnItems] = useState(getItemsForLearnOrReview(items))
+  const [kanjiMap, setKanjiMap] = useState(new Map<string, boolean>())
 
   const { navigate } = useNavigation()
 
@@ -50,6 +51,8 @@ export default function LearnModule({ items }: LearnModuleProps) {
       kanji={learnItems[0].kanji}
       meanings={learnItems[0].meanings}
       readings={learnItems[0].readings}
+      kanjiMap={kanjiMap}
+      setKanjiMap={setKanjiMap}
       getNextItem={getNextItem}
     />
   )

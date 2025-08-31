@@ -1,7 +1,7 @@
 "use client"
 
 import { Input } from "@base-ui-components/react/input"
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
 import { toHiragana } from "wanakana"
 import { motion } from "motion/react"
 import similarity from "similarity"
@@ -14,6 +14,8 @@ type LearnItemProps = {
   kanji: string
   meanings?: string[]
   readings?: string[]
+  kanjiMap: Map<string, boolean>
+  setKanjiMap: Dispatch<SetStateAction<Map<string, boolean>>>
   getNextItem: (value: boolean) => void
 }
 
@@ -22,6 +24,8 @@ export default function LearnItem({
   kanji,
   readings,
   meanings,
+  kanjiMap,
+  setKanjiMap,
   getNextItem
 }: LearnItemProps) {
   const [value, setValue] = useState("")
@@ -59,11 +63,17 @@ export default function LearnItem({
 
     if (!isValid) return
 
-    await updateUserKanji({
-      kanjiId,
-      stage: 2,
-      nextReviewAt: new Date().toISOString()
-    })
+    const kanjiInMap = kanjiMap.has(kanji)
+
+    if (kanjiInMap) {
+      await updateUserKanji({
+        kanjiId,
+        stage: 1,
+        nextReviewAt: new Date().toISOString() // TODO: Calculate new review time
+      })
+    } else {
+      setKanjiMap(kanjiMap.set(kanji, true))
+    }
 
     setTimeout(() => {
       setValidationState(null)
