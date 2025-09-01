@@ -7,12 +7,14 @@ import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded"
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded"
 import Link from "next/link"
 
-export default async function KanjiPage({
-  searchParams
-}: {
-  searchParams: { page?: string }
+export default async function KanjiPage(props: {
+  searchParams?: Promise<{
+    query?: string
+    page?: string
+  }>
 }) {
-  const page = Number((await searchParams).page ?? 1)
+  const searchParams = await props.searchParams
+  const page = Number(searchParams?.page) || 1
 
   const serverClient = await createServerClient()
 

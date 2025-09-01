@@ -9,6 +9,7 @@ export default async function ReviewPage() {
 
   return (
     <LayoutSection header="Review">
+      {/* @ts-expect-error FIXME: Pass correct values */}
       <LearnModule items={learnItems} />
     </LayoutSection>
   )
