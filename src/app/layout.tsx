@@ -5,6 +5,7 @@ import TrpcProvider from "../providers/TrpcProvider"
 import StoreProvider from "#/providers/StoreProvider"
 import { NavigationMenu } from "#/components/NavigationMenu"
 import Footer from "#/components/Footer"
+import createSupabaseClient from "#/database/client"
 
 const fontFamily = Ubuntu({
   subsets: ["latin-ext"],
@@ -16,17 +17,25 @@ export const metadata: Metadata = {
   description: "Learning kanji made fun"
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const supabase = await createSupabaseClient()
+
+  const {
+    data: { user }
+  } = await supabase.auth.getUser()
+
   return (
     <TrpcProvider>
       <StoreProvider>
         <html lang="en">
           <body className={`${fontFamily.className} antialiased`}>
-            <div className="root flex min-h-screen flex-col bg-gray-100 px-6 pt-20 lg:px-10 lg:pt-24">
+            <div
+              className={`root flex min-h-screen flex-col bg-gray-100 px-6 pt-20 lg:px-10 ${!!user ? "lg:pt-24" : ""}`}
+            >
               <NavigationMenu />
               <div className="flex-1">{children}</div>
               <Footer />
