@@ -1,19 +1,18 @@
-import { Database, LearnStage, LearnStageColor } from "#/types"
-import { toHiragana } from "wanakana"
+import { Database, LearnStage } from "#/types"
 import MotionCard from "./MotionCard"
 import Modal from "../Modal"
+import { formatReadings } from "#/lib/utils"
+import { LEARN_STAGE_COLORS } from "#/constants"
 
 type KanjiCardProps = {
   item: Database["public"]["Tables"]["kanji"]["Row"]
+  isLearnCard?: boolean
 }
 
-const formatReadings = (items: string[]) => [
-  ...new Set(
-    items.map((item) => toHiragana(item.split(".")[0].replaceAll("-", "")))
-  )
-]
-
-export default async function KanjiCard({ item }: KanjiCardProps) {
+export default function KanjiCard({
+  item,
+  isLearnCard = false
+}: KanjiCardProps) {
   const { kanji, level, kun_readings, on_readings, meanings } = item
 
   const kunReadings = formatReadings(kun_readings)
@@ -22,6 +21,59 @@ export default async function KanjiCard({ item }: KanjiCardProps) {
   const kanjiMeaning = meanings
     .map((value) => (isNaN(Number(value)) ? value : null))
     .filter((value) => value !== null)
+
+  const content = (
+    <div className={isLearnCard ? "text-center" : "p-8"}>
+      {!isLearnCard && (
+        <div className="mb-6 text-center text-xl font-medium">
+          Kanji Details
+        </div>
+      )}
+      <div
+        className={`mb-6 flex ${isLearnCard ? "flex-col items-center" : "flex-row"} gap-4`}
+      >
+        <div
+          className={`${isLearnCard ? "bg-white" : LEARN_STAGE_COLORS[LearnStage.Stage1]} inline-flex aspect-square h-28 w-28 items-center justify-center rounded-md border-2 border-gray-200 p-4 text-5xl font-bold`}
+        >
+          {kanji}
+        </div>
+        <div className={`flex ${isLearnCard ? "gap-6" : "flex-col gap-2"}`}>
+          {kunReadings.length > 0 && (
+            <div>
+              <div className="text-sm text-gray-400">Kun’yomi</div>
+              <div className="font-bold">{kunReadings.join(", ")}</div>
+            </div>
+          )}
+          {onReadings.length > 0 && (
+            <div>
+              <div className="text-sm text-gray-400">On’yomi</div>
+              <div className="font-bold">{onReadings.join(", ")}</div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="mb-6">
+        <div className="text-sm text-gray-400">
+          {meanings.length > 1 ? "Meanings" : "Meaning"}
+        </div>
+        <div className="font-medium">{kanjiMeaning.join(", ")}</div>
+      </div>
+      <div className={`${isLearnCard ? "" : "grid"} grid-cols-2 gap-4`}>
+        <div>
+          <div className="text-xs text-gray-400">Level</div>
+          <div>{level.toUpperCase()}</div>
+        </div>
+        {!isLearnCard && (
+          <div>
+            <div className="text-xs text-gray-400">Stage</div>
+            <div>{LearnStage.Stage1}</div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+
+  if (isLearnCard) return content
 
   return (
     <Modal
@@ -32,48 +84,7 @@ export default async function KanjiCard({ item }: KanjiCardProps) {
         </MotionCard>
       }
     >
-      <div className="p-8">
-        <div className="mb-6 text-center text-xl font-medium">
-          Kanji Details
-        </div>
-        <div className="mb-6 flex gap-4">
-          <div
-            className={`${LearnStageColor.Stage1} inline-flex aspect-square h-28 w-28 items-center justify-center rounded-md border-2 border-gray-200 p-4 text-5xl font-bold`}
-          >
-            {kanji}
-          </div>
-          <div className="flex flex-col gap-2">
-            {kunReadings.length > 0 && (
-              <div>
-                <div className="text-sm text-gray-400">Kun’yomi</div>
-                <div className="font-bold">{kunReadings.join(", ")}</div>
-              </div>
-            )}
-            {onReadings.length > 0 && (
-              <div>
-                <div className="text-sm text-gray-400">On’yomi</div>
-                <div className="font-bold">{onReadings.join(", ")}</div>
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="mb-6">
-          <div className="text-sm text-gray-400">
-            {meanings.length > 1 ? "Meanings" : "Meaning"}
-          </div>
-          <div className="font-medium">{kanjiMeaning.join(", ")}</div>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <div className="text-xs text-gray-400">Level</div>
-            <div>{level.toUpperCase()}</div>
-          </div>
-          <div>
-            <div className="text-xs text-gray-400">Stage</div>
-            <div>{LearnStage.Stage1}</div>
-          </div>
-        </div>
-      </div>
+      {content}
     </Modal>
   )
 }

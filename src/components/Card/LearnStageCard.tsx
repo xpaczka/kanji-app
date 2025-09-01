@@ -3,9 +3,14 @@ import { LearnStage } from "#/types"
 type LearnStageCardProps = {
   stage: LearnStage
   color: string
+  kanjiCount: number
 }
 
-export default function LearnStageCard({ stage, color }: LearnStageCardProps) {
+export default function LearnStageCard({
+  stage,
+  color,
+  kanjiCount
+}: LearnStageCardProps) {
   return (
     <div className="flex items-center rounded-md border-2 border-gray-200 bg-white p-8 text-center shadow-md lg:block">
       <p className="text-lg font-medium">{stage}</p>
@@ -14,11 +19,7 @@ export default function LearnStageCard({ stage, color }: LearnStageCardProps) {
       />
       <div className="flex-1 lg:mt-4">
         <p className="text-gray-400">Kanji</p>
-        <p className="text-lg font-bold">23</p>
-      </div>
-      <div className="flex-1 lg:mt-4">
-        <p className="text-gray-400">Words</p>
-        <p className="text-lg font-bold">31</p>
+        <p className="text-lg font-bold">{kanjiCount}</p>
       </div>
     </div>
   )

@@ -1,18 +1,20 @@
 import { LayoutSection } from "#/components/Layout"
 import { createServerClient } from "../../_trpc/server-client"
 import KanjiCard from "#/components/Card/KanjiCard"
-import { LearnStage, LearnStageColor } from "#/types"
+import { LearnStage } from "#/types"
 import { KanjiStageLabel } from "#/components/Kanji"
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded"
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded"
 import Link from "next/link"
 
-export default async function KanjiPage({
-  searchParams
-}: {
-  searchParams: { page?: string }
+export default async function KanjiPage(props: {
+  searchParams?: Promise<{
+    query?: string
+    page?: string
+  }>
 }) {
-  const page = Number((await searchParams).page ?? 1)
+  const searchParams = await props.searchParams
+  const page = Number(searchParams?.page) || 1
 
   const serverClient = await createServerClient()
 
@@ -27,26 +29,11 @@ export default async function KanjiPage({
   return (
     <LayoutSection header="Kanji">
       <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-        <KanjiStageLabel
-          stage={LearnStage.Stage1}
-          color={LearnStageColor.Stage1}
-        />
-        <KanjiStageLabel
-          stage={LearnStage.Stage2}
-          color={LearnStageColor.Stage2}
-        />
-        <KanjiStageLabel
-          stage={LearnStage.Stage3}
-          color={LearnStageColor.Stage3}
-        />
-        <KanjiStageLabel
-          stage={LearnStage.Stage4}
-          color={LearnStageColor.Stage4}
-        />
-        <KanjiStageLabel
-          stage={LearnStage.Stage5}
-          color={LearnStageColor.Stage5}
-        />
+        <KanjiStageLabel stage={LearnStage.Stage1} />
+        <KanjiStageLabel stage={LearnStage.Stage2} />
+        <KanjiStageLabel stage={LearnStage.Stage3} />
+        <KanjiStageLabel stage={LearnStage.Stage4} />
+        <KanjiStageLabel stage={LearnStage.Stage5} />
       </div>
       <div className="mb-10 grid grid-cols-1 gap-10 sm:grid-cols-3 lg:grid-cols-5">
         {kanji.map((item) => (

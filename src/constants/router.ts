@@ -14,7 +14,7 @@ export const ROUTES = {
 }
 
 export const NAVIGATION_ITEMS = [
-  { href: ROUTES.index, title: "Learn" },
+  { href: ROUTES.index, title: "Study" },
   { href: ROUTES.kanji, title: "Kanji" },
   { href: ROUTES.play, title: "Play" }
 ]

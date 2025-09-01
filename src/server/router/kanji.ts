@@ -1,8 +1,68 @@
 import { z } from "zod"
-import { publicProcedure, router } from "../trpc"
+import { protectedProcedure, publicProcedure, router } from "../trpc"
 import { TRPCError } from "@trpc/server"
 
 export const kanjiRouter = router({
+  /**
+   * MUTATION: Endpoint to create or update entry in user_kanji table
+   */
+  updateUserKanji: protectedProcedure
+    .input(
+      z.object({
+        kanjiId: z.string(),
+        stage: z.number(),
+        nextReviewAt: z.string().nullable()
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { user, database } = ctx
+      const { kanjiId, stage, nextReviewAt } = input
+
+      if (!user) {
+        throw new TRPCError({ code: "UNAUTHORIZED" })
+      }
+
+      const { error } = await database.from("user_kanji").upsert({
+        kanji_id: kanjiId,
+        stage,
+        user_id: user.id,
+        next_review_at: nextReviewAt
+      })
+
+      if (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: error.message
+        })
+      }
+    }),
+  /**
+   * QUERY: Endpoint to get user kanji progress
+   */
+  getUserKanjiProgress: protectedProcedure.query(async ({ ctx }) => {
+    const { user } = ctx
+
+    if (!user) {
+      throw new TRPCError({ code: "UNAUTHORIZED" })
+    }
+
+    const { data: items, error } = await ctx.database
+      .from("user_kanji")
+      .select("*")
+      .match({ user_id: user.id })
+
+    if (error) {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: error.message
+      })
+    }
+
+    return items
+  }),
+  /**
+   * QUERY: Endpoint used to get list of all kanji with pagination
+   */
   getKanjiWithPagination: publicProcedure
     .input(
       z.object({

@@ -1,5 +1,6 @@
 import { getAllKanjiQuery, getUserKanjiHistory } from "#/database/queries"
 import { UserKanjiHistory } from "#/types"
+import { TRPCError } from "@trpc/server"
 import { protectedProcedure, router } from "../trpc"
 import { z } from "zod"
 
@@ -13,6 +14,19 @@ export const userDiscoveredKanjiCountSchema = z.object({
 })
 
 export const learnRouter = router({
+  getLearnItems: protectedProcedure.query(async ({ ctx }) => {
+    const { data: items, error } = await ctx.database
+      .rpc("get_learn_items", { user_auth_id: ctx.user!.id })
+      .select("*")
+
+    if (error) {
+      console.log(error)
+      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" })
+    }
+
+    return items
+  }),
+  // DEPRECATED ROUTES
   getDiscoveredKanji: protectedProcedure.query(
     async ({ ctx }): Promise<UserKanjiHistory[]> => {
       const kanjiHistory = await getUserKanjiHistory(ctx.database)

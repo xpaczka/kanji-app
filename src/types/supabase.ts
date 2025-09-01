@@ -61,24 +61,6 @@ export type Database = {
         }
         Relationships: []
       }
-      knowledge_evaluation: {
-        Row: {
-          id: string
-          level: string | null
-          user_id: string | null
-        }
-        Insert: {
-          id?: string
-          level?: string | null
-          user_id?: string | null
-        }
-        Update: {
-          id?: string
-          level?: string | null
-          user_id?: string | null
-        }
-        Relationships: []
-      }
       preferences: {
         Row: {
           user_id: string | null
@@ -93,6 +75,38 @@ export type Database = {
           values?: Json | null
         }
         Relationships: []
+      }
+      user_kanji: {
+        Row: {
+          id: string
+          kanji_id: string
+          next_review_at: string | null
+          stage: number
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          kanji_id: string
+          next_review_at?: string | null
+          stage: number
+          user_id: string
+        }
+        Update: {
+          id?: string
+          kanji_id?: string
+          next_review_at?: string | null
+          stage?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_kanji_kanji_id_fkey"
+            columns: ["kanji_id"]
+            isOneToOne: false
+            referencedRelation: "kanji"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_kanji_history: {
         Row: {
@@ -128,6 +142,17 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_learn_items: {
+        Args: { user_auth_id: string }
+        Returns: {
+          id: string
+          kanji: string
+          kun_readings: string[]
+          level: string
+          meanings: string[]
+          on_readings: string[]
+        }[]
+      }
       get_user_kanji_history: {
         Args: { user_id: string }
         Returns: {
