@@ -61,24 +61,6 @@ export type Database = {
         }
         Relationships: []
       }
-      knowledge_evaluation: {
-        Row: {
-          id: string
-          level: string | null
-          user_id: string | null
-        }
-        Insert: {
-          id?: string
-          level?: string | null
-          user_id?: string | null
-        }
-        Update: {
-          id?: string
-          level?: string | null
-          user_id?: string | null
-        }
-        Relationships: []
-      }
       preferences: {
         Row: {
           user_id: string | null

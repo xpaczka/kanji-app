@@ -1,15 +1,13 @@
 import {
   getUserPreferences,
   updateUserPreferences,
-  getUserKnowledgeEvaluationLevel,
-  createUserKnowledgeEvaluation,
   getUser
 } from "#/database/queries"
 import { TRPCError } from "@trpc/server"
 import { protectedProcedure, router } from "../trpc"
 import { z } from "zod"
 import { User } from "@supabase/supabase-js"
-import { kanjiItemJlptLevelSchema, userPreferencesSchema } from "#/types"
+import { userPreferencesSchema } from "#/types"
 
 const userProgressKeySchema = z.enum([
   "learningOverview",
@@ -59,9 +57,6 @@ export const userRouter = router({
   getSelectedUserProgress: protectedProcedure
     .input(userProgressKeySchema)
     .query(async ({ input }) => USER_DATA[input]),
-  getUserKnowledgeEvaluationLevel: protectedProcedure.query(
-    async ({ ctx }) => await getUserKnowledgeEvaluationLevel(ctx.database)
-  ),
   // POST endpoints
   updateUserPreferences: protectedProcedure
     .input(userPreferencesSchema)
@@ -71,14 +66,5 @@ export const userRouter = router({
       }
 
       await updateUserPreferences(ctx.database, input)
-    }),
-  createUserKnowledgeEvaluation: protectedProcedure
-    .input(kanjiItemJlptLevelSchema)
-    .mutation(async ({ input, ctx }) => {
-      if (!input) {
-        throw new TRPCError({ code: "BAD_REQUEST" })
-      }
-
-      await createUserKnowledgeEvaluation(ctx.database, input)
     })
 })

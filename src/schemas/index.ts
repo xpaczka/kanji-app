@@ -1,5 +1,4 @@
 export * from "./auth"
 export * from "./games"
 export * from "./kanji"
-export * from "./knowledge-evaluation"
 export * from "./leaderboard"

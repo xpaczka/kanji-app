@@ -16,15 +16,6 @@ CREATE TABLE IF NOT EXISTS preferences (
     FOREIGN KEY (user_id) REFERENCES auth.users (id) ON UPDATE CASCADE
 );
 
--- Knowledge Evaluation table
-CREATE TABLE IF NOT EXISTS knowledge_evaluation (
-    id UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
-    user_id UUID,
-    level VARCHAR(7) DEFAULT NULL,
-
-    FOREIGN KEY (user_id) REFERENCES auth.users (id) ON UPDATE CASCADE
-);
-
 -- User Kanji History table
 CREATE TABLE IF NOT EXISTS user_kanji_history (
     id UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
