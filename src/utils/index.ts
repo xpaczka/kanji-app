@@ -1,2 +1,2 @@
 export * from "./kanji"
-export * from "./review"
+export * from "./srs"
