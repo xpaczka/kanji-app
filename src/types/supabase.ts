@@ -153,6 +153,19 @@ export type Database = {
           on_readings: string[]
         }[]
       }
+      get_review_items: {
+        Args: { user_auth_id: string }
+        Returns: {
+          id: string
+          kanji: string
+          kun_readings: string[]
+          level: string
+          meanings: string[]
+          next_review_at: string
+          on_readings: string[]
+          stage: number
+        }[]
+      }
       get_user_kanji_history: {
         Args: { user_id: string }
         Returns: {

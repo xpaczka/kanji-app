@@ -7,8 +7,12 @@ import AutoAwesomeMosaicRoundedIcon from "@mui/icons-material/AutoAwesomeMosaicR
 import AutoAwesomeMotionRoundedIcon from "@mui/icons-material/AutoAwesomeMotionRounded"
 import { DashboardCard } from "./Card"
 import { LearnProgress } from "./Learn"
+import { createServerClient } from "#/app/_trpc/server-client"
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const serverClient = await createServerClient()
+  const { count: reviewCount } = await serverClient.review.getReviewItems()
+
   return (
     <>
       <LayoutSection header="Knowledge">
@@ -26,6 +30,14 @@ export default function Dashboard() {
             href={ROUTES.review}
             Icon={VisibilityRoundedIcon}
             className="border-blue-600 bg-blue-500 text-white"
+            disabled={!reviewCount}
+            indicator={
+              reviewCount && (
+                <div className="rounded-lg border-2 border-gray-600 bg-white px-4 text-lg font-medium text-black">
+                  {reviewCount}
+                </div>
+              )
+            }
           />
           <DashboardCard
             header="Write"

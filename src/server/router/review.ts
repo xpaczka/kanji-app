@@ -1,20 +1,26 @@
 import { TRPCError } from "@trpc/server"
 import { protectedProcedure, router } from "../trpc"
-import { getItemsForLearnOrReview } from "#/lib/utils"
 
 export const reviewRouter = router({
-  // TODO: Get only items user has learned
+  /**
+   * QUERY: Get kanji for review session
+   */
   getReviewItems: protectedProcedure.query(async ({ ctx }) => {
+    const { user } = ctx
+
+    if (!user) {
+      throw new TRPCError({ code: "UNAUTHORIZED" })
+    }
+
     const { data: items, error } = await ctx.database
-      .from("kanji")
+      .rpc("get_review_items", { user_auth_id: user.id })
       .select("*")
-      .match({ level: "jlpt-n5" })
-      .limit(5)
 
     if (error) {
+      console.log(error)
       throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" })
     }
 
-    return getItemsForLearnOrReview(items)
+    return { items, count: items.length }
   })
 })
