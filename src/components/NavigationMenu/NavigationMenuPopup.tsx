@@ -1,10 +1,11 @@
 import { User } from "@supabase/supabase-js"
 import Image from "next/image"
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded"
-import PaymentRoundedIcon from "@mui/icons-material/PaymentRounded"
 import SettingsSuggestRoundedIcon from "@mui/icons-material/SettingsSuggestRounded"
 import { signOut } from "#/actions"
 import NavigationMenuPopupItem from "./NavigationMenuPopupItem"
+import NavigationMenuSubscription from "./NavigationMenuSubscription"
+import { ROUTES } from "#/constants"
 
 export default function NavigationMenuPopup({ user }: { user: User }) {
   return (
@@ -28,13 +29,11 @@ export default function NavigationMenuPopup({ user }: { user: User }) {
         </div>
         <div className="mt-4 h-[1px] w-full bg-gray-200" />
         <div className="-mx-2 flex flex-col gap-0.5 py-3">
-          <NavigationMenuPopupItem
-            Icon={PaymentRoundedIcon}
-            content="Subscription"
-          />
+          <NavigationMenuSubscription />
           <NavigationMenuPopupItem
             Icon={SettingsSuggestRoundedIcon}
             content="Settings"
+            href={ROUTES.settings}
           />
         </div>
         <div className="mb-4 h-[1px] w-full bg-gray-200" />
