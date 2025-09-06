@@ -14,6 +14,8 @@ export default async function Dashboard() {
   const { count: learnCount } = await serverClient.learn.getLearnItems()
   const { count: reviewCount } = await serverClient.review.getReviewItems()
 
+  const isProSubscription = false
+
   return (
     <>
       <LayoutSection header="Knowledge">
@@ -25,7 +27,7 @@ export default async function Dashboard() {
             Icon={SchoolRoundedIcon}
             className="border-red-600 bg-red-500 text-white"
             disabled={learnCount === 0}
-            indicator={learnCount}
+            indicator={learnCount ?? undefined}
           />
           <DashboardCard
             header="Review"
@@ -34,7 +36,7 @@ export default async function Dashboard() {
             Icon={VisibilityRoundedIcon}
             className="border-blue-600 bg-blue-500 text-white"
             disabled={reviewCount === 0}
-            indicator={reviewCount}
+            indicator={reviewCount ?? undefined}
           />
           <DashboardCard
             header="Write"
@@ -42,9 +44,8 @@ export default async function Dashboard() {
             href={ROUTES.write}
             Icon={DriveFileRenameOutlineRoundedIcon}
             className="border-green-600 bg-green-500 text-white"
-            // TODO: Get items for write module
-            disabled
-            indicator={0}
+            disabled={!isProSubscription}
+            indicator="PRO"
           />
         </div>
       </LayoutSection>
