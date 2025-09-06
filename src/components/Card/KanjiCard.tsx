@@ -92,13 +92,9 @@ export default function KanjiCard({
         <MotionCard
           className={`${kanjiCardColor} flex flex-col items-center justify-center p-8 sm:aspect-square`}
         >
-          <div
-            className={`${stageName ? "text-white" : "text-black"} mb-4 text-5xl font-bold`}
-          >
-            {kanji}
-          </div>
+          <div className="mb-4 text-5xl font-bold">{kanji}</div>
           <p
-            className={`text-sm ${stageName ? "text-gray-200" : "text-gray-400"}`}
+            className={`text-sm ${stageName ? "text-gray-700" : "text-gray-400"}`}
           >
             {level.toUpperCase()}
           </p>
