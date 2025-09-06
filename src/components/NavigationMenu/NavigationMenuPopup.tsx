@@ -5,6 +5,7 @@ import SettingsSuggestRoundedIcon from "@mui/icons-material/SettingsSuggestRound
 import { signOut } from "#/actions"
 import NavigationMenuPopupItem from "./NavigationMenuPopupItem"
 import NavigationMenuSubscription from "./NavigationMenuSubscription"
+import { ROUTES } from "#/constants"
 
 export default function NavigationMenuPopup({ user }: { user: User }) {
   return (
@@ -32,6 +33,7 @@ export default function NavigationMenuPopup({ user }: { user: User }) {
           <NavigationMenuPopupItem
             Icon={SettingsSuggestRoundedIcon}
             content="Settings"
+            href={ROUTES.settings}
           />
         </div>
         <div className="mb-4 h-[1px] w-full bg-gray-200" />
