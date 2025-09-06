@@ -7,33 +7,44 @@ import AutoAwesomeMosaicRoundedIcon from "@mui/icons-material/AutoAwesomeMosaicR
 import AutoAwesomeMotionRoundedIcon from "@mui/icons-material/AutoAwesomeMotionRounded"
 import { DashboardCard } from "./Card"
 import { LearnProgress } from "./Learn"
+import { createServerClient } from "#/app/_trpc/server-client"
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const serverClient = await createServerClient()
+  const { count: learnCount } = await serverClient.learn.getLearnItems()
+  const { count: reviewCount } = await serverClient.review.getReviewItems()
+
   return (
     <>
       <LayoutSection header="Knowledge">
         <div className="grid grid-cols-1 grid-rows-3 gap-6 lg:grid-cols-3 lg:grid-rows-1 lg:gap-10">
           <DashboardCard
             header="Learn"
-            description="Lorem ipsum dolor sit amet consectetur adipiscing elit"
+            description="Discover new kanji with meanings and readings to build your foundation"
             href={ROUTES.learn}
             Icon={SchoolRoundedIcon}
             className="border-red-600 bg-red-500 text-white"
+            disabled={learnCount === 0}
+            indicator={learnCount}
           />
           <DashboardCard
             header="Review"
-            description="Lorem ipsum dolor sit amet consectetur adipiscing elit"
+            description="Reinforce what you’ve learned and strengthen long-term memory"
             href={ROUTES.review}
             Icon={VisibilityRoundedIcon}
             className="border-blue-600 bg-blue-500 text-white"
+            disabled={reviewCount === 0}
+            indicator={reviewCount}
           />
           <DashboardCard
             header="Write"
-            description="Lorem ipsum dolor sit amet consectetur adipiscing elit"
+            description="Practice writing kanji by hand to deepen understanding and recall"
             href={ROUTES.write}
             Icon={DriveFileRenameOutlineRoundedIcon}
             className="border-green-600 bg-green-500 text-white"
+            // TODO: Get items for write module
             disabled
+            indicator={0}
           />
         </div>
       </LayoutSection>
@@ -46,6 +57,7 @@ export default function Dashboard() {
             href={ROUTES.playMemo}
             Icon={AutoAwesomeMosaicRoundedIcon}
             className="shadow-lg"
+            disabled
           />
           <DashboardCard
             header="Flashcards"
@@ -53,6 +65,7 @@ export default function Dashboard() {
             href={ROUTES.playFlashcards}
             Icon={AutoAwesomeMotionRoundedIcon}
             className="shadow-lg"
+            disabled
           />
         </div>
       </LayoutSection>

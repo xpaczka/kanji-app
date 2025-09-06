@@ -1,8 +1,14 @@
-import { NextRequest } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import updateSession from "./database/middleware"
 
-// TODO: Add route protection
 const middleware = async (req: NextRequest) => {
+  const authorized = !!req.cookies.get("sb-127-auth-token")
+  const path = req.nextUrl.pathname
+
+  if (!authorized && path !== "/") {
+    return NextResponse.redirect(new URL("/", req.nextUrl))
+  }
+
   return await updateSession(req)
 }
 

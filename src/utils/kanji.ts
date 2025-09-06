@@ -13,6 +13,16 @@ const STAGE_GROUPING: Record<number, LearnStage> = {
   10: LearnStage.Stage5
 }
 
+export const resolveStageName = (stage?: number): LearnStage | null => {
+  if (!stage) return null
+
+  if (stage < 1 || stage > 10) {
+    throw new Error("Stage must be a value between 1 and 10 (inclusive)")
+  }
+
+  return STAGE_GROUPING[stage]
+}
+
 export const groupKanjiProgressByStageName = (
   items: Database["public"]["Tables"]["user_kanji"]["Row"][]
 ): Record<LearnStage, number> => {

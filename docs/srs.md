@@ -24,6 +24,20 @@ like following:
 - **"Professional"** (`8-9`)
 - **"Master"** (`10`)  
 
+## Progressing through stages
+
+Kanji is marked as completed once user answers both meaning and reading correctly.
+On learning phase it does not impact the value of updated stage and user will
+always go from `0` to `1`. During review phase user will progress to next
+stage only if both answers to kanji (meaning and reading) were answered
+correctly on the first try. In other case user is dropped by two stages
+
+```
+Meaning correct + reading correct -> +1 stage
+Meaning incorrect + reading correct -> -2 stages
+Meaning correct + reading incorrect -> -2 stages
+```
+
 ## Calculation Logic
 
 -  **Base interval:**  `2` hours

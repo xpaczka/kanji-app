@@ -36,7 +36,7 @@ export default function Auth() {
                   )
                 }
               >
-                {isSignInFlow ? "Sign up" : "Sign up"}
+                {isSignInFlow ? "Sign up" : "Sign in"}
               </span>
             </div>
           </CardFooter>

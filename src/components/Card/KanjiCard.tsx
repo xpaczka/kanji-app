@@ -1,11 +1,13 @@
-import { Database, LearnStage } from "#/types"
+import { Database } from "#/types"
 import MotionCard from "./MotionCard"
 import Modal from "../Modal"
 import { formatReadings } from "#/lib/utils"
 import { LEARN_STAGE_COLORS } from "#/constants"
+import { resolveStageName } from "#/utils"
+import { useMemo } from "react"
 
 type KanjiCardProps = {
-  item: Database["public"]["Tables"]["kanji"]["Row"]
+  item: Database["public"]["Functions"]["get_kanji_with_stage"]["Returns"][0]
   isLearnCard?: boolean
 }
 
@@ -13,7 +15,8 @@ export default function KanjiCard({
   item,
   isLearnCard = false
 }: KanjiCardProps) {
-  const { kanji, level, kun_readings, on_readings, meanings } = item
+  const { kanji, level, kun_readings, on_readings, meanings, kanji_stage } =
+    item
 
   const kunReadings = formatReadings(kun_readings)
   const onReadings = formatReadings(on_readings)
@@ -21,6 +24,14 @@ export default function KanjiCard({
   const kanjiMeaning = meanings
     .map((value) => (isNaN(Number(value)) ? value : null))
     .filter((value) => value !== null)
+
+  const stageName = resolveStageName(kanji_stage)
+
+  const kanjiCardColor = useMemo(() => {
+    if (isLearnCard) return "bg-white"
+
+    return stageName ? LEARN_STAGE_COLORS[stageName] : "bg-white"
+  }, [isLearnCard, stageName])
 
   const content = (
     <div className={isLearnCard ? "text-center" : "p-8"}>
@@ -33,7 +44,7 @@ export default function KanjiCard({
         className={`mb-6 flex ${isLearnCard ? "flex-col items-center" : "flex-row"} gap-4`}
       >
         <div
-          className={`${isLearnCard ? "bg-white" : LEARN_STAGE_COLORS[LearnStage.Stage1]} inline-flex aspect-square h-28 w-28 items-center justify-center rounded-md border-2 border-gray-200 p-4 text-5xl font-bold`}
+          className={`${kanjiCardColor} inline-flex aspect-square h-28 w-28 items-center justify-center rounded-md border-2 border-gray-200 p-4 text-5xl font-bold`}
         >
           {kanji}
         </div>
@@ -63,10 +74,10 @@ export default function KanjiCard({
           <div className="text-xs text-gray-400">Level</div>
           <div>{level.toUpperCase()}</div>
         </div>
-        {!isLearnCard && (
+        {!isLearnCard && stageName && (
           <div>
             <div className="text-xs text-gray-400">Stage</div>
-            <div>{LearnStage.Stage1}</div>
+            <div>{stageName}</div>
           </div>
         )}
       </div>
@@ -78,9 +89,15 @@ export default function KanjiCard({
   return (
     <Modal
       trigger={
-        <MotionCard className="flex flex-col items-center justify-center p-8 sm:aspect-square">
+        <MotionCard
+          className={`${kanjiCardColor} flex flex-col items-center justify-center p-8 sm:aspect-square`}
+        >
           <div className="mb-4 text-5xl font-bold">{kanji}</div>
-          <p className="text-sm text-gray-400">{level.toUpperCase()}</p>
+          <p
+            className={`text-sm ${stageName ? "text-gray-700" : "text-gray-400"}`}
+          >
+            {level.toUpperCase()}
+          </p>
         </MotionCard>
       }
     >

@@ -15,6 +15,7 @@ type DashboardCardProps = {
   href: string
   className?: string
   disabled?: boolean
+  indicator?: number
 }
 
 export default function DashboardCard({
@@ -23,6 +24,7 @@ export default function DashboardCard({
   description,
   href,
   className,
+  indicator,
   disabled = false
 }: DashboardCardProps) {
   const content = (
@@ -38,9 +40,13 @@ export default function DashboardCard({
       <div className="my-2 h-1 w-1/2 max-w-[140px] rounded-lg bg-white" />
       <p className="text-lg">{description}</p>
       {disabled && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/70">
-          <p className="mb-2 text-3xl font-bold">Coming soon</p>
-          <div className="h-1 w-1/2 max-w-[140px] rounded-lg bg-white" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/70" />
+      )}
+      {!disabled && indicator && (
+        <div className="absolute top-4 right-0 flex w-full justify-end pr-4">
+          <div className="rounded-lg border-2 border-gray-600 bg-white px-4 text-lg font-medium text-black">
+            {indicator}
+          </div>
         </div>
       )}
     </MotionCard>

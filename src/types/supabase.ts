@@ -142,6 +142,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_kanji_with_stage: {
+        Args: { user_auth_id: string }
+        Returns: {
+          id: string
+          kanji: string
+          kanji_stage: number
+          kun_readings: string[]
+          level: string
+          meanings: string[]
+          on_readings: string[]
+        }[]
+      }
       get_learn_items: {
         Args: { user_auth_id: string }
         Returns: {
@@ -153,12 +165,18 @@ export type Database = {
           on_readings: string[]
         }[]
       }
-      get_user_kanji_history: {
-        Args: { user_id: string }
+      get_review_items: {
+        Args: { user_auth_id: string }
         Returns: {
+          id: string
           kanji: string
+          kanji_stage: number
+          kun_readings: string[]
           level: string
-          updated_at: string
+          meanings: string[]
+          next_review_at: string
+          on_readings: string[]
+          user_kanji_uuid: string
         }[]
       }
       update_user_kanji_history: {

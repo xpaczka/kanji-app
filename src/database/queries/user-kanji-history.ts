@@ -16,15 +16,3 @@ export const updateUserKanjiHistory = async (
     updated_at: new Date().toString()
   })
 }
-
-export const getUserKanjiHistory = async (supabaseClient: SupabaseDbClient) => {
-  const user = await getUser(supabaseClient)
-
-  if (!user) return []
-
-  const { data } = await supabaseClient.rpc("get_user_kanji_history", {
-    user_id: user.id
-  })
-
-  return data
-}
