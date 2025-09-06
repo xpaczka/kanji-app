@@ -7,13 +7,12 @@ import {
   useCallback,
   useState
 } from "react"
-import { KanjiItemProps } from "../Kanji"
-import KanjiItem from "../Kanji/KanjiItem"
-import { KanjiValidationState } from "#/types"
+import { KanjiItemProps, KanjiValidationState } from "#/types"
 import similarity from "similarity"
 import { trpc } from "#/app/_trpc/client"
 import { toHiragana } from "wanakana"
 import { calculateNextReviewTime } from "#/utils"
+import { KanjiItem } from "../Kanji"
 
 type ReviewItemProps = Omit<
   KanjiItemProps,

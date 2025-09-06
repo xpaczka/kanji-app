@@ -71,7 +71,8 @@ RETURNS TABLE (
                     user_kanji.next_review_at 
                 FROM user_kanji
                 WHERE user_id = user_auth_id
-                    AND stage < 10
+                    AND user_kanji.stage < 10
+                    AND (user_kanji.next_review_at IS NULL OR user_kanji.next_review_at <= NOW())
             )
 
             SELECT 
