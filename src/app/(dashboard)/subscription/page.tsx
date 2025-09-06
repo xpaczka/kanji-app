@@ -5,13 +5,9 @@ import {
   SubscriptionPaymentOptionTab,
   SubscriptionPlan
 } from "#/components/Subscription"
+import { PaymentOption } from "#/types"
 import { Tabs } from "@base-ui-components/react/tabs"
 import { useState } from "react"
-
-enum PaymentOption {
-  ANNUALY = "Anually",
-  MONTHLY = "Monthly"
-}
 
 export default function SubscriptionPage() {
   const [paymentOption, setPaymentOption] = useState<PaymentOption>(
@@ -30,6 +26,11 @@ export default function SubscriptionPage() {
             <SubscriptionPaymentOptionTab
               value={PaymentOption.ANNUALY}
               isActive={paymentOption === PaymentOption.ANNUALY}
+              indicator={
+                <div className="rounded-md border-2 border-orange-400 bg-white p-1 text-xs text-black">
+                  -20%
+                </div>
+              }
             />
           </Tabs.Tab>
           <Tabs.Tab value={PaymentOption.MONTHLY}>
@@ -41,10 +42,10 @@ export default function SubscriptionPage() {
           <Tabs.Indicator />
         </Tabs.List>
         <Tabs.Panel value={PaymentOption.ANNUALY} className="w-full">
-          <SubscriptionPlan />
+          <SubscriptionPlan paymentOption={PaymentOption.ANNUALY} />
         </Tabs.Panel>
         <Tabs.Panel value={PaymentOption.MONTHLY} className="w-full">
-          <SubscriptionPlan />
+          <SubscriptionPlan paymentOption={PaymentOption.MONTHLY} />
         </Tabs.Panel>
       </Tabs.Root>
     </LayoutSection>
