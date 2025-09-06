@@ -1,11 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import LearnItem from "./LearnItem"
 import { useNavigation } from "#/hooks"
 import { ROUTES } from "#/constants/router"
 import LearnIntroduction from "./LearnIntroduction"
-import { getItemsForLearnOrReview } from "#/lib/utils"
+import { getItemsForLearn } from "#/lib/utils"
 import { Database } from "#/types"
 
 type LearnModuleProps = {
@@ -14,25 +14,28 @@ type LearnModuleProps = {
 
 export default function LearnModule({ items }: LearnModuleProps) {
   const [introductionIndex, setIntroductionIndex] = useState(0)
-  const [learnItems, setLearnItems] = useState(getItemsForLearnOrReview(items))
+  const [learnItems, setLearnItems] = useState(getItemsForLearn(items))
   const [kanjiMap, setKanjiMap] = useState(new Map<string, boolean>())
 
   const { navigate } = useNavigation()
 
-  const getNextItem = (value: boolean) => {
-    if (learnItems.length === 1) {
-      navigate(ROUTES.index)
-      return
-    }
+  const getNextItem = useCallback(
+    (value: boolean) => {
+      if (learnItems.length === 1) {
+        navigate(ROUTES.index)
+        return
+      }
 
-    const item = learnItems[0]
+      const item = learnItems[0]
 
-    if (value) {
-      setLearnItems(learnItems.slice(1))
-    } else {
-      setLearnItems([...learnItems.slice(1), item])
-    }
-  }
+      if (value) {
+        setLearnItems(learnItems.slice(1))
+      } else {
+        setLearnItems([...learnItems.slice(1), item])
+      }
+    },
+    [learnItems, navigate]
+  )
 
   if (introductionIndex < items.length) {
     return (

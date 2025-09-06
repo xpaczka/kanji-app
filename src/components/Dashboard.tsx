@@ -32,7 +32,7 @@ export default async function Dashboard() {
             className="border-blue-600 bg-blue-500 text-white"
             disabled={!reviewCount}
             indicator={
-              reviewCount && (
+              reviewCount > 0 && (
                 <div className="rounded-lg border-2 border-gray-600 bg-white px-4 text-lg font-medium text-black">
                   {reviewCount}
                 </div>

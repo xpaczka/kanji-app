@@ -3,13 +3,14 @@ import { ChangeEvent } from "react"
 import { motion } from "motion/react"
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded"
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded"
+import { KanjiValidationState } from "#/types"
 
 export type KanjiItemProps = {
   kanji: string
   meanings?: string[]
   readings?: string[]
   inputValue: string
-  validationState: "valid" | "invalid" | null
+  validationState: KanjiValidationState
   onInputChange: (event: ChangeEvent<HTMLInputElement>) => void
   onSubmit: (key: KeyboardEvent["key"]) => void
   nextItemHandler: () => void

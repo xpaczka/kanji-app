@@ -57,23 +57,27 @@ RETURNS TABLE (
     meanings TEXT[],
     kun_readings TEXT[],
     on_readings TEXT[],
-    stage INT,
+    user_kanji_uuid UUID,
+    kanji_stage INT,
     next_review_at TIMESTAMP
 ) AS $$
     BEGIN
         RETURN QUERY
             WITH user_kanji_items AS (
                 SELECT 
-                    kanji_id, 
+                    user_kanji.id,
+                    user_kanji.kanji_id, 
                     user_kanji.stage, 
                     user_kanji.next_review_at 
                 FROM user_kanji
                 WHERE user_id = user_auth_id
+                    AND stage < 10
             )
 
             SELECT 
                 kanji.*, 
-                user_kanji_items.stage, 
+                user_kanji_items.id AS user_kanji_uuid,
+                user_kanji_items.stage AS kanji_stage, 
                 user_kanji_items.next_review_at 
             FROM kanji
             JOIN user_kanji_items ON kanji.id = user_kanji_items.kanji_id

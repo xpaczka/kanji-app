@@ -1,6 +1,6 @@
 import { createServerClient } from "#/app/_trpc/server-client"
 import { LayoutSection } from "#/components/Layout"
-import { LearnModule } from "#/components/Learn"
+import { ReviewModule } from "#/components/Review"
 
 export default async function ReviewPage() {
   const serverClient = await createServerClient()
@@ -8,7 +8,7 @@ export default async function ReviewPage() {
 
   return (
     <LayoutSection header="Review">
-      <LearnModule items={reviewItems} />
+      <ReviewModule items={reviewItems} />
     </LayoutSection>
   )
 }

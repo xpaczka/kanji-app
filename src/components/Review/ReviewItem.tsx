@@ -7,14 +7,15 @@ import {
   useCallback,
   useState
 } from "react"
-import { toHiragana } from "wanakana"
+import { KanjiItemProps } from "../Kanji"
+import KanjiItem from "../Kanji/KanjiItem"
+import { KanjiValidationState } from "#/types"
 import similarity from "similarity"
 import { trpc } from "#/app/_trpc/client"
+import { toHiragana } from "wanakana"
 import { calculateNextReviewTime } from "#/utils"
-import KanjiItem, { KanjiItemProps } from "../Kanji/KanjiItem"
-import { KanjiValidationState } from "#/types"
 
-type LearnItemProps = Omit<
+type ReviewItemProps = Omit<
   KanjiItemProps,
   | "validationState"
   | "onSubmit"
@@ -26,17 +27,21 @@ type LearnItemProps = Omit<
   kanjiMap: Map<string, boolean>
   setKanjiMap: Dispatch<SetStateAction<Map<string, boolean>>>
   getNextItem: (value: boolean) => void
+  stage: number
+  userKanjiUuid: string
 }
 
-export default function LearnItem({
+export default function ReviewItem({
   kanjiId,
   kanji,
-  readings,
   meanings,
+  readings,
+  getNextItem,
   kanjiMap,
   setKanjiMap,
-  getNextItem
-}: LearnItemProps) {
+  stage,
+  userKanjiUuid
+}: ReviewItemProps) {
   const [value, setValue] = useState("")
 
   const [validationState, setValidationState] =
@@ -70,15 +75,25 @@ export default function LearnItem({
       const isValid = isInputValid()
       setValidationState(isValid ? "valid" : "invalid")
 
-      if (!isValid) return
+      if (!isValid) {
+        setKanjiMap(kanjiMap.set(kanji, false))
+        return
+      }
 
       const kanjiInMap = kanjiMap.has(kanji)
 
       if (kanjiInMap) {
+        const isKanjiValidationCorrect = kanjiMap.get(kanji)
+
+        const newStage = isKanjiValidationCorrect
+          ? stage + 1
+          : Math.max(1, stage - 2)
+
         await updateUserKanji({
+          userKanjiUuid,
           kanjiId,
-          stage: 1,
-          nextReviewAt: calculateNextReviewTime(1)
+          stage: newStage,
+          nextReviewAt: calculateNextReviewTime(newStage)
         })
       } else {
         setKanjiMap(kanjiMap.set(kanji, true))
@@ -97,7 +112,9 @@ export default function LearnItem({
       kanjiId,
       kanjiMap,
       setKanjiMap,
-      updateUserKanji
+      updateUserKanji,
+      stage,
+      userKanjiUuid
     ]
   )
 

@@ -9,6 +9,7 @@ export const kanjiRouter = router({
   updateUserKanji: protectedProcedure
     .input(
       z.object({
+        userKanjiUuid: z.string().optional(),
         kanjiId: z.string(),
         stage: z.number(),
         nextReviewAt: z.string().nullable()
@@ -16,13 +17,14 @@ export const kanjiRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       const { user, database } = ctx
-      const { kanjiId, stage, nextReviewAt } = input
+      const { kanjiId, stage, nextReviewAt, userKanjiUuid } = input
 
       if (!user) {
         throw new TRPCError({ code: "UNAUTHORIZED" })
       }
 
       const { error } = await database.from("user_kanji").upsert({
+        id: userKanjiUuid,
         kanji_id: kanjiId,
         stage,
         user_id: user.id,

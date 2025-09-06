@@ -158,12 +158,13 @@ export type Database = {
         Returns: {
           id: string
           kanji: string
+          kanji_stage: number
           kun_readings: string[]
           level: string
           meanings: string[]
           next_review_at: string
           on_readings: string[]
-          stage: number
+          user_kanji_uuid: string
         }[]
       }
       get_user_kanji_history: {
