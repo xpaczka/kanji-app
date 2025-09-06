@@ -11,21 +11,6 @@ CREATE OR REPLACE FUNCTION update_user_kanji_history (
     END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_user_kanji_history(user_id UUID) 
-RETURNS TABLE (
-    kanji VARCHAR(1),
-    level VARCHAR(7),
-    updated_at TIMESTAMP
-) AS $$
-    BEGIN
-        SELECT kanji, level, updated_at
-        FROM user_kanji_history
-        LEFT JOIN kanji ON user_kanji_history.kanji_id = kanji.id
-        WHERE user_kanji_history.user_id = user_id
-        ORDER BY timestamp DESC;
-    END;
-$$ LANGUAGE plpgsql;
-
 CREATE OR REPLACE FUNCTION get_learn_items(user_auth_id UUID)
 RETURNS TABLE (
     id UUID,
@@ -44,8 +29,7 @@ RETURNS TABLE (
 
             SELECT * from kanji
             WHERE kanji.id NOT IN (SELECT user_kanji_items.kanji_id from user_kanji_items)
-            ORDER BY level DESC, kanji ASC 
-            LIMIT 5;
+            ORDER BY level DESC, kanji ASC;
     END;
 $$ LANGUAGE plpgsql;
 

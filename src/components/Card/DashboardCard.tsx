@@ -15,7 +15,7 @@ type DashboardCardProps = {
   href: string
   className?: string
   disabled?: boolean
-  indicator?: ReactNode
+  indicator?: number
 }
 
 export default function DashboardCard({
@@ -42,9 +42,11 @@ export default function DashboardCard({
       {disabled && (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/70" />
       )}
-      {indicator && (
+      {!disabled && indicator && (
         <div className="absolute top-4 right-0 flex w-full justify-end pr-4">
-          {indicator}
+          <div className="rounded-lg border-2 border-gray-600 bg-white px-4 text-lg font-medium text-black">
+            {indicator}
+          </div>
         </div>
       )}
     </MotionCard>

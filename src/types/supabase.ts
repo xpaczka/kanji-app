@@ -167,14 +167,6 @@ export type Database = {
           user_kanji_uuid: string
         }[]
       }
-      get_user_kanji_history: {
-        Args: { user_id: string }
-        Returns: {
-          kanji: string
-          level: string
-          updated_at: string
-        }[]
-      }
       update_user_kanji_history: {
         Args: { kanji_id: string; updated_at: string; user_id: string }
         Returns: undefined
