@@ -1,7 +1,10 @@
 "use client"
 
 import { LayoutSection } from "#/components/Layout"
-import { SubscriptionPaymentOptionTab } from "#/components/Subscription"
+import {
+  SubscriptionPaymentOptionTab,
+  SubscriptionPlan
+} from "#/components/Subscription"
 import { Tabs } from "@base-ui-components/react/tabs"
 import { useState } from "react"
 
@@ -20,7 +23,7 @@ export default function SubscriptionPage() {
       <Tabs.Root
         value={paymentOption}
         onValueChange={(value) => setPaymentOption(value)}
-        className="flex w-full flex-col items-center gap-3"
+        className="flex w-full flex-col items-center gap-4"
       >
         <Tabs.List className="flex gap-3">
           <Tabs.Tab value={PaymentOption.ANNUALY}>
@@ -37,8 +40,12 @@ export default function SubscriptionPage() {
           </Tabs.Tab>
           <Tabs.Indicator />
         </Tabs.List>
-        <Tabs.Panel value={PaymentOption.ANNUALY}>Anually</Tabs.Panel>
-        <Tabs.Panel value={PaymentOption.MONTHLY}>Monthly</Tabs.Panel>
+        <Tabs.Panel value={PaymentOption.ANNUALY} className="w-full">
+          <SubscriptionPlan />
+        </Tabs.Panel>
+        <Tabs.Panel value={PaymentOption.MONTHLY} className="w-full">
+          <SubscriptionPlan />
+        </Tabs.Panel>
       </Tabs.Root>
     </LayoutSection>
   )
