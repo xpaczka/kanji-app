@@ -36,16 +36,21 @@ export default function ReviewModule({ items }: ReviewModuleProps) {
   )
 
   return (
-    <ReviewItem
-      kanjiId={reviewItems[0].kanjiId}
-      userKanjiUuid={reviewItems[0].userKanjiUuid}
-      kanji={reviewItems[0].kanji}
-      meanings={reviewItems[0].meanings}
-      readings={reviewItems[0].readings}
-      stage={reviewItems[0].stage}
-      kanjiMap={kanjiMap}
-      setKanjiMap={setKanjiMap}
-      getNextItem={getNextItem}
-    />
+    <div className="flex flex-col items-center">
+      <div className="mb-2 text-lg font-semibold">
+        {items.length * 2 - reviewItems.length + 1} / {items.length * 2}
+      </div>
+      <ReviewItem
+        kanjiId={reviewItems[0].kanjiId}
+        userKanjiUuid={reviewItems[0].userKanjiUuid}
+        kanji={reviewItems[0].kanji}
+        meanings={reviewItems[0].meanings}
+        readings={reviewItems[0].readings}
+        stage={reviewItems[0].stage}
+        kanjiMap={kanjiMap}
+        setKanjiMap={setKanjiMap}
+        getNextItem={getNextItem}
+      />
+    </div>
   )
 }
