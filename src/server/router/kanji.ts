@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { protectedProcedure, publicProcedure, router } from "../trpc"
+import { protectedProcedure, router } from "../trpc"
 import { TRPCError } from "@trpc/server"
 
 export const kanjiRouter = router({
@@ -65,7 +65,7 @@ export const kanjiRouter = router({
   /**
    * QUERY: Endpoint used to get list of all kanji with pagination
    */
-  getKanjiWithPagination: publicProcedure
+  getKanjiWithPagination: protectedProcedure
     .input(
       z.object({
         page: z.number().min(1).default(0),
@@ -73,17 +73,23 @@ export const kanjiRouter = router({
       })
     )
     .query(async ({ input, ctx }) => {
+      const { user, database } = ctx
+
+      if (!user) {
+        throw new TRPCError({ code: "UNAUTHORIZED" })
+      }
+
       const { page, limit } = input
       const start = (page - 1) * limit
       const end = start + limit - 1
 
-      const { data: items, error } = await ctx.database
-        .from("kanji")
+      const { data: items, error } = await database
+        .rpc("get_kanji_with_stage", { user_auth_id: user.id })
         .select("*")
-        .order("kanji")
         .range(start, end)
 
       if (error) {
+        console.log(error)
         throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" })
       }
 

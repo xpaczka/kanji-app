@@ -17,7 +17,6 @@ export const reviewRouter = router({
       .select("*")
 
     if (error) {
-      console.log(error)
       throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" })
     }
 

@@ -1,3 +1,4 @@
+-- TODO: Remove this function
 CREATE OR REPLACE FUNCTION update_user_kanji_history (
     user_id UUID,
     kanji_id UUID,
@@ -23,12 +24,12 @@ RETURNS TABLE (
     BEGIN
         RETURN QUERY
             WITH user_kanji_items AS (
-                SELECT kanji_id from user_kanji
+                SELECT kanji_id FROM user_kanji
                 WHERE user_id = user_auth_id
             )
 
-            SELECT * from kanji
-            WHERE kanji.id NOT IN (SELECT user_kanji_items.kanji_id from user_kanji_items)
+            SELECT * FROM kanji
+            WHERE kanji.id NOT IN (SELECT user_kanji_items.kanji_id FROM user_kanji_items)
             ORDER BY level DESC, kanji ASC;
     END;
 $$ LANGUAGE plpgsql;
@@ -66,6 +67,35 @@ RETURNS TABLE (
                 user_kanji_items.next_review_at 
             FROM kanji
             JOIN user_kanji_items ON kanji.id = user_kanji_items.kanji_id
-            WHERE kanji.id IN (SELECT user_kanji_items.kanji_id from user_kanji_items);
+            WHERE kanji.id IN (SELECT user_kanji_items.kanji_id FROM user_kanji_items);
+    END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_kanji_with_stage(user_auth_id UUID)
+RETURNS TABLE (
+    id UUID,
+    kanji VARCHAR(1),
+    level VARCHAR(7),
+    meanings TEXT[],
+    kun_readings TEXT[],
+    on_readings TEXT[],
+    kanji_stage INT
+) AS $$
+    BEGIN
+        RETURN QUERY
+            WITH user_kanji_items AS (
+                SELECT 
+                    user_kanji.kanji_id,
+                    user_kanji.stage 
+                FROM user_kanji
+                WHERE user_id = user_auth_id
+            )
+
+            SELECT
+                kanji.*, 
+                user_kanji_items.stage AS kanji_stage
+            FROM kanji
+            LEFT JOIN user_kanji_items ON kanji.id = user_kanji_items.kanji_id
+            ORDER BY level DESC, kanji ASC;
     END;
 $$ LANGUAGE plpgsql;
