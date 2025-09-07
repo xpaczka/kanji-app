@@ -1,12 +1,26 @@
 import { User } from "@supabase/supabase-js"
 import Image from "next/image"
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded"
-import PaymentRoundedIcon from "@mui/icons-material/PaymentRounded"
-import SettingsSuggestRoundedIcon from "@mui/icons-material/SettingsSuggestRounded"
 import { signOut } from "#/actions"
-import NavigationMenuPopupItem from "./NavigationMenuPopupItem"
+import { groupKanjiProgressByStageName } from "#/utils"
+import { trpc } from "#/app/_trpc/client"
+import { useMemo } from "react"
+import { LearnStage } from "#/types"
+import { LEARN_STAGE_COLORS } from "#/constants"
 
 export default function NavigationMenuPopup({ user }: { user: User }) {
+  const { data: userKanjiProgress } = trpc.kanji.getUserKanjiProgress.useQuery()
+
+  const currentUserLevel = useMemo(() => {
+    const stages = groupKanjiProgressByStageName(userKanjiProgress ?? [])
+
+    return Object.entries(stages).sort(
+      (a, b) => b[1] - a[1]
+    )[0][0] as LearnStage
+  }, [userKanjiProgress])
+
+  console.log(currentUserLevel)
+
   return (
     <>
       <div className="h-3 w-full bg-orange-400" />
@@ -26,17 +40,13 @@ export default function NavigationMenuPopup({ user }: { user: User }) {
             <div className="text-sm text-gray-400">{user.email}</div>
           </div>
         </div>
-        <div className="mt-4 h-[1px] w-full bg-gray-200" />
-        <div className="-mx-2 flex flex-col gap-0.5 py-3">
-          <NavigationMenuPopupItem
-            Icon={PaymentRoundedIcon}
-            content="Subscription"
+        <div className="mt-2 flex items-center gap-2">
+          <div
+            className={`${LEARN_STAGE_COLORS[currentUserLevel]} h-4 w-4 rounded-full`}
           />
-          <NavigationMenuPopupItem
-            Icon={SettingsSuggestRoundedIcon}
-            content="Settings"
-          />
+          <p className="font-medium">{currentUserLevel}</p>
         </div>
+        <div className="mt-4 h-[1px] w-full bg-gray-200" />
         <div className="mb-4 h-[1px] w-full bg-gray-200" />
         <button
           className="flex cursor-pointer items-center gap-2"
