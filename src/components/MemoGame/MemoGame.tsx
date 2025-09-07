@@ -2,7 +2,7 @@
 
 import { useMemoGame } from "#/hooks"
 import { calculateTimeDifferenceToFormat } from "#/lib/utils"
-import MemoGameSummary from "../memo-game/MemoGameSummary"
+import MemoGameSummary from "./MemoGameSummary"
 import { Spinner } from "../ui/spinner"
 import MemoGameItem from "./MemoGameItem"
 
@@ -33,8 +33,8 @@ export default function MemoGame() {
       <MemoGameSummary
         gameStartTimestamp={gameStartTime}
         guessCount={guessCount}
-        endSessionHandler={endGame}
-        newSessionHandler={newGame}
+        endGame={endGame}
+        newGame={newGame}
       />
     )
   }
