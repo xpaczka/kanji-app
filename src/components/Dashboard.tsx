@@ -57,7 +57,6 @@ export default async function Dashboard() {
             href={ROUTES.playMemo}
             Icon={AutoAwesomeMosaicRoundedIcon}
             className="shadow-lg"
-            disabled
           />
           <DashboardCard
             header="Flashcards"
@@ -65,7 +64,6 @@ export default async function Dashboard() {
             href={ROUTES.playFlashcards}
             Icon={AutoAwesomeMotionRoundedIcon}
             className="shadow-lg"
-            disabled
           />
         </div>
       </LayoutSection>
