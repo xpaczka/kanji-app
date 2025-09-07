@@ -1,29 +1,24 @@
 "use client"
 
-import MemoGameItem from "#/components/memo-game/MemoGameItem"
-import MemoGameSummary from "#/components/memo-game/MemoGameSummary"
-import { Spinner } from "#/components/ui/spinner"
-import { ROUTES } from "#/constants/router"
-import { useAppSession, useMemoGameCards } from "#/hooks"
+import { useMemoGame } from "#/hooks"
 import { calculateTimeDifferenceToFormat } from "#/lib/utils"
+import MemoGameSummary from "../memo-game/MemoGameSummary"
+import { Spinner } from "../ui/spinner"
+import MemoGameItem from "./MemoGameItem"
 
-export default function MemoGameSessionPage() {
+export default function MemoGame() {
   const {
     cards,
     cardsRevealed,
     toggleCard,
     isLoading,
     gameWon,
-    endSession,
-    newSession,
+    endGame,
+    newGame,
     gameStartTime,
     currentTime,
     guessCount
-  } = useMemoGameCards()
-
-  const { sessionId } = useAppSession(ROUTES.gamesDashboard)
-
-  if (!sessionId) return null
+  } = useMemoGame()
 
   if (isLoading) {
     return (
@@ -38,8 +33,8 @@ export default function MemoGameSessionPage() {
       <MemoGameSummary
         gameStartTimestamp={gameStartTime}
         guessCount={guessCount}
-        endSessionHandler={endSession}
-        newSessionHandler={newSession}
+        endSessionHandler={endGame}
+        newSessionHandler={newGame}
       />
     )
   }
