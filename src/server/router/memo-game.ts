@@ -12,11 +12,11 @@ export const memoGameRouter = router({
     }
 
     const { data: items, error } = await ctx.database
-      .rpc("get_review_items", { user_auth_id: user.id })
+      .rpc("get_user_kanji", { user_auth_id: user.id })
       .select("*")
 
     if (!items || items.length < MEMO_GAME_KANJI_COUNT) {
-      throw new TRPCError({ code: "BAD_REQUEST" })
+      return { items: [], count: items?.length ?? 0 }
     }
 
     if (error) {

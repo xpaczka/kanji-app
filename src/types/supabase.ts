@@ -17,10 +17,10 @@ export type Database = {
     Functions: {
       graphql: {
         Args: {
-          extensions?: Json
-          operationName?: string
           query?: string
+          operationName?: string
           variables?: Json
+          extensions?: Json
         }
         Returns: Json
       }
@@ -147,11 +147,11 @@ export type Database = {
         Returns: {
           id: string
           kanji: string
-          kanji_stage: number
-          kun_readings: string[]
-          level: string
           meanings: string[]
+          level: string
+          kun_readings: string[]
           on_readings: string[]
+          kanji_stage: number
         }[]
       }
       get_learn_items: {
@@ -159,9 +159,9 @@ export type Database = {
         Returns: {
           id: string
           kanji: string
-          kun_readings: string[]
           level: string
           meanings: string[]
+          kun_readings: string[]
           on_readings: string[]
         }[]
       }
@@ -170,18 +170,28 @@ export type Database = {
         Returns: {
           id: string
           kanji: string
-          kanji_stage: number
-          kun_readings: string[]
           level: string
           meanings: string[]
-          next_review_at: string
+          kun_readings: string[]
           on_readings: string[]
           user_kanji_uuid: string
+          kanji_stage: number
+          next_review_at: string
         }[]
       }
-      update_user_kanji_history: {
-        Args: { kanji_id: string; updated_at: string; user_id: string }
-        Returns: undefined
+      get_user_kanji: {
+        Args: { user_auth_id: string }
+        Returns: {
+          id: string
+          kanji: string
+          level: string
+          meanings: string[]
+          kun_readings: string[]
+          on_readings: string[]
+          user_kanji_uuid: string
+          kanji_stage: number
+          next_review_at: string
+        }[]
       }
     }
     Enums: {
