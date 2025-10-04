@@ -9,7 +9,6 @@ import {
   KanjiSessionSetItem,
   FlashcardGameItemEvaluation
 } from "#/schemas/kanji"
-import { useUserRomajiPreferences } from "./user"
 import { KanjiItemJlptLevel } from "#/types"
 
 export const useFlashcardsGame = () => {
@@ -21,8 +20,6 @@ export const useFlashcardsGame = () => {
     isLoading: isLoadingKanjiSet,
     refetch: refetchKanjiSet
   } = trpc.flashcards.getFlashcardsSessionKanji.useQuery(level ?? undefined)
-
-  const { showRomaji, setShowRomaji } = useUserRomajiPreferences()
 
   const [kanjiIndex, setKanjiIndex] = useState(0)
   const [isRevealed, setIsRevealed] = useState(false)
@@ -88,8 +85,6 @@ export const useFlashcardsGame = () => {
     sessionStartTime,
     sessionCompleted,
     sessionSet,
-    showRomaji,
-    setShowRomaji,
     evaluateKanji: evaluateKanjiHandler,
     newSession: newSessionHandler,
     endSession: endSessionHandler
