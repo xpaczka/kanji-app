@@ -51,9 +51,9 @@ export default function MemoGame() {
               cards.map((card, index) => (
                 <MemoGameItem
                   key={`${card}-${index}`}
-                  content={card.kanji}
+                  content={card}
                   isRevealed={cardsRevealed[index]}
-                  onClick={() => toggleCard(card.kanji, index)}
+                  onClick={() => toggleCard(card, index)}
                 />
               ))}
           </div>
