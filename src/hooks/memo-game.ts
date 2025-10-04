@@ -4,22 +4,21 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { useNavigation } from "./router"
 import { ROUTES } from "#/constants/router"
 import { trpc } from "#/app/_trpc/client"
-import { shuffle } from "#/lib/utils"
 import { DateTime } from "luxon"
 import { useInterval } from "usehooks-ts"
-import { MEMO_GAME_GUESS_COOLDOWN } from "#/constants/memo-game"
+import { MEMO_GAME_GUESS_COOLDOWN } from "#/constants/game"
 
 export const useMemoGame = () => {
-  const {
-    data: kanjiSet,
-    isLoading,
-    refetch
-  } = trpc.memoGame.getMemoGameKanji.useQuery()
+  const { data, isLoading, refetch } = trpc.memoGame.getMemoGameKanji.useQuery()
+
+  console.log(data)
+
+  const kanjiSet = useMemo(() => data?.items ?? [], [data])
 
   const cards = useMemo(
     () =>
       kanjiSet && kanjiSet.length > 0
-        ? shuffle(kanjiSet.flatMap((item) => Object.values(item)))
+        ? kanjiSet.flatMap((item) => Object.values(item))
         : [],
     [kanjiSet]
   )

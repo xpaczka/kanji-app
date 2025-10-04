@@ -1,37 +1,30 @@
-import {
-  getAllKanjiQuery,
-  getKanjiByLevelQuery,
-  updateUserKanjiHistory
-} from "#/database/queries"
+import { FLASHCARDS_GAME_KANJI_COUNT } from "#/constants"
 import { getRandomKanjiSet } from "#/lib/kanji"
-import { kanjiSessionItemSchema } from "#/schemas/kanji"
 import { protectedProcedure, router } from "#/server/trpc"
-import { DatabaseKanji, kanjiItemJlptLevelSchema } from "#/types"
 import { TRPCError } from "@trpc/server"
 
-const KANJI_SESSION_COUNT = 10
-
 export const flashcardsRouter = router({
-  getFlashcardsSessionKanji: protectedProcedure
-    .input(kanjiItemJlptLevelSchema.optional())
-    .query(async ({ ctx, input }): Promise<DatabaseKanji[]> => {
-      const currentLevelKanji = input
-        ? await getKanjiByLevelQuery(ctx.database, input)
-        : await getAllKanjiQuery(ctx.database)
+  getFlashcardsGameKanji: protectedProcedure.query(async ({ ctx }) => {
+    const { user } = ctx
 
-      if (!currentLevelKanji) {
-        throw new TRPCError({ code: "NOT_FOUND" })
-      }
+    if (!user) {
+      throw new TRPCError({ code: "UNAUTHORIZED" })
+    }
 
-      return getRandomKanjiSet(currentLevelKanji, KANJI_SESSION_COUNT)
-    }),
-  updateUserKanjiHistory: protectedProcedure
-    .input(kanjiSessionItemSchema)
-    .mutation(async ({ input, ctx }) => {
-      if (!input) {
-        throw new TRPCError({ code: "BAD_REQUEST" })
-      }
+    const { data: items, error } = await ctx.database
+      .rpc("get_review_items", { user_auth_id: user.id })
+      .select("*")
 
-      await updateUserKanjiHistory(ctx.database, input)
-    })
+    if (!items || items.length < FLASHCARDS_GAME_KANJI_COUNT) {
+      throw new TRPCError({ code: "BAD_REQUEST" })
+    }
+
+    if (error) {
+      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" })
+    }
+
+    const itemsSet = getRandomKanjiSet(items, FLASHCARDS_GAME_KANJI_COUNT)
+
+    return { items: itemsSet, count: itemsSet.length }
+  })
 })

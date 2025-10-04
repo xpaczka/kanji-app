@@ -1,39 +1,3 @@
--- TODO: Remove this function
-CREATE OR REPLACE FUNCTION update_user_kanji_history (
-    user_id UUID,
-    kanji_id UUID,
-    updated_at TIMESTAMP
-) RETURNS VOID AS $$
-    BEGIN
-        INSERT INTO user_kanji_history (user_id, kanji_id, updated_at)
-        VALUES (user_id, kanji_id, updated_at)
-        ON CONFLICT (user_id, kanji_id)
-        DO UPDATE SET updated_at = EXCLUDED.updated_at;
-    END;
-$$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION get_learn_items(user_auth_id UUID)
-RETURNS TABLE (
-    id UUID,
-    kanji VARCHAR(1),
-    level VARCHAR(7),
-    meanings TEXT[],
-    kun_readings TEXT[],
-    on_readings TEXT[]
-) AS $$
-    BEGIN
-        RETURN QUERY
-            WITH user_kanji_items AS (
-                SELECT kanji_id FROM user_kanji
-                WHERE user_id = user_auth_id
-            )
-
-            SELECT * FROM kanji
-            WHERE kanji.id NOT IN (SELECT user_kanji_items.kanji_id FROM user_kanji_items)
-            ORDER BY level DESC, kanji ASC;
-    END;
-$$ LANGUAGE plpgsql;
-
 CREATE OR REPLACE FUNCTION get_review_items(user_auth_id UUID)
 RETURNS TABLE (
     id UUID,

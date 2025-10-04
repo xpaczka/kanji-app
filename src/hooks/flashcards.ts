@@ -1,6 +1,5 @@
 import { DateTime } from "luxon"
 import { trpc } from "#/app/_trpc/client"
-import { useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useNavigation } from "./router"
 import { ROUTES } from "#/constants/router"
@@ -9,17 +8,13 @@ import {
   KanjiSessionSetItem,
   FlashcardGameItemEvaluation
 } from "#/schemas/kanji"
-import { KanjiItemJlptLevel } from "#/types"
 
 export const useFlashcardsGame = () => {
-  const params = useSearchParams()
-  const level = params.get("level") as KanjiItemJlptLevel | undefined
-
   const {
-    data: kanjiSet,
+    data,
     isLoading: isLoadingKanjiSet,
     refetch: refetchKanjiSet
-  } = trpc.flashcards.getFlashcardsSessionKanji.useQuery(level ?? undefined)
+  } = trpc.flashcards.getFlashcardsGameKanji.useQuery()
 
   const [kanjiIndex, setKanjiIndex] = useState(0)
   const [isRevealed, setIsRevealed] = useState(false)
@@ -29,6 +24,8 @@ export const useFlashcardsGame = () => {
   const [sessionStartTime, setSessionStartTime] = useState<DateTime | null>(
     null
   )
+
+  const kanjiSet = useMemo(() => data?.items ?? [], [data])
 
   useEffect(() => {
     setSessionStartTime(DateTime.now())
