@@ -7,6 +7,7 @@ import { ROUTES } from "#/constants/router"
 import LearnIntroduction from "./LearnIntroduction"
 import { getItemsForLearn } from "#/lib/utils"
 import { Database } from "#/types"
+import BackToDashboard from "../BackToDashboard"
 
 type LearnModuleProps = {
   items: Database["public"]["Functions"]["get_learn_items"]["Returns"]
@@ -36,6 +37,10 @@ export default function LearnModule({ items }: LearnModuleProps) {
     },
     [learnItems, navigate]
   )
+
+  if (!items || !items.length) {
+    return <BackToDashboard content="Failed to load learn module" />
+  }
 
   if (introductionIndex < items.length) {
     return (
