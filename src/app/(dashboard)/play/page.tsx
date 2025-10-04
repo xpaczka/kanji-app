@@ -1,3 +1,5 @@
+import PlayDashboard from "#/components/PlayDashboard"
+
 export default function PlayPage() {
-  return "play page"
+  return <PlayDashboard />
 }
