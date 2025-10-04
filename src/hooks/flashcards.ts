@@ -3,27 +3,24 @@ import { trpc } from "#/app/_trpc/client"
 import { useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useNavigation } from "./router"
-import { useAppSessionStore } from "#/store/app-session"
 import { ROUTES } from "#/constants/router"
 import { calculateTimeDifferenceToFormat } from "#/lib/utils"
-import { KanjiSessionSetItem, SessionItemEvaluation } from "#/schemas/kanji"
+import {
+  KanjiSessionSetItem,
+  FlashcardGameItemEvaluation
+} from "#/schemas/kanji"
 import { useUserRomajiPreferences } from "./user"
 import { KanjiItemJlptLevel } from "#/types"
 
-export const useFlashcardsSession = () => {
+export const useFlashcardsGame = () => {
   const params = useSearchParams()
   const level = params.get("level") as KanjiItemJlptLevel | undefined
-
-  const resetSession = useAppSessionStore((state) => state.resetSession)
 
   const {
     data: kanjiSet,
     isLoading: isLoadingKanjiSet,
     refetch: refetchKanjiSet
   } = trpc.flashcards.getFlashcardsSessionKanji.useQuery(level ?? undefined)
-
-  const { mutate: updateKanjiHistory } =
-    trpc.flashcards.updateUserKanjiHistory.useMutation()
 
   const { showRomaji, setShowRomaji } = useUserRomajiPreferences()
 
@@ -43,7 +40,7 @@ export const useFlashcardsSession = () => {
   const { navigate } = useNavigation()
 
   const evaluateKanjiHandler = useCallback(
-    (evaluation: SessionItemEvaluation) => {
+    (evaluation: FlashcardGameItemEvaluation) => {
       if (!kanjiSet) return
 
       const evalutedKanjiItem = {
@@ -53,7 +50,6 @@ export const useFlashcardsSession = () => {
       }
 
       setSessionSet((prev) => [...prev, evalutedKanjiItem])
-      updateKanjiHistory(evalutedKanjiItem)
 
       setKanjiIndex((prev) => prev + 1)
       setIsRevealed(false)
@@ -62,7 +58,7 @@ export const useFlashcardsSession = () => {
         setSessionCompleted(true)
       }
     },
-    [kanjiIndex, kanjiSet, updateKanjiHistory]
+    [kanjiIndex, kanjiSet]
   )
 
   const resetSessionState = useCallback(() => {
@@ -79,10 +75,9 @@ export const useFlashcardsSession = () => {
   }, [resetSessionState, refetchKanjiSet])
 
   const endSessionHandler = useCallback(() => {
-    navigate(ROUTES.flashcards)
+    navigate(ROUTES.index)
     resetSessionState()
-    resetSession()
-  }, [navigate, resetSessionState, resetSession])
+  }, [navigate, resetSessionState])
 
   return {
     kanjiSet,
@@ -101,9 +96,7 @@ export const useFlashcardsSession = () => {
   }
 }
 
-export const useFlashcardsSessionSummary = (
-  sessionStartTime: DateTime | null
-) => {
+export const useFlashcardsGameSummary = (sessionStartTime: DateTime | null) => {
   const [sessionEndTime, setSessionEndTime] = useState<DateTime | null>(null)
 
   useEffect(() => {

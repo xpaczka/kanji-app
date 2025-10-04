@@ -1,9 +1,9 @@
 "use client"
 
-import { useFlashcardsSession } from "#/hooks"
+import { useFlashcardsGame } from "#/hooks"
 import { Switch } from "#/components/ui/switch"
 import FlashcardSessionItem from "../flashcards/FlashcardsSessionItem"
-import FlashcardsSessionSummary from "../flashcards/FlashcardsSessionSummary"
+import FlashcardsGameSummary from "./FlashcardsGameSummary"
 import GameContainer from "../GameContainer"
 
 export default function FlashcardsGame() {
@@ -21,7 +21,7 @@ export default function FlashcardsGame() {
     evaluateKanji,
     newSession,
     endSession
-  } = useFlashcardsSession()
+  } = useFlashcardsGame()
 
   return (
     <GameContainer
@@ -29,7 +29,7 @@ export default function FlashcardsGame() {
       items={kanjiSet}
       gameCompleted={sessionCompleted}
       summaryComponent={
-        <FlashcardsSessionSummary
+        <FlashcardsGameSummary
           kanjiSet={sessionSet}
           sessionStartTime={sessionStartTime}
           onNewSessionClick={newSession}

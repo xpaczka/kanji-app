@@ -1,8 +1,8 @@
 "use client"
 
 import FlashcardSessionItem from "./FlashcardsSessionItem"
-import FlashcardsSessionSummary from "./FlashcardsSessionSummary"
-import { useFlashcardsSession } from "#/hooks"
+import FlashcardsGameSummary from "../FlashcardsGame/FlashcardsGameSummary"
+import { useFlashcardsGame } from "#/hooks"
 import { Spinner } from "#/components/ui/spinner"
 import { Switch } from "#/components/ui/switch"
 
@@ -21,7 +21,7 @@ export default function FlashcardsSession() {
     evaluateKanji,
     newSession,
     endSession
-  } = useFlashcardsSession()
+  } = useFlashcardsGame()
 
   if (isLoading) {
     return (
@@ -35,7 +35,7 @@ export default function FlashcardsSession() {
 
   if (sessionCompleted) {
     return (
-      <FlashcardsSessionSummary
+      <FlashcardsGameSummary
         kanjiSet={sessionSet}
         sessionStartTime={sessionStartTime}
         onNewSessionClick={newSession}

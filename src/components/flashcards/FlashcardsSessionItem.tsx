@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter } from "#/components/ui/card"
 import { Button } from "#/components/ui/button"
 import FlashcardsSessionReading from "./FlashcardsSessionReading"
 import { useMemo } from "react"
-import { SessionItemEvaluation } from "#/schemas/kanji"
+import { FlashcardGameItemEvaluation } from "#/schemas/kanji"
 import { DatabaseKanji } from "#/types"
 
 type FlashcardSessionItemProps = {
@@ -13,7 +13,7 @@ type FlashcardSessionItemProps = {
   isRevealed: boolean
   showRomaji: boolean
   onRevealClick: () => void
-  onEvaluateClick: (evalution: SessionItemEvaluation) => void
+  onEvaluateClick: (evalution: FlashcardGameItemEvaluation) => void
 }
 
 export default function FlashcardSessionItem({
@@ -67,28 +67,28 @@ export default function FlashcardSessionItem({
           <Button
             className="cursor-pointer"
             size="lg"
-            onClick={() => onEvaluateClick(SessionItemEvaluation.FAIL)}
+            onClick={() => onEvaluateClick(FlashcardGameItemEvaluation.FAIL)}
           >
             Fail
           </Button>
           <Button
             className="cursor-pointer"
             size="lg"
-            onClick={() => onEvaluateClick(SessionItemEvaluation.HARD)}
+            onClick={() => onEvaluateClick(FlashcardGameItemEvaluation.HARD)}
           >
             Hard
           </Button>
           <Button
             className="cursor-pointer"
             size="lg"
-            onClick={() => onEvaluateClick(SessionItemEvaluation.GOOD)}
+            onClick={() => onEvaluateClick(FlashcardGameItemEvaluation.GOOD)}
           >
             Good
           </Button>
           <Button
             className="cursor-pointer"
             size="lg"
-            onClick={() => onEvaluateClick(SessionItemEvaluation.EASY)}
+            onClick={() => onEvaluateClick(FlashcardGameItemEvaluation.EASY)}
           >
             Easy
           </Button>

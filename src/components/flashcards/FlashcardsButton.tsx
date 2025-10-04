@@ -10,7 +10,7 @@ export default function FlashcardsButton() {
   return (
     <DashboardActionItem
       title="Flashcards"
-      onClick={() => navigate(ROUTES.flashcards)}
+      onClick={() => navigate(ROUTES.playFlashcards)}
     >
       Improve your Kanji skills <br />
       with the help of flashcards
