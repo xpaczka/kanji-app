@@ -4,35 +4,11 @@ import { useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useNavigation } from "./router"
 import { useAppSessionStore } from "#/store/app-session"
-import { v4 as uuid } from "uuid"
 import { ROUTES } from "#/constants/router"
 import { calculateTimeDifferenceToFormat } from "#/lib/utils"
 import { KanjiSessionSetItem, SessionItemEvaluation } from "#/schemas/kanji"
 import { useUserRomajiPreferences } from "./user"
 import { KanjiItemJlptLevel } from "#/types"
-
-export const useInitiateFlashcardsSession = () => {
-  const setSession = useAppSessionStore((state) => state.setSession)
-  const { navigate } = useNavigation()
-
-  const initiateFlashcardsSessionHandler = useCallback(
-    (level: KanjiItemJlptLevel | undefined) => {
-      const sessionId = uuid()
-      const levelParam = level ? `?level=${level}` : ""
-
-      setSession({
-        sessionId,
-        sessionType: "flashcards",
-        sessionParentUrl: ROUTES.flashcards
-      })
-
-      navigate(`${ROUTES.flashcards}/${sessionId}${levelParam}`)
-    },
-    [navigate, setSession]
-  )
-
-  return { initiateFlashcardsSession: initiateFlashcardsSessionHandler }
-}
 
 export const useFlashcardsSession = () => {
   const params = useSearchParams()
@@ -49,7 +25,6 @@ export const useFlashcardsSession = () => {
   const { mutate: updateKanjiHistory } =
     trpc.flashcards.updateUserKanjiHistory.useMutation()
 
-  const { initiateFlashcardsSession } = useInitiateFlashcardsSession()
   const { showRomaji, setShowRomaji } = useUserRomajiPreferences()
 
   const [kanjiIndex, setKanjiIndex] = useState(0)
@@ -100,9 +75,8 @@ export const useFlashcardsSession = () => {
 
   const newSessionHandler = useCallback(() => {
     resetSessionState()
-    initiateFlashcardsSession(level)
     refetchKanjiSet()
-  }, [resetSessionState, refetchKanjiSet, initiateFlashcardsSession, level])
+  }, [resetSessionState, refetchKanjiSet])
 
   const endSessionHandler = useCallback(() => {
     navigate(ROUTES.flashcards)
@@ -125,21 +99,6 @@ export const useFlashcardsSession = () => {
     newSession: newSessionHandler,
     endSession: endSessionHandler
   }
-}
-
-export const useFlashcardsLevelChoice = (
-  isDisabled: boolean,
-  level?: KanjiItemJlptLevel
-) => {
-  const { initiateFlashcardsSession } = useInitiateFlashcardsSession()
-
-  const flashcardsSessionHandler = useCallback(() => {
-    if (isDisabled) return
-
-    initiateFlashcardsSession(level)
-  }, [level, isDisabled, initiateFlashcardsSession])
-
-  return { startFlashcardsSession: flashcardsSessionHandler }
 }
 
 export const useFlashcardsSessionSummary = (
