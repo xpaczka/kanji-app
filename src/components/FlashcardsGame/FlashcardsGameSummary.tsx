@@ -4,7 +4,7 @@ import { DateTime } from "luxon"
 import { useFlashcardsGameSummary } from "#/hooks"
 import { useWindowSize } from "usehooks-ts"
 import Confetti from "react-confetti"
-import { GameButton } from "../Game"
+import { BaseButton } from "../Misc"
 import { FlashcardsItem, FlashcardsItemEvaluation } from "#/types"
 
 type FlashcardsGameSummaryProps = {
@@ -70,8 +70,8 @@ export default function FlashcardsGameSummary({
             </div>
           </div>
           <div className="flex w-full gap-4">
-            <GameButton onClick={onNewSessionClick} label="Play again" />
-            <GameButton onClick={onEndSessionClick} label="Go to dashboard" />
+            <BaseButton onClick={onNewSessionClick} label="Play again" />
+            <BaseButton onClick={onEndSessionClick} label="Go to dashboard" />
           </div>
         </div>
       </div>
