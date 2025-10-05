@@ -3,7 +3,7 @@ import { trpc } from "#/app/_trpc/client"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useNavigation } from "./router"
 import { ROUTES } from "#/constants/router"
-import { calculateTimeDifferenceToFormat } from "#/lib/utils"
+import { calculateTimeDifferenceToFormat, shuffle } from "#/lib/utils"
 import {
   KanjiSessionSetItem,
   FlashcardGameItemEvaluation
@@ -25,7 +25,7 @@ export const useFlashcardsGame = () => {
     null
   )
 
-  const kanjiSet = useMemo(() => data?.items ?? [], [data])
+  const kanjiSet = useMemo(() => shuffle(data?.items ?? []), [data])
 
   useEffect(() => {
     setSessionStartTime(DateTime.now())
