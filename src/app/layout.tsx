@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { Ubuntu } from "next/font/google"
 import "./globals.css"
 import TrpcProvider from "../providers/TrpcProvider"
-import StoreProvider from "#/providers/StoreProvider"
 import { NavigationMenu } from "#/components/NavigationMenu"
 import Footer from "#/components/Footer"
 import createSupabaseClient from "#/database/client"
@@ -30,19 +29,17 @@ export default async function RootLayout({
 
   return (
     <TrpcProvider>
-      <StoreProvider>
-        <html lang="en">
-          <body className={`${fontFamily.className} antialiased`}>
-            <div
-              className={`root flex min-h-screen flex-col bg-gray-100 px-6 pt-20 lg:px-10 ${!!user ? "lg:pt-24" : ""}`}
-            >
-              <NavigationMenu />
-              <div className="flex-1">{children}</div>
-              <Footer />
-            </div>
-          </body>
-        </html>
-      </StoreProvider>
+      <html lang="en">
+        <body className={`${fontFamily.className} antialiased`}>
+          <div
+            className={`root flex min-h-screen flex-col bg-gray-100 px-6 pt-20 lg:px-10 ${!!user ? "lg:pt-24" : ""}`}
+          >
+            <NavigationMenu />
+            <div className="flex-1">{children}</div>
+            <Footer />
+          </div>
+        </body>
+      </html>
     </TrpcProvider>
   )
 }
