@@ -1,8 +1,8 @@
 "use server"
 
 import createSupabaseClient from "#/database/client"
+import { SignUpFormSchema } from "#/types"
 import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
 
 type SignUpProps = {
   username: string
@@ -10,14 +10,19 @@ type SignUpProps = {
   password: string
 }
 
-const signUp = async (data: SignUpProps) => {
+const signUp = async (data: SignUpProps): Promise<{ error: string | null }> => {
   const supabase = await createSupabaseClient()
+
+  const { success, error: validationError } = SignUpFormSchema.safeParse(data)
+
+  if (!success || validationError) {
+    return { error: validationError.message }
+  }
 
   // TODO: Validate the inputs
   const { error } = await supabase.auth.signUp({
     ...data,
     options: {
-      // TODO: Reevalute username setting
       data: {
         username: data.username
       }
@@ -25,11 +30,12 @@ const signUp = async (data: SignUpProps) => {
   })
 
   if (error) {
-    // TODO: Add better error handling
-    redirect("/error")
+    return { error: error.message }
   }
 
   revalidatePath("/", "layout")
+
+  return { error: null }
 }
 
 export default signUp

@@ -1,6 +1,7 @@
 "use server"
 
 import createSupabaseClient from "#/database/client"
+import { SignInFormSchema } from "#/types"
 import { revalidatePath } from "next/cache"
 
 type SignInProps = {
@@ -11,7 +12,12 @@ type SignInProps = {
 const signIn = async (data: SignInProps): Promise<{ error: string | null }> => {
   const supabase = await createSupabaseClient()
 
-  // TODO: Validate the inputs
+  const { success, error: validationError } = SignInFormSchema.safeParse(data)
+
+  if (!success || validationError) {
+    return { error: validationError.message }
+  }
+
   const { error } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
