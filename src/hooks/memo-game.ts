@@ -129,7 +129,7 @@ export const useMemoGame = () => {
       setGuessCount((prev) => prev + 1)
       setFirstChoice(null)
       setSecondChoice(null)
-    }, MEMO_GAME_GUESS_COOLDOWN * 1_000)
+    }, MEMO_GAME_GUESS_COOLDOWN)
 
     return () => clearTimeout(timeout)
   }, [firstChoice, secondChoice, memoGamePairs, cardsRevealed, setGuessCount])
