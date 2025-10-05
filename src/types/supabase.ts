@@ -61,21 +61,6 @@ export type Database = {
         }
         Relationships: []
       }
-      preferences: {
-        Row: {
-          user_id: string | null
-          values: Json | null
-        }
-        Insert: {
-          user_id?: string | null
-          values?: Json | null
-        }
-        Update: {
-          user_id?: string | null
-          values?: Json | null
-        }
-        Relationships: []
-      }
       user_kanji: {
         Row: {
           id: string
@@ -101,35 +86,6 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "user_kanji_kanji_id_fkey"
-            columns: ["kanji_id"]
-            isOneToOne: false
-            referencedRelation: "kanji"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      user_kanji_history: {
-        Row: {
-          id: string
-          kanji_id: string | null
-          updated_at: string
-          user_id: string | null
-        }
-        Insert: {
-          id?: string
-          kanji_id?: string | null
-          updated_at?: string
-          user_id?: string | null
-        }
-        Update: {
-          id?: string
-          kanji_id?: string | null
-          updated_at?: string
-          user_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_kanji_history_kanji_id_fkey"
             columns: ["kanji_id"]
             isOneToOne: false
             referencedRelation: "kanji"

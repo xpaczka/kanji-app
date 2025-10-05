@@ -2,8 +2,8 @@
 
 import { useFlashcardsGame } from "#/hooks"
 import FlashcardsGameSummary from "./FlashcardsGameSummary"
-import GameContainer from "../GameContainer"
 import FlashcardsGameItem from "./FlashcardsGameItem"
+import { GameContainer } from "../Game"
 
 export default function FlashcardsGame() {
   const {

@@ -1,4 +1,4 @@
-import { LayoutSection } from "#/components/Layout"
+import LayoutSection from "#/components/LayoutSection"
 import { createServerClient } from "../../_trpc/server-client"
 import KanjiCard from "#/components/Card/KanjiCard"
 import { LearnStage } from "#/types"

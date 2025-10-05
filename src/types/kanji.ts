@@ -1,13 +1,15 @@
 import { z } from "zod"
-import { Database } from "./supabase"
 import { ChangeEvent } from "react"
 
-export type DatabaseKanji = Database["public"]["Tables"]["kanji"]["Row"]
-export type KanjiItemJlptLevel = z.infer<typeof kanjiItemJlptLevelSchema>
+// Schemas
+export const KanjiValidationStateSchema = z
+  .enum(["valid", "invalid"])
+  .nullable()
 
-export type KanjiValidationState = "valid" | "invalid" | null
+// Types
+export type KanjiValidationState = z.infer<typeof KanjiValidationStateSchema>
 
-export type KanjiItemProps = {
+export type KanjiItemInputObject = {
   kanji: string
   meanings?: string[]
   readings?: string[]
@@ -17,11 +19,3 @@ export type KanjiItemProps = {
   onSubmit: (key: KeyboardEvent["key"]) => void
   nextItemHandler: () => void
 }
-
-export const kanjiItemJlptLevelSchema = z.enum([
-  "jlpt-n1",
-  "jlpt-n2",
-  "jlpt-n3",
-  "jlpt-n4",
-  "jlpt-n5"
-])

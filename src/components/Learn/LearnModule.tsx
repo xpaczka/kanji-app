@@ -5,12 +5,12 @@ import LearnItem from "./LearnItem"
 import { useNavigation } from "#/hooks"
 import { ROUTES } from "#/constants/router"
 import LearnIntroduction from "./LearnIntroduction"
-import { getItemsForLearn } from "#/lib/utils"
-import { Database } from "#/types"
-import BackToDashboard from "../BackToDashboard"
+import { DatabaseGetLearnItems } from "#/types"
+import { BackToDashboard } from "../Misc"
+import { getItemsForLearn } from "#/utils"
 
 type LearnModuleProps = {
-  items: Database["public"]["Functions"]["get_learn_items"]["Returns"]
+  items: DatabaseGetLearnItems
 }
 
 export default function LearnModule({ items }: LearnModuleProps) {

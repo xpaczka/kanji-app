@@ -1,5 +1,5 @@
 import { FlashcardsGame } from "#/components/FlashcardsGame"
-import { LayoutSection } from "#/components/Layout"
+import LayoutSection from "#/components/LayoutSection"
 
 export default function FlashcardsPage() {
   return (

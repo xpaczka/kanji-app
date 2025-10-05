@@ -1,10 +1,13 @@
-import { Auth } from "#/components/Auth"
+import { Auth } from "#/components/Authorization"
 import Dashboard from "#/components/Dashboard"
-import { createServerClient } from "./_trpc/server-client"
+import createSupabaseClient from "#/database/client"
 
 export default async function Home() {
-  const serverClient = await createServerClient()
-  const user = await serverClient.user.getUser()
+  const supabase = await createSupabaseClient()
+
+  const {
+    data: { user }
+  } = await supabase.auth.getUser()
 
   return user ? <Dashboard /> : <Auth />
 }

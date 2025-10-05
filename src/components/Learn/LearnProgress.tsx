@@ -3,7 +3,7 @@ import { LEARN_STAGE_COLORS } from "#/constants"
 import { LearnStage } from "#/types"
 import { groupKanjiProgressByStageName } from "#/utils"
 import { LearnStageCard } from "../Card"
-import { LayoutSection } from "../Layout"
+import LayoutSection from "../LayoutSection"
 
 export default async function LearnProgress() {
   const serverClient = await createServerClient()

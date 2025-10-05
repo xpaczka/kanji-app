@@ -2,7 +2,7 @@ import Link from "next/link"
 import { OverridableComponent } from "@mui/material/OverridableComponent"
 import { SvgIconTypeMap } from "@mui/material"
 import { ReactNode } from "react"
-import { cn } from "#/lib/utils"
+import { cn } from "#/utils"
 import MotionCard from "./MotionCard"
 
 type DashboardCardProps = {

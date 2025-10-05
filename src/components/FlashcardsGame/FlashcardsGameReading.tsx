@@ -1,11 +1,6 @@
 import { ReactNode } from "react"
 import InfoIcon from "@mui/icons-material/Info"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger
-} from "#/components/ui/tooltip"
+import { Tooltip } from "@base-ui-components/react/tooltip"
 
 type FlashcardsGameReadingProps = {
   children: ReactNode
@@ -19,16 +14,20 @@ export default function FlashcardsGameReading({
   return (
     <div className="flex items-center gap-1">
       <p className="text-sm text-gray-600">{children}</p>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger className="flex items-center">
+      <Tooltip.Provider>
+        <Tooltip.Root>
+          <Tooltip.Trigger className="flex items-center">
             <InfoIcon color="disabled" fontSize="small" />
-          </TooltipTrigger>
-          <TooltipContent className="max-w-[250px] text-center">
-            <p>{tooltipContent}</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+          </Tooltip.Trigger>
+          <Tooltip.Portal>
+            <Tooltip.Positioner>
+              <Tooltip.Popup className="max-w-[250px] rounded-md bg-black px-4 py-2 text-center text-white">
+                <p>{tooltipContent}</p>
+              </Tooltip.Popup>
+            </Tooltip.Positioner>
+          </Tooltip.Portal>
+        </Tooltip.Root>
+      </Tooltip.Provider>
     </div>
   )
 }

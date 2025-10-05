@@ -1,9 +1,12 @@
 import { FLASHCARDS_GAME_KANJI_COUNT } from "#/constants"
-import { getRandomKanjiSet } from "#/lib/kanji"
 import { protectedProcedure, router } from "#/server/trpc"
+import { getRandomKanjiSet } from "#/utils"
 import { TRPCError } from "@trpc/server"
 
 export const flashcardsRouter = router({
+  /**
+   * QUERY: Retrieve kanji for flashcards game session
+   */
   getFlashcardsGameKanji: protectedProcedure.query(async ({ ctx }) => {
     const { user } = ctx
 
