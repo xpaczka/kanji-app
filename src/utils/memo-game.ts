@@ -1,7 +1,4 @@
-export type MemoGameChoice = {
-  value: string
-  index: number
-} | null
+import { MemoGameChoice } from "#/types"
 
 export const checkMemoGamePairs = (
   pairs: { [key: string]: string },

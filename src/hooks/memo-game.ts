@@ -6,7 +6,8 @@ import { trpc } from "#/app/_trpc/client"
 import { DateTime } from "luxon"
 import { useInterval } from "usehooks-ts"
 import { shuffle } from "#/utils"
-import { checkMemoGamePairs, MemoGameChoice } from "#/utils"
+import { checkMemoGamePairs } from "#/utils"
+import { MemoGameChoice } from "#/types"
 
 const MEMO_GAME_GUESS_COOLDOWN = 1_000 // 1 second in milliseconds
 

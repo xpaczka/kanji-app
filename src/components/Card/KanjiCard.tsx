@@ -1,4 +1,4 @@
-import { Database } from "#/types"
+import { DatabaseGetKanjiWithStage, DatabaseKanjiTableItem } from "#/types"
 import MotionCard from "./MotionCard"
 import { Modal } from "../Modal"
 import { formatReadings } from "#/utils"
@@ -7,7 +7,7 @@ import { resolveStageName } from "#/utils"
 import { useMemo } from "react"
 
 type KanjiCardProps = {
-  item: Database["public"]["Functions"]["get_kanji_with_stage"]["Returns"][0]
+  item: DatabaseKanjiTableItem | DatabaseGetKanjiWithStage[0]
   isLearnCard?: boolean
 }
 
@@ -15,8 +15,7 @@ export default function KanjiCard({
   item,
   isLearnCard = false
 }: KanjiCardProps) {
-  const { kanji, level, kun_readings, on_readings, meanings, kanji_stage } =
-    item
+  const { kanji, level, kun_readings, on_readings, meanings } = item
 
   const kunReadings = formatReadings(kun_readings)
   const onReadings = formatReadings(on_readings)
@@ -25,7 +24,9 @@ export default function KanjiCard({
     .map((value) => (isNaN(Number(value)) ? value : null))
     .filter((value) => value !== null)
 
-  const stageName = resolveStageName(kanji_stage)
+  const stageName = resolveStageName(
+    (item as DatabaseGetKanjiWithStage[0]).kanji_stage
+  )
 
   const kanjiCardColor = useMemo(() => {
     if (isLearnCard) return "bg-white"

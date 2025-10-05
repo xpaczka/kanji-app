@@ -4,7 +4,7 @@ import { motion } from "motion/react"
 import { Input } from "@base-ui-components/react/input"
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded"
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded"
-import { KanjiItemProps } from "#/types"
+import { KanjiItemInputObject } from "#/types"
 
 export default function KanjiItem({
   kanji,
@@ -15,7 +15,7 @@ export default function KanjiItem({
   onInputChange,
   onSubmit,
   nextItemHandler
-}: KanjiItemProps) {
+}: KanjiItemInputObject) {
   return (
     <div className="flex justify-center">
       <div className="inline-flex flex-col items-center justify-center rounded-md border-2 border-gray-200 bg-white p-12 shadow-md">

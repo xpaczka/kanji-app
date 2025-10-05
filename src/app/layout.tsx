@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+import { Metadata } from "next"
 import { Ubuntu } from "next/font/google"
 import "./globals.css"
 import TrpcProvider from "../providers/TrpcProvider"

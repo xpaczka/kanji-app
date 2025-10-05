@@ -2,29 +2,26 @@
 
 import { DateTime } from "luxon"
 import { useFlashcardsGameSummary } from "#/hooks"
-import {
-  KanjiSessionSetItem,
-  FlashcardGameItemEvaluation
-} from "#/schemas/kanji"
 import { useWindowSize } from "usehooks-ts"
 import Confetti from "react-confetti"
 import { GameButton } from "../Game"
+import { FlashcardsItem, FlashcardsItemEvaluation } from "#/types"
 
 type FlashcardsGameSummaryProps = {
-  kanjiSet: KanjiSessionSetItem[]
+  kanjiSet: FlashcardsItem[]
   sessionStartTime: DateTime | null
   onNewSessionClick: () => void
   onEndSessionClick: () => void
 }
 
-const EVALUATION_VARIANTS: Record<FlashcardGameItemEvaluation, string> = {
-  [FlashcardGameItemEvaluation.FAIL]: "bg-red-400",
-  [FlashcardGameItemEvaluation.HARD]: "bg-orange-400",
-  [FlashcardGameItemEvaluation.GOOD]: "bg-yellow-400",
-  [FlashcardGameItemEvaluation.EASY]: "bg-green-400"
+const EVALUATION_VARIANTS: Record<FlashcardsItemEvaluation, string> = {
+  [FlashcardsItemEvaluation.FAIL]: "bg-red-400",
+  [FlashcardsItemEvaluation.HARD]: "bg-orange-400",
+  [FlashcardsItemEvaluation.GOOD]: "bg-yellow-400",
+  [FlashcardsItemEvaluation.EASY]: "bg-green-400"
 }
 
-const mapEvaluationToColor = (evaluation: FlashcardGameItemEvaluation) =>
+const mapEvaluationToColor = (evaluation: FlashcardsItemEvaluation) =>
   EVALUATION_VARIANTS[evaluation]
 
 export default function FlashcardsGameSummary({

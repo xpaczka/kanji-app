@@ -15,6 +15,7 @@
     "supabase:reload": "bun run ./src/database/seed.ts --data-path ./scripts/data.json && bunx supabase db reset && bunx supabase gen types typescript --local > ./src/types/supabase.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^4.1.2",
     "@base-ui-components/react": "^1.0.0-beta.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",

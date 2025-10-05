@@ -1,5 +1,9 @@
 import { shuffle } from "#/utils"
-import { Database, LearnStage } from "#/types"
+import {
+  DatabaseGetUserKanji,
+  DatabaseUserKanjiTableItem,
+  LearnStage
+} from "#/types"
 
 const STAGE_GROUPING: Record<number, LearnStage> = {
   1: LearnStage.Stage1,
@@ -15,9 +19,9 @@ const STAGE_GROUPING: Record<number, LearnStage> = {
 }
 
 export const getRandomKanjiSet = (
-  kanjiSet: Database["public"]["Functions"]["get_user_kanji"]["Returns"],
+  kanjiSet: DatabaseGetUserKanji,
   count: number
-): Database["public"]["Functions"]["get_user_kanji"]["Returns"] => {
+): DatabaseGetUserKanji => {
   const uniqueKanjiSet = Array.from(
     new Map(kanjiSet.map((item) => [item.kanji, item])).values()
   )
@@ -40,7 +44,7 @@ export const resolveStageName = (stage?: number): LearnStage | null => {
 }
 
 export const groupKanjiProgressByStageName = (
-  items: Database["public"]["Tables"]["user_kanji"]["Row"][]
+  items: DatabaseUserKanjiTableItem[]
 ): Record<LearnStage, number> => {
   const stages: Record<LearnStage, number> = {
     [LearnStage.Stage1]: 0,

@@ -1,17 +1,16 @@
 "use client"
 
-import { FlashcardGameItemEvaluation } from "#/schemas/kanji"
-import { DatabaseKanji } from "#/types"
+import { DatabaseKanjiTableItem, FlashcardsItemEvaluation } from "#/types"
 import FlashcardsGameReading from "./FlashcardsGameReading"
 import { motion } from "motion/react"
 import FlashcardsGameItemButton from "./FlashcardsGameItemButton"
 import { useEffect, useState } from "react"
 
 type FlashcardsGameItemProps = {
-  kanji: DatabaseKanji
+  kanji: DatabaseKanjiTableItem
   isRevealed: boolean
   onRevealClick: () => void
-  onEvaluateClick: (evalution: FlashcardGameItemEvaluation) => void
+  onEvaluateClick: (evalution: FlashcardsItemEvaluation) => void
 }
 
 export default function FlashcardsGameItem({
@@ -81,32 +80,24 @@ export default function FlashcardsGameItem({
               </div>
               <div className="mt-4 grid w-full grid-cols-2 items-center gap-4">
                 <FlashcardsGameItemButton
-                  onClick={() =>
-                    onEvaluateClick(FlashcardGameItemEvaluation.FAIL)
-                  }
+                  onClick={() => onEvaluateClick(FlashcardsItemEvaluation.FAIL)}
                 >
-                  {FlashcardGameItemEvaluation.FAIL.toUpperCase()}
+                  {FlashcardsItemEvaluation.FAIL.toUpperCase()}
                 </FlashcardsGameItemButton>
                 <FlashcardsGameItemButton
-                  onClick={() =>
-                    onEvaluateClick(FlashcardGameItemEvaluation.HARD)
-                  }
+                  onClick={() => onEvaluateClick(FlashcardsItemEvaluation.HARD)}
                 >
-                  {FlashcardGameItemEvaluation.HARD.toUpperCase()}
+                  {FlashcardsItemEvaluation.HARD.toUpperCase()}
                 </FlashcardsGameItemButton>
                 <FlashcardsGameItemButton
-                  onClick={() =>
-                    onEvaluateClick(FlashcardGameItemEvaluation.GOOD)
-                  }
+                  onClick={() => onEvaluateClick(FlashcardsItemEvaluation.GOOD)}
                 >
-                  {FlashcardGameItemEvaluation.GOOD.toUpperCase()}
+                  {FlashcardsItemEvaluation.GOOD.toUpperCase()}
                 </FlashcardsGameItemButton>
                 <FlashcardsGameItemButton
-                  onClick={() =>
-                    onEvaluateClick(FlashcardGameItemEvaluation.EASY)
-                  }
+                  onClick={() => onEvaluateClick(FlashcardsItemEvaluation.EASY)}
                 >
-                  {FlashcardGameItemEvaluation.EASY.toUpperCase()}
+                  {FlashcardsItemEvaluation.EASY.toUpperCase()}
                 </FlashcardsGameItemButton>
               </div>
             </div>

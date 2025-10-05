@@ -1,9 +1,7 @@
-import { Database } from "#/types"
+import { DatabaseGetLearnItems } from "#/types"
 import { shuffle, formatReadings } from "../utils"
 
-export const getItemsForLearn = (
-  items: Database["public"]["Functions"]["get_learn_items"]["Returns"]
-) =>
+export const getItemsForLearn = (items: DatabaseGetLearnItems) =>
   shuffle(
     items.flatMap(({ id, kanji, on_readings, meanings }) => [
       ...(meanings.length > 0 ? [{ kanjiId: id, kanji, meanings }] : []),

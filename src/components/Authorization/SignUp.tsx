@@ -6,12 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Field } from "@base-ui-components/react/field"
 import { Form } from "@base-ui-components/react/form"
 import { useCallback } from "react"
-import { SignUpForm, signUpFormSchema } from "#/schemas/auth"
 import { signUp } from "#/actions"
+import { SignUpForm, SignUpFormSchema } from "#/types"
 
 export default function SignUp() {
   const form = useForm<SignUpForm>({
-    resolver: zodResolver(signUpFormSchema),
+    resolver: zodResolver(SignUpFormSchema),
     defaultValues: { email: "", username: "", password: "" }
   })
 

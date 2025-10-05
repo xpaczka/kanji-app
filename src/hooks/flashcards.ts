@@ -4,10 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { useNavigation } from "./router"
 import { ROUTES } from "#/constants/router"
 import { calculateTimeDifferenceToFormat, shuffle } from "#/utils"
-import {
-  KanjiSessionSetItem,
-  FlashcardGameItemEvaluation
-} from "#/schemas/kanji"
+import { FlashcardsItem, FlashcardsItemEvaluation } from "#/types"
 
 export const useFlashcardsGame = () => {
   const {
@@ -20,7 +17,7 @@ export const useFlashcardsGame = () => {
   const [isRevealed, setIsRevealed] = useState(false)
 
   const [sessionCompleted, setSessionCompleted] = useState(false)
-  const [sessionSet, setSessionSet] = useState<KanjiSessionSetItem[]>([])
+  const [sessionSet, setSessionSet] = useState<FlashcardsItem[]>([])
   const [sessionStartTime, setSessionStartTime] = useState<DateTime | null>(
     null
   )
@@ -34,7 +31,7 @@ export const useFlashcardsGame = () => {
   const { navigate } = useNavigation()
 
   const evaluateKanjiHandler = useCallback(
-    (evaluation: FlashcardGameItemEvaluation) => {
+    (evaluation: FlashcardsItemEvaluation) => {
       if (!kanjiSet) return
 
       const evalutedKanjiItem = {

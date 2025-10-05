@@ -1,9 +1,7 @@
-import { Database } from "#/types"
+import { DatabaseGetReviewItems } from "#/types"
 import { shuffle, formatReadings } from "../utils"
 
-export const getItemsForReview = (
-  items: Database["public"]["Functions"]["get_review_items"]["Returns"]
-) =>
+export const getItemsForReview = (items: DatabaseGetReviewItems) =>
   shuffle(
     items.flatMap(
       ({ id, kanji, on_readings, meanings, kanji_stage, user_kanji_uuid }) => [

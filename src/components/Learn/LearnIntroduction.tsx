@@ -1,10 +1,10 @@
-import { Database } from "#/types"
+import { DatabaseKanjiTableItem } from "#/types"
 import { KanjiCard } from "../Card"
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded"
 import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftRounded"
 
 type LearnIntroductionProps = {
-  item: Database["public"]["Tables"]["kanji"]["Row"]
+  item: DatabaseKanjiTableItem
   currentIndex: number
   getNextItem: () => void
   getPreviousItem: () => void

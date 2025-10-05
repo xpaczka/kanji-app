@@ -8,14 +8,6 @@ CREATE TABLE IF NOT EXISTS kanji (
     on_readings TEXT[] NOT NULL
 );
 
--- Preferences table
-CREATE TABLE IF NOT EXISTS preferences (
-    user_id UUID,
-    values JSON DEFAULT NULL,
-
-    FOREIGN KEY (user_id) REFERENCES auth.users (id) ON UPDATE CASCADE
-);
-
 -- User Kanji table
 CREATE TABLE IF NOT EXISTS user_kanji (
     id UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
@@ -23,17 +15,6 @@ CREATE TABLE IF NOT EXISTS user_kanji (
     kanji_id UUID NOT NULL,
     stage INT NOT NULL,
     next_review_at TIMESTAMP,
-
-    FOREIGN KEY (user_id) REFERENCES auth.users (id) ON UPDATE CASCADE,
-    FOREIGN KEY (kanji_id) REFERENCES kanji (id) ON UPDATE CASCADE
-);
-
--- User Kanji History table
-CREATE TABLE IF NOT EXISTS user_kanji_history (
-    id UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
-    user_id UUID,
-    kanji_id UUID,
-    updated_at TIMESTAMP NOT NULL DEFAULT now(),
 
     FOREIGN KEY (user_id) REFERENCES auth.users (id) ON UPDATE CASCADE,
     FOREIGN KEY (kanji_id) REFERENCES kanji (id) ON UPDATE CASCADE

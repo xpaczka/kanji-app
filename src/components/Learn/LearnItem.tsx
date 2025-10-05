@@ -11,11 +11,11 @@ import { toHiragana } from "wanakana"
 import similarity from "similarity"
 import { trpc } from "#/app/_trpc/client"
 import { calculateNextReviewTime } from "#/utils"
-import { KanjiItemProps, KanjiValidationState } from "#/types"
+import { KanjiItemInputObject, KanjiValidationState } from "#/types"
 import { KanjiItem } from "../Kanji"
 
 type LearnItemProps = Omit<
-  KanjiItemProps,
+  KanjiItemInputObject,
   | "validationState"
   | "onSubmit"
   | "onInputChange"
