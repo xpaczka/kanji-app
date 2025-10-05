@@ -1,6 +1,6 @@
 import { JSX, ReactNode } from "react"
-import { Spinner } from "../ui/spinner"
 import BackToDashboard from "../BackToDashboard"
+import Spinner from "../Spinner"
 
 type GameContainerProps<T> = {
   content: ReactNode
@@ -18,11 +18,7 @@ export default function GameContainer<T>({
   gameCompleted
 }: GameContainerProps<T>) {
   if (isLoading) {
-    return (
-      <Spinner size="large">
-        <span className="text-sm">Loading...</span>
-      </Spinner>
-    )
+    return <Spinner />
   }
 
   if (gameCompleted) {
