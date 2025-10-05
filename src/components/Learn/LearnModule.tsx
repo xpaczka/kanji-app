@@ -7,7 +7,7 @@ import { ROUTES } from "#/constants/router"
 import LearnIntroduction from "./LearnIntroduction"
 import { getItemsForLearn } from "#/lib/utils"
 import { Database } from "#/types"
-import BackToDashboard from "../BackToDashboard"
+import { BackToDashboard } from "../Misc"
 
 type LearnModuleProps = {
   items: Database["public"]["Functions"]["get_learn_items"]["Returns"]

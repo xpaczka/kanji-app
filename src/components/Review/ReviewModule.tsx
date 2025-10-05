@@ -6,7 +6,7 @@ import { getItemsForReview } from "#/lib/utils"
 import { Database } from "#/types"
 import { useCallback, useState } from "react"
 import ReviewItem from "./ReviewItem"
-import BackToDashboard from "../BackToDashboard"
+import { BackToDashboard } from "../Misc"
 
 type ReviewModuleProps = {
   items: Database["public"]["Functions"]["get_review_items"]["Returns"]

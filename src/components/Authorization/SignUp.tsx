@@ -3,14 +3,8 @@
 import { SubmitHandler, useForm } from "react-hook-form"
 import { Input } from "@base-ui-components/react/input"
 import { zodResolver } from "@hookform/resolvers/zod"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from "../ui/form"
+import { Field } from "@base-ui-components/react/field"
+import { Form } from "@base-ui-components/react/form"
 import { useCallback } from "react"
 import { SignUpForm, signUpFormSchema } from "#/schemas/auth"
 import { signUp } from "#/actions"
@@ -26,71 +20,50 @@ export default function SignUp() {
   }, [])
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col items-center gap-4"
-      >
-        <FormField
-          control={form.control}
+    <Form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className="flex flex-col items-center gap-4"
+    >
+      <Field.Root>
+        <Field.Label>Email</Field.Label>
+        <Field.Control
           name="email"
-          render={({ field }) => (
-            <FormItem className="flex flex-col items-center">
-              <FormLabel>{`${field.name[0].toUpperCase()}${field.name.slice(
-                1
-              )}`}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="example@gmail.com"
-                  {...field}
-                  className="w-[280px] text-center"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          render={(props) => (
+            <Input
+              placeholder="example@gmail.com"
+              className="w-[280px] text-center"
+              {...props}
+            />
           )}
         />
-        <FormField
-          control={form.control}
+      </Field.Root>
+      <Field.Root>
+        <Field.Label>Username</Field.Label>
+        <Field.Control
           name="username"
-          render={({ field }) => (
-            <FormItem className="flex flex-col items-center">
-              <FormLabel>{`${field.name[0].toUpperCase()}${field.name.slice(
-                1
-              )}`}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Your username"
-                  {...field}
-                  className="w-[280px] text-center"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          render={(props) => (
+            <Input
+              placeholder="example@gmail.com"
+              className="w-[280px] text-center"
+              {...props}
+            />
           )}
         />
-        <FormField
-          control={form.control}
+      </Field.Root>
+      <Field.Root>
+        <Field.Label>Password</Field.Label>
+        <Field.Control
           name="password"
-          render={({ field }) => (
-            <FormItem className="flex flex-col items-center">
-              <FormLabel>{`${field.name[0].toUpperCase()}${field.name.slice(
-                1
-              )}`}</FormLabel>
-              <FormControl>
-                <Input
-                  type="password"
-                  placeholder={"*".repeat(16)}
-                  {...field}
-                  className="w-[280px] text-center"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          render={(props) => (
+            <Input
+              placeholder="Your username"
+              className="w-[280px] text-center"
+              {...props}
+            />
           )}
         />
-        <button type="submit">Sign up</button>
-      </form>
+      </Field.Root>
+      <button type="submit">Sign in</button>
     </Form>
   )
 }

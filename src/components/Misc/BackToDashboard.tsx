@@ -2,7 +2,7 @@
 
 import { ROUTES } from "#/constants"
 import { useNavigation } from "#/hooks"
-import { GameButton } from "./Game"
+import { GameButton } from "../Game"
 
 type BackToDashboardProps = {
   content: string
