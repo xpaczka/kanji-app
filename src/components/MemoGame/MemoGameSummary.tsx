@@ -5,7 +5,7 @@ import { DateTime } from "luxon"
 import { calculateTimeDifferenceToFormat } from "#/utils"
 import { useWindowSize } from "usehooks-ts"
 import Confetti from "react-confetti"
-import { GameButton } from "../Game"
+import { BaseButton } from "../Misc"
 
 type MemoGameSummaryProps = {
   gameStartTimestamp: DateTime | null
@@ -55,8 +55,8 @@ export default function MemoGameSummary({
             </div>
           </div>
           <div className="flex w-full gap-4">
-            <GameButton onClick={newGame} label="Play again" />
-            <GameButton onClick={endGame} label="Go to dashboard" />
+            <BaseButton onClick={newGame} label="Play again" />
+            <BaseButton onClick={endGame} label="Go to dashboard" />
           </div>
         </div>
       </div>

@@ -1,3 +1,5 @@
-export { default as Auth } from "./Auth"
-export { default as SignIn } from "./SignIn"
-export { default as SignUp } from "./SignUp"
+export { default as Authorization } from "./Authorization"
+export { default as AuthorizationSignIn } from "./AuthorizationSignIn"
+export { default as AuthorizationSignUp } from "./AuthorizationSignUp"
+export { default as AuthorizationInput } from "./AuthorizationInput"
+export { default as AuthorizationError } from "./AuthorizationError"
