@@ -6,6 +6,7 @@ import { getItemsForReview } from "#/lib/utils"
 import { Database } from "#/types"
 import { useCallback, useState } from "react"
 import ReviewItem from "./ReviewItem"
+import BackToDashboard from "../BackToDashboard"
 
 type ReviewModuleProps = {
   items: Database["public"]["Functions"]["get_review_items"]["Returns"]
@@ -34,6 +35,10 @@ export default function ReviewModule({ items }: ReviewModuleProps) {
     },
     [reviewItems, navigate]
   )
+
+  if (!items || !items.length) {
+    return <BackToDashboard content="Failed to load review module" />
+  }
 
   return (
     <div className="flex flex-col items-center">

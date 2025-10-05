@@ -1,10 +1,10 @@
-import { DatabaseKanji } from "#/types"
+import { Database } from "#/types"
 import { shuffle } from "./utils"
 
 export const getRandomKanjiSet = (
-  kanjiSet: DatabaseKanji[],
+  kanjiSet: Database["public"]["Functions"]["get_user_kanji"]["Returns"],
   count: number
-): DatabaseKanji[] => {
+): Database["public"]["Functions"]["get_user_kanji"]["Returns"] => {
   const uniqueKanjiSet = Array.from(
     new Map(kanjiSet.map((item) => [item.kanji, item])).values()
   )

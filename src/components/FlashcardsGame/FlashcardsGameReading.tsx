@@ -7,18 +7,18 @@ import {
   TooltipTrigger
 } from "#/components/ui/tooltip"
 
-type FlashcardsSessionReadingProps = {
+type FlashcardsGameReadingProps = {
   children: ReactNode
   tooltipContent: string
 }
 
-export default function FlashcardsSessionReading({
+export default function FlashcardsGameReading({
   children,
   tooltipContent
-}: FlashcardsSessionReadingProps) {
+}: FlashcardsGameReadingProps) {
   return (
     <div className="flex items-center gap-1">
-      <p className="text-sm">{children}</p>
+      <p className="text-sm text-gray-600">{children}</p>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger className="flex items-center">

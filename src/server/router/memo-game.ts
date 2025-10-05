@@ -1,26 +1,36 @@
-import { MEMO_GAME_KANJI_COUNT } from "#/constants/memo-game"
-import { getKanjiByLevelQuery } from "#/database/queries"
+import { MEMO_GAME_KANJI_COUNT } from "#/constants/game"
 import { getRandomKanjiSet } from "#/lib/kanji"
-import { MemoGameItem } from "#/schemas/games"
 import { protectedProcedure, router } from "#/server/trpc"
 import { TRPCError } from "@trpc/server"
 
 export const memoGameRouter = router({
-  getMemoGameKanji: protectedProcedure.query(
-    async ({ ctx }): Promise<MemoGameItem[]> => {
-      // TODO: Fetch only already discovered kanji
-      const kanji = await getKanjiByLevelQuery(ctx.database, "jlpt-n5")
+  getMemoGameKanji: protectedProcedure.query(async ({ ctx }) => {
+    const { user } = ctx
 
-      if (!kanji || kanji.length < MEMO_GAME_KANJI_COUNT) {
-        throw new TRPCError({ code: "BAD_REQUEST" })
-      }
+    if (!user) {
+      throw new TRPCError({ code: "UNAUTHORIZED" })
+    }
 
-      const kanjiSet = getRandomKanjiSet(kanji, MEMO_GAME_KANJI_COUNT)
+    const { data: items, error } = await ctx.database
+      .rpc("get_user_kanji", { user_auth_id: user.id })
+      .select("*")
 
-      return kanjiSet.map(({ kanji, meanings }) => ({
+    if (!items || items.length < MEMO_GAME_KANJI_COUNT) {
+      return { items: [], count: items?.length ?? 0 }
+    }
+
+    if (error) {
+      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" })
+    }
+
+    const itemsSet = getRandomKanjiSet(items, MEMO_GAME_KANJI_COUNT)
+
+    return {
+      items: itemsSet.map(({ kanji, meanings }) => ({
         kanji,
         meaning: meanings[0]
-      }))
+      })),
+      count: itemsSet.length
     }
-  )
+  })
 })

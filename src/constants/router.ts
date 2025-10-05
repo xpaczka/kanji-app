@@ -7,10 +7,7 @@ export const ROUTES = {
   kanji: "/kanji",
   playMemo: "/play/memo",
   playFlashcards: "/play/flashcards",
-  apiTrpc: "/api/trpc",
-  gamesDashboard: "/games",
-  flashcards: "/learn/flashcards",
-  memoGame: "/games/memo"
+  apiTrpc: "/api/trpc"
 }
 
 export const NAVIGATION_ITEMS = [
