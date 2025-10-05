@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react"
 import { DateTime } from "luxon"
-import { calculateTimeDifferenceToFormat } from "#/lib/utils"
+import { calculateTimeDifferenceToFormat } from "#/utils"
 import { useWindowSize } from "usehooks-ts"
 import Confetti from "react-confetti"
 import { GameButton } from "../Game"

@@ -3,7 +3,7 @@ import { trpc } from "#/app/_trpc/client"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useNavigation } from "./router"
 import { ROUTES } from "#/constants/router"
-import { calculateTimeDifferenceToFormat, shuffle } from "#/lib/utils"
+import { calculateTimeDifferenceToFormat, shuffle } from "#/utils"
 import {
   KanjiSessionSetItem,
   FlashcardGameItemEvaluation

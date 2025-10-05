@@ -2,11 +2,11 @@
 
 import { ROUTES } from "#/constants"
 import { useNavigation } from "#/hooks"
-import { getItemsForReview } from "#/lib/utils"
 import { Database } from "#/types"
 import { useCallback, useState } from "react"
 import ReviewItem from "./ReviewItem"
 import { BackToDashboard } from "../Misc"
+import { getItemsForReview } from "#/utils"
 
 type ReviewModuleProps = {
   items: Database["public"]["Functions"]["get_review_items"]["Returns"]

@@ -1,7 +1,7 @@
 import { Database } from "#/types"
 import MotionCard from "./MotionCard"
 import { Modal } from "../Modal"
-import { formatReadings } from "#/lib/utils"
+import { formatReadings } from "#/utils"
 import { LEARN_STAGE_COLORS } from "#/constants"
 import { resolveStageName } from "#/utils"
 import { useMemo } from "react"

@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "#/lib/utils"
+import { cn } from "#/utils"
 import { HTMLMotionProps, motion } from "motion/react"
 import { ReactNode } from "react"
 

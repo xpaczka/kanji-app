@@ -1,13 +1,14 @@
 "use client"
-import { checkMemoGamePairs, MemoGameChoice } from "#/lib/memo-game"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useNavigation } from "./router"
 import { ROUTES } from "#/constants/router"
 import { trpc } from "#/app/_trpc/client"
 import { DateTime } from "luxon"
 import { useInterval } from "usehooks-ts"
-import { MEMO_GAME_GUESS_COOLDOWN } from "#/constants/game"
-import { shuffle } from "#/lib/utils"
+import { shuffle } from "#/utils"
+import { checkMemoGamePairs, MemoGameChoice } from "#/utils"
+
+const MEMO_GAME_GUESS_COOLDOWN = 1_000 // 1 second in milliseconds
 
 export const useMemoGame = () => {
   const { data, isLoading, refetch } = trpc.memoGame.getMemoGameKanji.useQuery()

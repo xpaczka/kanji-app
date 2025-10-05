@@ -1,9 +1,12 @@
 import { MEMO_GAME_KANJI_COUNT } from "#/constants/game"
-import { getRandomKanjiSet } from "#/lib/kanji"
 import { protectedProcedure, router } from "#/server/trpc"
+import { getRandomKanjiSet } from "#/utils"
 import { TRPCError } from "@trpc/server"
 
 export const memoGameRouter = router({
+  /**
+   * QUERY: Retrieve kanji for memo game cards
+   */
   getMemoGameKanji: protectedProcedure.query(async ({ ctx }) => {
     const { user } = ctx
 

@@ -1,3 +1,4 @@
+import { shuffle } from "#/utils"
 import { Database, LearnStage } from "#/types"
 
 const STAGE_GROUPING: Record<number, LearnStage> = {
@@ -11,6 +12,21 @@ const STAGE_GROUPING: Record<number, LearnStage> = {
   8: LearnStage.Stage4,
   9: LearnStage.Stage4,
   10: LearnStage.Stage5
+}
+
+export const getRandomKanjiSet = (
+  kanjiSet: Database["public"]["Functions"]["get_user_kanji"]["Returns"],
+  count: number
+): Database["public"]["Functions"]["get_user_kanji"]["Returns"] => {
+  const uniqueKanjiSet = Array.from(
+    new Map(kanjiSet.map((item) => [item.kanji, item])).values()
+  )
+
+  if (count >= uniqueKanjiSet.length) return uniqueKanjiSet
+
+  const newKanjiSet = shuffle(uniqueKanjiSet)
+
+  return newKanjiSet.slice(newKanjiSet.length - count)
 }
 
 export const resolveStageName = (stage?: number): LearnStage | null => {

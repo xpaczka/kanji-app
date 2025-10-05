@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemoGame } from "#/hooks"
-import { calculateTimeDifferenceToFormat } from "#/lib/utils"
+import { calculateTimeDifferenceToFormat } from "#/utils"
 import MemoGameSummary from "./MemoGameSummary"
 import MemoGameItem from "./MemoGameItem"
 import { GameContainer } from "../Game"
