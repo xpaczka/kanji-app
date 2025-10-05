@@ -1,7 +1,7 @@
 "use client"
 
 import { SubmitHandler, useForm } from "react-hook-form"
-import { Input } from "../ui/input"
+import { Input } from "@base-ui-components/react/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   Form,
@@ -11,7 +11,6 @@ import {
   FormLabel,
   FormMessage
 } from "../ui/form"
-import { Button } from "../ui/button"
 import { useCallback } from "react"
 import { SignUpForm, signUpFormSchema } from "#/schemas/auth"
 import { signUp } from "#/actions"
@@ -90,7 +89,7 @@ export default function SignUp() {
             </FormItem>
           )}
         />
-        <Button type="submit">Sign up</Button>
+        <button type="submit">Sign up</button>
       </form>
     </Form>
   )

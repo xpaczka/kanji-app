@@ -4,7 +4,7 @@ import { useMemoGame } from "#/hooks"
 import { calculateTimeDifferenceToFormat } from "#/lib/utils"
 import MemoGameSummary from "./MemoGameSummary"
 import MemoGameItem from "./MemoGameItem"
-import GameContainer from "../GameContainer"
+import { GameContainer } from "../Game"
 
 export default function MemoGame() {
   const {

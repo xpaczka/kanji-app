@@ -1,7 +1,7 @@
 "use client"
 
-import { Input } from "@base-ui-components/react/input"
 import { motion } from "motion/react"
+import { Input } from "@base-ui-components/react/input"
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded"
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded"
 import { KanjiItemProps } from "#/types"

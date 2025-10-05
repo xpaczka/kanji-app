@@ -8,7 +8,7 @@ import {
 } from "#/schemas/kanji"
 import { useWindowSize } from "usehooks-ts"
 import Confetti from "react-confetti"
-import GameSummaryButton from "../GameSummaryButton"
+import { GameButton } from "../Game"
 
 type FlashcardsGameSummaryProps = {
   kanjiSet: KanjiSessionSetItem[]
@@ -73,11 +73,8 @@ export default function FlashcardsGameSummary({
             </div>
           </div>
           <div className="flex w-full gap-4">
-            <GameSummaryButton onClick={onNewSessionClick} label="Play again" />
-            <GameSummaryButton
-              onClick={onEndSessionClick}
-              label="Go to dashboard"
-            />
+            <GameButton onClick={onNewSessionClick} label="Play again" />
+            <GameButton onClick={onEndSessionClick} label="Go to dashboard" />
           </div>
         </div>
       </div>

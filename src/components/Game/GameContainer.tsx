@@ -1,6 +1,6 @@
 import { JSX, ReactNode } from "react"
-import { Spinner } from "./ui/spinner"
-import BackToDashboard from "./BackToDashboard"
+import { Spinner } from "../ui/spinner"
+import BackToDashboard from "../BackToDashboard"
 
 type GameContainerProps<T> = {
   content: ReactNode

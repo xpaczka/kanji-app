@@ -1,12 +1,9 @@
-type GameSummaryButton = {
+type GameButton = {
   onClick: () => void
   label: string
 }
 
-export default function GameSummaryButton({
-  onClick,
-  label
-}: GameSummaryButton) {
+export default function GameButton({ onClick, label }: GameButton) {
   return (
     <button
       onClick={onClick}

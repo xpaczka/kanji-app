@@ -1,7 +1,6 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { Card, CardTitle, CardHeader, CardFooter } from "../ui/card"
 import SignIn from "./SignIn"
 import SignUp from "./SignUp"
 
@@ -18,14 +17,14 @@ export default function Auth() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16">
       <main className="row-start-2 flex items-center gap-8 sm:items-start">
-        <Card className="min-w-[420px] p-12">
-          <CardHeader>
-            <CardTitle className="text-center">
+        <div className="min-w-[420px] rounded-md bg-white p-12 shadow-md">
+          <div>
+            <div className="text-center">
               {isSignInFlow ? "Sign in" : "Sign up"}
-            </CardTitle>
-          </CardHeader>
+            </div>
+          </div>
           {isSignInFlow ? <SignIn /> : <SignUp />}
-          <CardFooter className="flex justify-center">
+          <div className="flex justify-center">
             <div>
               {isSignInFlow ? "No account yet?" : "Already have an account?"}{" "}
               <span
@@ -39,8 +38,8 @@ export default function Auth() {
                 {isSignInFlow ? "Sign up" : "Sign in"}
               </span>
             </div>
-          </CardFooter>
-        </Card>
+          </div>
+        </div>
       </main>
     </div>
   )

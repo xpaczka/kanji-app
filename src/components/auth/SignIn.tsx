@@ -1,7 +1,7 @@
 "use client"
 
 import { SubmitHandler, useForm } from "react-hook-form"
-import { Input } from "../ui/input"
+import { Input } from "@base-ui-components/react/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   Form,
@@ -11,7 +11,6 @@ import {
   FormLabel,
   FormMessage
 } from "../ui/form"
-import { Button } from "../ui/button"
 import { useCallback } from "react"
 import { SignInForm, signInFormSchema } from "#/schemas/auth"
 import { signIn } from "#/actions"
@@ -71,7 +70,7 @@ export default function SignIn() {
             </FormItem>
           )}
         />
-        <Button type="submit">Sign in</Button>
+        <button type="submit">Sign in</button>
       </form>
     </Form>
   )
