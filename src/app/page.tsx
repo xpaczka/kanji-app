@@ -1,4 +1,4 @@
-import { Auth } from "#/components/Auth"
+import { Auth } from "#/components/Authorization"
 import Dashboard from "#/components/Dashboard"
 import { createServerClient } from "./_trpc/server-client"
 
