@@ -3,7 +3,7 @@ import { Ubuntu } from "next/font/google"
 import "./globals.css"
 import TrpcProvider from "../providers/TrpcProvider"
 import { NavigationMenu } from "#/components/NavigationMenu"
-import { Footer } from "#/components/Layout"
+import Footer from "#/components/Footer"
 import createSupabaseClient from "#/database/client"
 
 const fontFamily = Ubuntu({

@@ -1,4 +1,4 @@
-import { LayoutSection } from "#/components/Layout"
+import LayoutSection from "#/components/LayoutSection"
 import { MemoGame } from "#/components/MemoGame"
 
 export default function MemoPage() {

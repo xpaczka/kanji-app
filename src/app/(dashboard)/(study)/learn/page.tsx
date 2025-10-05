@@ -1,5 +1,5 @@
 import { createServerClient } from "#/app/_trpc/server-client"
-import { LayoutSection } from "#/components/Layout"
+import LayoutSection from "#/components/LayoutSection"
 import { LearnModule } from "#/components/Learn"
 
 export default async function LearnPage() {

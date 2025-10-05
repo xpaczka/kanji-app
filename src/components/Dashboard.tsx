@@ -1,4 +1,3 @@
-import { LayoutSection } from "./Layout"
 import { ROUTES } from "#/constants/router"
 import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded"
 import DriveFileRenameOutlineRoundedIcon from "@mui/icons-material/DriveFileRenameOutlineRounded"
@@ -7,6 +6,7 @@ import { DashboardCard } from "./Card"
 import { LearnProgress } from "./Learn"
 import { createServerClient } from "#/app/_trpc/server-client"
 import PlayDashboard from "./PlayDashboard"
+import LayoutSection from "./LayoutSection"
 
 export default async function Dashboard() {
   const serverClient = await createServerClient()

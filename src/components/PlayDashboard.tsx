@@ -5,9 +5,9 @@ import {
   FLASHCARDS_GAME_KANJI_COUNT
 } from "#/constants"
 import { DashboardCard } from "./Card"
-import { LayoutSection } from "./Layout"
 import AutoAwesomeMosaicRoundedIcon from "@mui/icons-material/AutoAwesomeMosaicRounded"
 import AutoAwesomeMotionRoundedIcon from "@mui/icons-material/AutoAwesomeMotionRounded"
+import LayoutSection from "./LayoutSection"
 
 export default async function PlayDashboard() {
   const serverClient = await createServerClient()
