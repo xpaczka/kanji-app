@@ -13,7 +13,7 @@ export default async function LearnProgress() {
 
   return (
     <LayoutSection header="Progress">
-      <div className="grid grid-cols-1 grid-rows-5 gap-6 lg:grid-cols-5 lg:grid-rows-1 lg:gap-10">
+      <div className="flex flex-col gap-3">
         {Object.entries(stages).map(([stageName, kanjiCount]) => (
           <LearnStageCard
             key={stageName}
