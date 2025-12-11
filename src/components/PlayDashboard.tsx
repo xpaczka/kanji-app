@@ -1,19 +1,11 @@
 import { createServerClient } from "#/app/_trpc/server-client"
-import {
-  ROUTES,
-  MEMO_GAME_KANJI_COUNT,
-  FLASHCARDS_GAME_KANJI_COUNT
-} from "#/constants"
+import { ROUTES, MEMO_GAME_KANJI_COUNT } from "#/constants"
 import { DashboardCard } from "./Card"
 import AutoAwesomeMosaicRoundedIcon from "@mui/icons-material/AutoAwesomeMosaicRounded"
-import AutoAwesomeMotionRoundedIcon from "@mui/icons-material/AutoAwesomeMotionRounded"
 import LayoutSection from "./LayoutSection"
 
 export default async function PlayDashboard() {
   const serverClient = await createServerClient()
-
-  const { count: flashcardsCount } =
-    await serverClient.flashcards.getFlashcardsGameKanji()
 
   const { count: memoGameCount } =
     await serverClient.memoGame.getMemoGameKanji()
@@ -28,14 +20,6 @@ export default async function PlayDashboard() {
           Icon={AutoAwesomeMosaicRoundedIcon}
           className="shadow-lg"
           disabled={memoGameCount < MEMO_GAME_KANJI_COUNT}
-        />
-        <DashboardCard
-          header="Flashcards"
-          description="Review and practice key concepts with interactive flashcards"
-          href={ROUTES.playFlashcards}
-          Icon={AutoAwesomeMotionRoundedIcon}
-          className="shadow-lg"
-          disabled={flashcardsCount < FLASHCARDS_GAME_KANJI_COUNT}
         />
       </div>
     </LayoutSection>

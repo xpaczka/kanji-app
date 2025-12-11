@@ -26,11 +26,11 @@ export default function MemoGameItem({
         style={{ transformStyle: "preserve-3d" }}
       >
         <div
-          className="absolute inset-0 flex items-center justify-center rounded-md border-2 border-gray-400 bg-white"
+          className="absolute inset-0 flex items-center justify-center rounded-md border-2 border-orange-400 bg-orange-400"
           style={{ backfaceVisibility: "hidden" }}
         />
         <div
-          className="absolute inset-0 flex items-center justify-center rounded-md border-2 border-orange-400 bg-orange-400 text-center font-medium text-white"
+          className="absolute inset-0 flex items-center justify-center rounded-md border-2 border-gray-400 bg-white text-center font-medium"
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
           {content}

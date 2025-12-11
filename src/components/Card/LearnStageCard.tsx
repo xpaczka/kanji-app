@@ -12,14 +12,11 @@ export default function LearnStageCard({
   kanjiCount
 }: LearnStageCardProps) {
   return (
-    <div className="flex items-center rounded-md border-2 border-gray-200 bg-white p-8 text-center shadow-md lg:block">
+    <div className="flex items-center rounded-md border-2 border-gray-200 bg-white px-8 py-6 text-center shadow-md">
       <p className="text-lg font-medium">{stage}</p>
-      <div
-        className={`mt:0 mx-8 h-full w-2 rounded-full lg:mx-0 lg:mt-4 lg:h-2 lg:w-full ${color}`}
-      />
-      <div className="flex-1 lg:mt-4">
-        <p className="text-gray-400">Kanji</p>
-        <p className="text-lg font-bold">{kanjiCount}</p>
+      <div className="flex flex-1 items-center justify-end gap-4">
+        <div className={`${color} h-8 w-2 rounded-full`} />
+        <p className="w-12 text-right text-lg font-bold">{kanjiCount}</p>
       </div>
     </div>
   )
